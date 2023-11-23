@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "analyze": "ANALYZE=true pnpm run build"
+    "analyze": "ANALYZE=true pnpm run build",
+    "deploy": "vercel --prod"
   },
   "dependencies": {
     "@kuma-ui/core": "^1.5.2",

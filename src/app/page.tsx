@@ -4,16 +4,16 @@ import { Fretboard } from "@/features/fretboard/fretboard";
 import { Tuning } from "@/features/tuning/tuning";
 
 export default function Home() {
-  return (
-    <main
-      className={css`
-        display: flex;
-        justify-content: center;
-      `}
-    >
-      main
-    </main>
-  );
+	return (
+		<main
+			className={css`
+				display: flex;
+				justify-content: center;
+			`}
+		>
+			main
+		</main>
+	);
 }
 /*
 
