@@ -1,7 +1,11 @@
+import { KumaRegistry } from "@kuma-ui/next-plugin/registry";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 
 import "./globals.css";
+import DarkModeProvider from "@/components/dark-mode-provider";
+import { DARK_MODE_LOCAL_STORAGE_KEY } from "@/helpers/dark-mode";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +21,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <head>
+        <Script id="dark-mode-script">
+          {`if (localStorage['${DARK_MODE_LOCAL_STORAGE_KEY}'] === 'dark' || (!('${DARK_MODE_LOCAL_STORAGE_KEY}' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  document.documentElement.classList.add('dark')
+                } else {
+                  document.documentElement.classList.remove('dark')
+                }`}
+        </Script>
+      </head>
+      <body className={inter.className}>
+        <DarkModeProvider>
+          <KumaRegistry>{children}</KumaRegistry>
+        </DarkModeProvider>
+      </body>
     </html>
   );
 }

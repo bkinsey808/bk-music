@@ -10,4 +10,6 @@ module.exports = {
   importOrderSeparation: true,
   // sort the imports
   importOrderSortSpecifiers: true,
+  tabWidth: 2,
+  useTabs: true,
 };
