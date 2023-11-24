@@ -1,7 +1,8 @@
 import { css } from "@kuma-ui/core";
 
 import { FretboardCell } from "./fretboard-cell";
-import { getScaleNumbers } from "@/helpers/get-scale-numbers";
+import { chordScaleDegrees } from "@/helpers/chord-scale.degrees";
+import { getSciNumbers } from "@/helpers/get-sci-numbers";
 import { range } from "@/helpers/range";
 
 type FretboardProps = {
@@ -12,7 +13,9 @@ type FretboardProps = {
 export const Fretboard = ({ keyNote, scale }: FretboardProps) => {
 	const tuning = ["G4", "C4", "E4", "A4"];
 	const maxFrets = 12;
-	const scaleNumbers = getScaleNumbers(keyNote, scale);
+	const scaleNumbers = getSciNumbers(scale, keyNote);
+
+	console.log(chordScaleDegrees(scale, "3-5"));
 
 	return (
 		<section>

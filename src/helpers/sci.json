@@ -1,0 +1,34 @@
+{
+  "3": {
+    "major-triad": {
+      "name": "Major Triad",
+      "code": "M",
+      "spelling": "3 5"
+    },
+    "minor-triad": {
+      "name": "Minor Triad",
+      "code": "m",
+      "spelling": "b3 5"
+    },
+    "diminished-triad": {
+      "name": "Diminished Triad",
+      "code": "o",
+      "spelling": "b3 b5"
+    },
+    "augmented-triad": {
+      "name": "Augmented Triad",
+      "code": "+",
+      "spelling": "3 b6"
+    },
+    "sus2": {
+      "name": "Suspended 2nd",
+      "code": "sus2",
+      "spelling": "2 5"
+    },
+    "sus4": {
+      "name": "Suspended 4th",
+      "code": "sus4",
+      "spelling": "4 5"
+    }
+  }
+}
