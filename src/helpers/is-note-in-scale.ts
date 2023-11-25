@@ -6,16 +6,26 @@ export const isNoteInScale = (
 	scale: string,
 	note?: string,
 ) => {
-	const scaleNumbers = getSciNumbers(scale, keyNote);
+	const sciNumbers = getSciNumbers(scale, keyNote);
 	const noteNumber = (getNoteNumber(note) ?? 0) % 12;
-	const scaleDegreeIndex = scaleNumbers.indexOf(noteNumber);
+	const scaleDegreeIndex = sciNumbers.indexOf(noteNumber);
 	const keyNoteNumber = (getNoteNumber(keyNote) ?? 0) % 12;
 	const scaleDegree =
 		scaleDegreeIndex === undefined
 			? undefined
 			: keyNoteNumber === noteNumber
 			? "1"
-			: scale.split("-")[scaleDegreeIndex];
+			: scale.split("-")[scaleDegreeIndex - 1];
 
+	console.log({
+		scale,
+		keyNote,
+		sciNumbers,
+		note,
+		noteNumber,
+		scaleDegreeIndex,
+		keyNoteNumber,
+		scaleDegree,
+	});
 	return scaleDegree;
 };

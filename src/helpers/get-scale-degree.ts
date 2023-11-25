@@ -13,7 +13,7 @@ const scaleDegrees = [
 	"6",
 	"b7",
 	"7",
-];
+] as const;
 
 export const getScaleDegree = (keyNote: string, note?: string) => {
 	const keyNoteNumber = getNoteNumber(keyNote);

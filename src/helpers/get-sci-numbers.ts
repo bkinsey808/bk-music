@@ -1,12 +1,12 @@
 import { getNoteNumber } from "./get-note-number";
 import { scaleDegreeToNumber } from "./scale-degree-to-number";
 
-export const getSciNumbers = (scale: string, keyNote?: string) => {
+export const getSciNumbers = (sci: string, keyNote?: string) => {
 	const keyNoteNumber = getNoteNumber(keyNote) ?? 0;
 
 	return [
 		keyNoteNumber,
-		...scale
+		...sci
 			.split("-")
 			.map(
 				(scaleDegree) =>
