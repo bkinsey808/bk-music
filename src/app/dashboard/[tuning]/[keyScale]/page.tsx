@@ -30,7 +30,7 @@ export default function Dashboard({
 			`}
 		>
 			<Fretboard keyNote={key} scale={scale} />
-			<Scale scale={scale} key={key} />
+			<Scale scale={scale} keyNote={key} />
 		</main>
 	);
 }

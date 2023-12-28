@@ -1,4 +1,8 @@
 {
 	"editor.tabSize": 2,
-	"prettier.useTabs": true
+	"prettier.useTabs": true,
+	"javascript.referencesCodeLens.enabled": true,
+	"typescript.referencesCodeLens.enabled": true,
+	"editor.inlayHints.enabled": "on",
+	"typescript.inlayHints.variableTypes.enabled": true
 }
