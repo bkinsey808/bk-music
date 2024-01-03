@@ -1,4 +1,4 @@
-import { css } from "@kuma-ui/core";
+import { type VariantProps, cva } from "class-variance-authority";
 
 import { getScaleDegree } from "@/helpers/get-scale-degree";
 import { isNoteInScale } from "@/helpers/is-note-in-scale";
@@ -32,14 +32,15 @@ export const FretboardCell = ({
 					? "var(--color-cell-background-in-scale)"
 					: "var(--color-cell-background)",
 			}}
-			className={css`
-				border: 1px solid;
-				position: relative;
-				font-size: 2rem;
-				padding-right: 1.2rem;
-				padding-left: 1rem;
-				text-align: right;
-				background-color: var(--color-cell-background);
+			className={`
+				relative 
+				border-2 
+				border-solid 
+				bg-[var(--color-cell-background)] 
+				pl-1 
+				pr-12 
+				text-right 
+				text-4xl
 			`}
 		>
 			{transposedNote}
@@ -48,40 +49,34 @@ export const FretboardCell = ({
 			{fret === 0 && (
 				<>
 					<div
-						className={css`
-							position: absolute;
-							top: 0;
-							bottom: 0;
-							left: 0.1rem;
-							display: flex;
-							flex-direction: column;
-							justify-content: center;
-							width: 1rem;
-
-							button {
-								font-size: 1rem !important;
-								line-height: 0.7rem;
-							}
+						className={`
+							absolute 
+							bottom-0 
+							left-1 
+							top-0 
+							flex 
+							w-4 
+							flex-col 
+							justify-center 
+							[&>button]:text-base
 						`}
 					>
 						<button>+</button>
 						<button>-</button>
 					</div>
 					<div
-						className={css`
-							position: absolute;
-							top: 0;
-							bottom: 0;
-							right: 0.1rem;
-							display: flex;
-							flex-direction: column;
-							justify-content: center;
-							width: 1rem;
-
-							button {
-								font-size: 0.6rem !important;
-							}
-						`}
+						className={`
+						absolute 
+						bottom-0 
+						right-3 
+						top-0 
+						flex 
+						w-1 
+						flex-col 
+						justify-center 
+						[&>button]:text-xs 
+						[&>button]:leading-tight
+					`}
 					>
 						<button>▲</button>
 						<button>▼</button>

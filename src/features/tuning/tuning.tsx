@@ -1,6 +1,4 @@
 // "use client";
-import { css } from "@kuma-ui/core";
-
 // import { useRouter } from "next/navigation";
 
 interface TuningProps {
@@ -12,9 +10,9 @@ export const Tuning = ({ tuning }: TuningProps) => {
 		<section>
 			<h2>Tuning</h2>
 			<div
-				className={css`
-					display: flex;
-					flex-direction: column;
+				className={`
+					flex 
+					flex-col
 				`}
 			>
 				Tuning

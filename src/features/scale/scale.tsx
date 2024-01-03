@@ -1,5 +1,4 @@
 // "use client";
-import { css } from "@kuma-ui/core";
 
 // import { useRouter } from "next/navigation";
 
@@ -13,9 +12,9 @@ export const Scale = ({ keyNote, scale }: ScaleProps) => {
 		<section>
 			<h2>Scale</h2>
 			<div
-				className={css`
-					display: flex;
-					flex-direction: column;
+				className={`
+					flex 
+					flex-col
 				`}
 			>
 				Key: {keyNote}

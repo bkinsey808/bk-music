@@ -1,5 +1,3 @@
-import { css } from "@kuma-ui/core";
-
 import { Fretboard } from "@/features/fretboard/fretboard";
 import { Scale } from "@/features/scale/scale";
 
@@ -22,13 +20,7 @@ export default function Dashboard({
 	const scale = keyScale.split("-").slice(1).join("-");
 
 	return (
-		<main
-			className={css`
-				display: flex;
-				justify-content: center;
-				gap: 1rem;
-			`}
-		>
+		<main className="flex justify-center gap-4">
 			<Fretboard keyNote={key} scale={scale} />
 			<Scale scale={scale} keyNote={key} />
 		</main>

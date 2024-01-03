@@ -1,4 +1,3 @@
-import { KumaRegistry } from "@kuma-ui/next-plugin/registry";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
@@ -31,9 +30,7 @@ export default function RootLayout({
 				</Script>
 			</head>
 			<body className={inter.className}>
-				<DarkModeProvider>
-					<KumaRegistry>{children}</KumaRegistry>
-				</DarkModeProvider>
+				<DarkModeProvider>{children}</DarkModeProvider>
 			</body>
 		</html>
 	);

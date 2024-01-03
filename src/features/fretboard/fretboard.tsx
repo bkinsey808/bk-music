@@ -1,5 +1,3 @@
-import { css } from "@kuma-ui/core";
-
 import { FretboardCell } from "./fretboard-cell";
 import { getSciNumbers } from "@/helpers/get-sci-numbers";
 import { range } from "@/helpers/range";
@@ -22,34 +20,29 @@ export const Fretboard = ({ keyNote, scale }: FretboardProps) => {
 					"--max-frets": maxFrets,
 					"--courses": tuning.length,
 				}}
-				className={css`
-					display: grid;
-					grid-template-rows: 1fr 0.25rem repeat(
-							calc(var(--max-frets) - 1),
-							1fr
-						);
-					grid-template-columns: repeat(var(--courses), 1fr) 1rem;
-					grid-gap: 1px;
-					grid-auto-flow: column;
+				className={`
+					grid 
+					grid-flow-col
+					grid-cols-[repeat(var(--courses),1fr)_1rem]
+					grid-rows-[1fr_0.25rem_repeat(calc(var(--max-frets)-1),1fr)]
+					gap-[0.25rem]
 				`}
 			>
 				<div
 					// zeroth fret
-					className={css`
-						grid-column: 1 / -1;
-						grid-row: 2;
-						background-color: black;
+					className={`
+						col-span-full
+						row-[2]
+						bg-[hsl(var(--background))]
 					`}
 				></div>
 
 				<button
 					autoFocus={true}
-					className={css`
-						grid-row: 1;
-						grid-column: -2;
-						display: inline-block;
-						width: 100%;
-						margin-left: 0.3rem;
+					className={`
+						col-start-[-2]
+						row-start-1
+						ml-[0.3rem]
 					`}
 				>
 					+
@@ -63,10 +56,10 @@ export const Fretboard = ({ keyNote, scale }: FretboardProps) => {
 								"--course": course + 1,
 								"--fret": fret + (fret > 0 ? 2 : 1),
 							}}
-							className={css`
-								grid-column: var(--course);
-								grid-row: var(--fret);
-							`}
+							className={` 
+								col-[var(--course)]
+								row-[var(--fret)]
+							 `}
 						>
 							<FretboardCell
 								tuning={tuning}
