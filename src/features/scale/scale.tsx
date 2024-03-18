@@ -1,5 +1,5 @@
 // "use client";
-import { ScaleDegree } from "../chords/scale-degree";
+import { ScaleDegree } from "../chords/components/scale-degree";
 import { getRomanNumerals } from "@/helpers/get-roman-numerals";
 
 // import { useRouter } from "next/navigation";

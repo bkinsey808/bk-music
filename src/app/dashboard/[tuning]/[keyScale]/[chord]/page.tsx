@@ -1,4 +1,4 @@
-import { Chords } from "@/features/chords/chords";
+import { Chords } from "@/features/chords/components/chords";
 import { Fretboard } from "@/features/fretboard/fretboard";
 import { Scale } from "@/features/scale/scale";
 
@@ -6,6 +6,7 @@ interface DashboardProps {
 	params: {
 		tuning: string;
 		keyScale: string;
+		chord: string;
 	};
 	searchParams: {
 		focus: string;
@@ -13,7 +14,7 @@ interface DashboardProps {
 }
 
 export default function Dashboard({
-	params: { tuning, keyScale },
+	params: { tuning, keyScale, chord },
 	searchParams: { focus },
 }: DashboardProps) {
 	const key = keyScale.split("-")[0];
@@ -21,11 +22,11 @@ export default function Dashboard({
 	const scale = keyScale.split("-").slice(1).join("-");
 
 	return (
-		<main className="flex justify-center gap-4">
+		<main className="flex justify-center gap-[0.5rem]">
 			<Fretboard keyNote={key} scale={scale} />
 			<div>
 				<Scale scale={scale} keyNote={key} />
-				<Chords scale={scale} keyNote={key} />
+				<Chords scale={scale} keyNote={key} chord={chord} />
 			</div>
 		</main>
 	);

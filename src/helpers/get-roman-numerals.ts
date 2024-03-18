@@ -16,6 +16,11 @@ const romanNumerals = [
 	"VII",
 ];
 
+export const getScaleIndexFromRomanNumeral = (romanNumeral: string) =>
+	romanNumerals.findIndex(
+		(numeral) => numeral.toLowerCase() === romanNumeral.toLowerCase(),
+	);
+
 export const getRomanNumerals = (scale: string) => {
 	const scaleNumbers = getSciNumbers(scale);
 
