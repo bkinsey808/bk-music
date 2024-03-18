@@ -21,5 +21,8 @@ describe("isNoteInScale", () => {
 		expect(isNoteInScale("Db", "2-3-4-5-6-7", "Ab")).toBe("5");
 		expect(isNoteInScale("Db", "2-3-4-5-6-7", "Bb")).toBe("6");
 		expect(isNoteInScale("Db", "2-3-4-5-6-7", "C")).toBe("7");
+
+		expect(isNoteInScale("B#", "1-2-3-4-5-6-7", "C")).toBe("1");
+		expect(isNoteInScale("E#", "1-2-3-4-5-6-7", "C")).toBe("5");
 	});
 });

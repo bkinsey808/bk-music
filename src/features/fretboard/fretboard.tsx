@@ -13,37 +13,25 @@ export const Fretboard = ({ keyNote, scale }: FretboardProps) => {
 	const scaleNumbers = getSciNumbers(scale, keyNote);
 
 	return (
-		<section>
+		<section aria-label="Fretboard">
 			<h2>Fretboard</h2>
 			<div
+				data-title="Fretboard Grid"
 				style={{
 					"--max-frets": maxFrets,
 					"--courses": tuning.length,
 				}}
-				className={`
-					grid 
-					grid-flow-col
-					grid-cols-[repeat(var(--courses),1fr)_1rem]
-					grid-rows-[1fr_0.25rem_repeat(calc(var(--max-frets)-1),1fr)]
-					gap-[0.25rem]
-				`}
+				className="grid grid-flow-col grid-cols-[repeat(var(--courses),1fr)_1rem] grid-rows-[1fr_0.25rem_repeat(calc(var(--max-frets)-1),1fr)] gap-[0.25rem]"
 			>
 				<div
-					// zeroth fret
-					className={`
-						col-span-full
-						row-[2]
-						bg-[hsl(var(--background))]
-					`}
+					data-title="Zeroth fret"
+					className="col-span-full row-[2] bg-[hsl(var(--background))]"
 				></div>
 
 				<button
+					aria-label="Add course"
 					autoFocus={true}
-					className={`
-						col-start-[-2]
-						row-start-1
-						ml-[0.3rem]
-					`}
+					className="col-start-[-2] row-start-1 ml-[0.3rem]"
 				>
 					+
 				</button>
@@ -51,15 +39,13 @@ export const Fretboard = ({ keyNote, scale }: FretboardProps) => {
 				{range(tuning.length).map((course) =>
 					range(maxFrets).map((fret) => (
 						<div
+							data-title="Fretboard cell wrapper"
 							key={`${course}-${fret}`}
 							style={{
 								"--course": course + 1,
 								"--fret": fret + (fret > 0 ? 2 : 1),
 							}}
-							className={` 
-								col-[var(--course)]
-								row-[var(--fret)]
-							 `}
+							className="col-[var(--course)] row-[var(--fret)]"
 						>
 							<FretboardCell
 								tuning={tuning}

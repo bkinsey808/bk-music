@@ -6,14 +6,14 @@ settings:
 
 dependencies:
   '@effect/schema':
-    specifier: ^0.51.1
-    version: 0.51.1(effect@2.0.0-next.58)(fast-check@3.14.0)
+    specifier: ^0.64.5
+    version: 0.64.5(effect@2.4.7)(fast-check@3.14.0)
   class-variance-authority:
     specifier: ^0.7.0
     version: 0.7.0
   effect:
-    specifier: 2.0.0-next.58
-    version: 2.0.0-next.58
+    specifier: 2.4.7
+    version: 2.4.7
   next:
     specifier: latest
     version: 13.5.3(@babel/core@7.23.2)(react-dom@18.2.0)(react@18.2.0)
@@ -473,13 +473,13 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@effect/schema@0.51.1(effect@2.0.0-next.58)(fast-check@3.14.0):
-    resolution: {integrity: sha512-ZuULzdmAUTtdC/OFaVsEtc7NUCCElYYBE6LJSc9sYG8sDQisA5AQnWFsRk6MZPxzD2EdpTlKgQE0gysn14sttA==}
+  /@effect/schema@0.64.5(effect@2.4.7)(fast-check@3.14.0):
+    resolution: {integrity: sha512-yYhwdYkGyj4GEepuo7kNvhtYqi3UxdbFR3A+W3/Ln9cKQa0WGJP8v6jKuSBpAJKz8aFuFVsJ6wRtrx1pgjE0OQ==}
     peerDependencies:
-      effect: 2.0.0-next.58
+      effect: ^2.4.7
       fast-check: ^3.13.2
     dependencies:
-      effect: 2.0.0-next.58
+      effect: 2.4.7
       fast-check: 3.14.0
     dev: false
 
@@ -2234,8 +2234,8 @@ packages:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
 
-  /effect@2.0.0-next.58:
-    resolution: {integrity: sha512-3JtlhJWIZlKe2krJp8ZsKCWCsKMemRVMNOGKtW6bLbg1ZYDi9riuDO44heqEyh7mVBhGsLh/Ut+Hz4olFbfhyg==}
+  /effect@2.4.7:
+    resolution: {integrity: sha512-4YOPi4r7nLFJAK1W/l7FM3fptZBtrJkqa5Rh2u7gkFCECn+RiwuQ8KYPm8sf4RFIp+fSQXGA87GIDtyxrz0mbA==}
     dev: false
 
   /electron-to-chromium@1.4.567:

@@ -1,3 +1,4 @@
+import { Chords } from "@/features/chords/chords";
 import { Fretboard } from "@/features/fretboard/fretboard";
 import { Scale } from "@/features/scale/scale";
 
@@ -22,7 +23,10 @@ export default function Dashboard({
 	return (
 		<main className="flex justify-center gap-4">
 			<Fretboard keyNote={key} scale={scale} />
-			<Scale scale={scale} keyNote={key} />
+			<div>
+				<Scale scale={scale} keyNote={key} />
+				<Chords scale={scale} keyNote={key} />
+			</div>
 		</main>
 	);
 }

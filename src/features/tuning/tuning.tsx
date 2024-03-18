@@ -9,14 +9,7 @@ export const Tuning = ({ tuning }: TuningProps) => {
 	return (
 		<section>
 			<h2>Tuning</h2>
-			<div
-				className={`
-					flex 
-					flex-col
-				`}
-			>
-				Tuning
-			</div>
+			<div className={"flex flex-col"}>Tuning</div>
 		</section>
 	);
 };
