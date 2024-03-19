@@ -1,3 +1,4 @@
+import { Chord } from "@/features/chord/components/chord";
 import { Chords } from "@/features/chords/components/chords";
 import { Fretboard } from "@/features/fretboard/fretboard";
 import { Scale } from "@/features/scale/scale";
@@ -14,8 +15,8 @@ interface DashboardProps {
 }
 
 export default function Dashboard({
-	params: { tuning, keyScale, chord },
-	searchParams: { focus },
+	params: { tuning: _tuning, keyScale, chord },
+	searchParams: { focus: _focus },
 }: DashboardProps) {
 	const key = keyScale.split("-")[0];
 	// scale is all of the elements after the first
@@ -27,6 +28,7 @@ export default function Dashboard({
 			<div>
 				<Scale scale={scale} keyNote={key} />
 				<Chords scale={scale} keyNote={key} chord={chord} />
+				<Chord scale={scale} keyNote={key} chord={chord} />
 			</div>
 		</main>
 	);

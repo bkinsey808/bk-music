@@ -1,27 +1,7 @@
-import * as S from "@effect/schema/Schema";
-import * as Either from "effect/Either";
-
-import { SciList } from "./schema";
 import { getRomanNumerals } from "@/helpers/get-roman-numerals";
 import { getSciNumbers } from "@/helpers/get-sci-numbers";
-import { getSpellingFromNoteNumber } from "@/helpers/get-spelling-from-note-number";
 import { range } from "@/helpers/range";
-import * as sciList from "@/helpers/sci-list.json";
-
-// I don't understand why this manual processing seems to be needed
-const sciListArray = Array.isArray(sciList)
-	? sciList
-	: Object.keys(sciList)
-			.map((key) => sciList[key as unknown as number])
-			.filter((sci) => !Array.isArray(sci) && typeof sci === "object");
-
-const parseEitherResult = S.decodeUnknownEither(SciList)(sciListArray);
-
-const parsedSci = Either.isRight(parseEitherResult)
-	? parseEitherResult.right
-	: undefined;
-
-const parseSciError = Either.isLeft(parseEitherResult);
+import { sciList, sciListError } from "@/helpers/sci";
 
 export const getChords = ({
 	scale,
@@ -37,8 +17,8 @@ export const getChords = ({
 	preferred?: boolean;
 	keyNote?: string;
 }) => {
-	if (!parsedSci) {
-		console.log({ parseSciError });
+	if (!sciList) {
+		console.log({ sciListError });
 		// throw new Error("sci-list.json is invalid");
 		return;
 	}
@@ -62,14 +42,10 @@ export const getChords = ({
 			// next subtract the first scale number from all the scale numbers
 			.map((innerScaleNumber) => (innerScaleNumber - scaleNumber + 12) % 12);
 
-		const modeSpellings = modeNumbers.map((modeNumber) =>
-			getSpellingFromNoteNumber(modeNumber),
-		);
-
 		const romanNumeral = romanNumerals[scaleIndex];
 
-		const chords = sciListArray
-			.filter((sci) => {
+		const chords = sciList
+			?.filter((sci) => {
 				if (sci.numNote < minNotes || sci.numNote > maxNotes) {
 					return false;
 				}

@@ -1,4 +1,7 @@
-import { letterAndAccidentalToNumber } from "./letter-and-accidental-to-number";
+import {
+	LetterAndAccidental,
+	letterAndAccidentalToNumber,
+} from "./letter-and-accidental-to-number";
 
 export const getNoteNumber = (note?: string) => {
 	if (note === undefined) {
@@ -12,7 +15,7 @@ export const getNoteNumber = (note?: string) => {
 		return undefined;
 	}
 
-	const letterAndAccidental = noteParts[1];
+	const letterAndAccidental = noteParts[1] as LetterAndAccidental;
 	const octave = parseInt(noteParts[2] ?? "0");
 	const letterAndAccidentalNumber =
 		letterAndAccidentalToNumber(letterAndAccidental);

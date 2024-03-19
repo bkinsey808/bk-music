@@ -1,5 +1,5 @@
 // "use client";
-import { Chord } from "./chord";
+import { ScaleDegreeChord } from "./scale-degree-chord";
 import { getChords } from "@/features/chords/helpers/get-chords";
 import { getScaleIndexFromRomanNumeral } from "@/helpers/get-roman-numerals";
 
@@ -36,15 +36,17 @@ export const ScaleDegree = ({
 	return (
 		<div className="flex flex-row gap-[0.1rem]">
 			<div className="min-w-[2rem]">{romanNumeral}</div>
-			<div className="[&>button]:border-color- flex flex-row flex-wrap gap-[0.2rem] [&>button[data-selected='true']]:border-current [&>button]:h-[2rem] [&>button]:border-[0.1rem] [&>button]:border-transparent [&>button]:px-[0.2rem]">
+			<div className="[&>a]:border-color- flex flex-row flex-wrap gap-[0.2rem] [&>a[data-selected='true']]:border-current [&>a]:flex [&>a]:h-[2rem] [&>a]:items-center [&>a]:border-[0.1rem] [&>a]:border-transparent [&>a]:px-[0.2rem]">
 				{chords?.map((chord, index) => {
 					const selected =
-						chord.chord.txtSpelling.replaceAll(",", "-") ===
+						chord?.chord?.txtSpelling?.replaceAll(",", "-") ===
 							selectedChordSpelling &&
 						getScaleIndexFromRomanNumeral(chord.romanNumeral) ===
 							selectedChordScaleIndex;
 
-					return <Chord key={index} chord={chord} selected={selected} />;
+					return (
+						<ScaleDegreeChord key={index} chord={chord} selected={selected} />
+					);
 				})}
 			</div>
 		</div>
