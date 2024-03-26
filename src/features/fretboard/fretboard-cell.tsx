@@ -1,5 +1,3 @@
-import { type VariantProps, cva } from "class-variance-authority";
-
 import { ZerothFretControls } from "./zeroth-fret-controls";
 import { getScaleDegree } from "@/helpers/get-scale-degree";
 import { isNoteInScale } from "@/helpers/is-note-in-scale";

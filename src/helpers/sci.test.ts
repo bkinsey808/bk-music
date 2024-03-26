@@ -2,7 +2,7 @@ import * as sci from "../sci.json";
 
 describe("sci", () => {
 	it("matches the snapshot", () => {
-		const sciArray = Object.keys(sci)
+		const _sciArray = Object.keys(sci)
 			.map((key) => sci[key as unknown as number])
 			.filter(
 				(sci) =>

@@ -1,6 +1,6 @@
 import { Chord } from "@/features/chord/components/chord";
-import { Chords } from "@/features/chords/components/chords";
 import { Fretboard } from "@/features/fretboard/fretboard";
+import { ScaleDegrees } from "@/features/scale-degrees/components/scale-degrees";
 import { Scale } from "@/features/scale/scale";
 
 interface DashboardProps {
@@ -27,7 +27,7 @@ export default function Dashboard({
 			<Fretboard keyNote={key} scale={scale} />
 			<div>
 				<Scale scale={scale} keyNote={key} />
-				<Chords scale={scale} keyNote={key} chord={chord} />
+				<ScaleDegrees scale={scale} keyNote={key} chord={chord} />
 				<Chord scale={scale} keyNote={key} chord={chord} />
 			</div>
 		</main>

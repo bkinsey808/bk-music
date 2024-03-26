@@ -5,7 +5,7 @@ interface TuningProps {
 	tuning: string;
 }
 
-export const Tuning = ({ tuning }: TuningProps) => {
+export const Tuning = ({ tuning: _tuning }: TuningProps) => {
 	return (
 		<section>
 			<h2>Tuning</h2>

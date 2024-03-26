@@ -2,7 +2,7 @@ import { getChords } from "./get-chords";
 
 describe("getChords", () => {
 	it("returns the roman chords", () => {
-		const expected = [
+		const _expected = [
 			"M",
 			"Mb5",
 			"+",
@@ -35,7 +35,7 @@ describe("getChords", () => {
 			"WM",
 			"Con",
 		];
-		const results = getChords({
+		const _results = getChords({
 			scale: "2-3-4-5-6-7",
 			minNotes: 3,
 			scaleIndex: 0,

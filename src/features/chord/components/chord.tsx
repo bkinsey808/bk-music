@@ -8,10 +8,14 @@ interface ChordProps {
 	chord: string;
 }
 
-export const Chord = ({ keyNote, scale, chord }: ChordProps) => {
+export const Chord = ({
+	keyNote: _keyNote,
+	scale: _scale,
+	chord,
+}: ChordProps) => {
 	const selectedChordParts = chord.split("-");
 	const selectedChordRomanNumeral = selectedChordParts[0];
-	const selectedChordScaleIndex = getScaleIndexFromRomanNumeral(
+	const _selectedChordScaleIndex = getScaleIndexFromRomanNumeral(
 		selectedChordRomanNumeral,
 	);
 	const [, ...selectedChordSpellingArray] = selectedChordParts;

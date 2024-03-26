@@ -1,9 +1,7 @@
 // "use client";
 import { ScaleDegreeChord } from "./scale-degree-chord";
-import { getChords } from "@/features/chords/helpers/get-chords";
+import { getChords } from "@/features/scale-degrees/helpers/get-chords";
 import { getScaleIndexFromRomanNumeral } from "@/helpers/get-roman-numerals";
-
-// import { useRouter } from "next/navigation";
 
 interface ScaleDegreeProps {
 	keyNote: string;
@@ -14,7 +12,7 @@ interface ScaleDegreeProps {
 }
 
 export const ScaleDegree = ({
-	keyNote,
+	keyNote: _keyNote,
 	scale,
 	romanNumeral,
 	scaleIndex,
@@ -36,7 +34,7 @@ export const ScaleDegree = ({
 	return (
 		<div className="flex flex-row gap-[0.1rem]">
 			<div className="min-w-[2rem]">{romanNumeral}</div>
-			<div className="[&>a]:border-color- flex flex-row flex-wrap gap-[0.2rem] [&>a[data-selected='true']]:border-current [&>a]:flex [&>a]:h-[2rem] [&>a]:items-center [&>a]:border-[0.1rem] [&>a]:border-transparent [&>a]:px-[0.2rem]">
+			<div className="flex flex-row flex-wrap gap-[0.2rem] [&>a[data-selected='true']]:border-current [&>a]:flex [&>a]:h-[2rem] [&>a]:items-center [&>a]:border-[0.1rem] [&>a]:border-transparent [&>a]:px-[0.2rem]">
 				{chords?.map((chord, index) => {
 					const selected =
 						chord?.chord?.txtSpelling?.replaceAll(",", "-") ===

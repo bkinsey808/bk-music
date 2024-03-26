@@ -1,5 +1,4 @@
-type ZerothFretControlsProps = {};
-export const ZerothFretControls = ({}: ZerothFretControlsProps) => {
+export const ZerothFretControls = () => {
 	return (
 		<>
 			<div className="absolute bottom-0 left-1 top-0 flex w-4 flex-col justify-center [&>button]:text-base">

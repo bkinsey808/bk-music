@@ -1,6 +1,3 @@
-import { Fretboard } from "@/features/fretboard/fretboard";
-import { Tuning } from "@/features/tuning/tuning";
-
 export default function Home() {
 	return <main className="flex justify-center">main</main>;
 }
