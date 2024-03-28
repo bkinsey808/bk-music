@@ -29,7 +29,7 @@ export const CoursesInput = ({ courses, tuning }: CoursesInputProps) => {
 								...Array(newCourses - tuningArray.length).fill(
 									tuningArray[tuningArray.length - 1],
 								),
-						  ];
+							];
 
 				router.push(`/dashboard/${e.target.value}/${newTuningArray.join("-")}`);
 			}}

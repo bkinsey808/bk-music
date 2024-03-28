@@ -1,19 +1,13 @@
-// "use client";
+import { DashboardProps } from "@/app/d/[tuning]/[keyScale]/[chord]/page";
 import { getScaleIndexFromRomanNumeral } from "@/helpers/get-roman-numerals";
 import { getSciBySpelling } from "@/helpers/sci";
 
-interface ChordProps {
-	keyNote: string;
-	scale: string;
-	chord: string;
-}
-
 export const Chord = ({
-	keyNote: _keyNote,
-	scale: _scale,
-	chord,
-}: ChordProps) => {
-	const selectedChordParts = chord.split("-");
+	dashboardProps,
+}: {
+	dashboardProps: DashboardProps;
+}) => {
+	const selectedChordParts = dashboardProps.params.chord.split("-");
 	const selectedChordRomanNumeral = selectedChordParts[0];
 	const _selectedChordScaleIndex = getScaleIndexFromRomanNumeral(
 		selectedChordRomanNumeral,

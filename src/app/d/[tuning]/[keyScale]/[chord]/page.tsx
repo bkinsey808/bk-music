@@ -1,9 +1,47 @@
+import AccordionItem from "@/components/accordion-item";
+import { PageColumn } from "@/components/page-column";
 import { Chord } from "@/features/chord/components/chord";
 import { Fretboard } from "@/features/fretboard/fretboard";
+import { Lyrics } from "@/features/lyrics/components/lyrics";
 import { ScaleDegrees } from "@/features/scale-degrees/components/scale-degrees";
 import { Scale } from "@/features/scale/scale";
+import { Song } from "@/features/song/components/song";
 
-interface DashboardProps {
+const sections = {
+	song: {
+		title: "Song",
+		component: Song,
+	},
+	lyrics: {
+		title: "Lyrics",
+		component: Lyrics,
+	},
+	scale: {
+		title: "Scale",
+		component: Scale,
+	},
+	scaleDegrees: {
+		title: "Scale Degrees",
+		component: ScaleDegrees,
+	},
+	chord: {
+		title: "Chord",
+		component: Chord,
+	},
+	fretboard: {
+		title: "Fretboard",
+		component: Fretboard,
+	},
+};
+
+type Section = keyof typeof sections;
+
+const leftSections: Section[] = ["song", "lyrics"];
+const centerSections: Section[] = ["scale", "scaleDegrees", "fretboard"];
+const rightSections: Section[] = ["chord"];
+const pageColumns = [leftSections, centerSections, rightSections];
+
+export interface DashboardProps {
 	params: {
 		tuning: string;
 		keyScale: string;
@@ -11,25 +49,31 @@ interface DashboardProps {
 	};
 	searchParams: {
 		focus: string;
+		o: string;
 	};
 }
 
-export default function Dashboard({
-	params: { tuning: _tuning, keyScale, chord },
-	searchParams: { focus: _focus },
-}: DashboardProps) {
-	const key = keyScale.split("-")[0];
-	// scale is all of the elements after the first
-	const scale = keyScale.split("-").slice(1).join("-");
-
+export default function Dashboard(dashboardProps: DashboardProps) {
 	return (
-		<main className="flex justify-center gap-[0.5rem]">
-			<Fretboard keyNote={key} scale={scale} />
-			<div>
-				<Scale scale={scale} keyNote={key} />
-				<ScaleDegrees scale={scale} keyNote={key} chord={chord} />
-				<Chord scale={scale} keyNote={key} chord={chord} />
-			</div>
+		<main className="flex flex-wrap justify-between gap-[0.5rem] [&>*]:min-w-[33%]">
+			{pageColumns.map((pageColumn, columnIndex) => (
+				<PageColumn key={columnIndex}>
+					{pageColumn.map((section) => {
+						const { title, component: Section } = sections[section];
+
+						return (
+							<AccordionItem
+								key={section}
+								id={section}
+								title={title}
+								dashboardProps={dashboardProps}
+							>
+								<Section dashboardProps={dashboardProps} />
+							</AccordionItem>
+						);
+					})}
+				</PageColumn>
+			))}
 		</main>
 	);
 }

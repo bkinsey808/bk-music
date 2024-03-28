@@ -1,11 +1,16 @@
-// "use client";
+import { DashboardProps } from "@/app/d/[tuning]/[keyScale]/[chord]/page";
 
-interface ScaleProps {
-	keyNote: string;
-	scale: string;
-}
+export const Scale = ({
+	dashboardProps,
+}: {
+	dashboardProps: DashboardProps;
+}) => {
+	const { keyScale } = dashboardProps.params;
+	const keyNote = keyScale.split("-")[0];
 
-export const Scale = ({ keyNote, scale }: ScaleProps) => {
+	// scale is all of the elements after the first
+	const scale = keyScale.split("-").slice(1).join("-");
+
 	return (
 		<section>
 			<h2>Scale</h2>

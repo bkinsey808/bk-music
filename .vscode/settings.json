@@ -6,5 +6,6 @@
 	"typescript.referencesCodeLens.enabled": true,
 	"typescript.inlayHints.variableTypes.enabled": true,
 	"typescript.tsserver.experimental.enableProjectDiagnostics": true,
-	"jest.debugMode": true
+	"jest.debugMode": true,
+	"editor.detectIndentation": false
 }

@@ -14,8 +14,8 @@ export const isNoteInScale = (
 		scaleDegreeIndex === undefined
 			? undefined
 			: keyNoteNumber === noteNumber
-			? "1"
-			: scale.split("-")[scaleDegreeIndex - 1];
+				? "1"
+				: scale.split("-")[scaleDegreeIndex - 1];
 
 	return scaleDegree;
 };

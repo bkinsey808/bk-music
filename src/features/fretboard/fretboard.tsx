@@ -1,13 +1,19 @@
 import { FretboardCell } from "./fretboard-cell";
+import { DashboardProps } from "@/app/d/[tuning]/[keyScale]/[chord]/page";
 import { getSciNumbers } from "@/helpers/get-sci-numbers";
 import { range } from "@/helpers/range";
 
-type FretboardProps = {
-	keyNote: string;
-	scale: string;
-};
+export const Fretboard = ({
+	dashboardProps,
+}: {
+	dashboardProps: DashboardProps;
+}) => {
+	const { keyScale } = dashboardProps.params;
+	const keyNote = keyScale.split("-")[0];
 
-export const Fretboard = ({ keyNote, scale }: FretboardProps) => {
+	// scale is all of the elements after the first
+	const scale = keyScale.split("-").slice(1).join("-");
+
 	const tuning = ["G4", "C4", "E4", "A4"];
 	const maxFrets = 12;
 	const scaleNumbers = getSciNumbers(scale, keyNote);
