@@ -1,9 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { ReactNode, useCallback, useEffect, useMemo, useRef } from "react";
 
 import { DashboardProps } from "@/app/d/[tuning]/[keyScale]/[chord]/page";
+import { useDashboardURL } from "@/app/d/use-dashboard-url";
 
 export default function AccordionItem({
 	title,
@@ -17,9 +17,9 @@ export default function AccordionItem({
 	children: ReactNode;
 }) {
 	const detailsRef = useRef<HTMLDetailsElement>(null);
-	const router = useRouter();
 	const { o } = dashboardProps.searchParams;
 	const openSections = useMemo(() => (o ? o.split("_") : []), [o]);
+	const { setURL, setSearchParams } = useDashboardURL();
 
 	// set initial state of details element based on query params
 	useEffect(() => {
@@ -36,22 +36,13 @@ export default function AccordionItem({
 				? Array.from(new Set([...openSections, id]))
 				: openSections.filter((section) => section !== id);
 
-			const newParams: Partial<DashboardProps["searchParams"]> = {
-				...dashboardProps.searchParams,
-				o: newOpenSections.join("_"),
-			};
+			console.log({ newOpenSections });
 
-			if (newParams.o === "") {
-				delete newParams.o;
-			}
+			const searchParams = setSearchParams("o", newOpenSections.join("_"));
 
-			const newParamsString = new URLSearchParams(newParams).toString();
-
-			const newURL = `/d/${dashboardProps.params.tuning}/${dashboardProps.params.keyScale}/${dashboardProps.params.chord}?${newParamsString}`;
-
-			router.push(newURL);
+			setURL({ searchParams });
 		}
-	}, [id, openSections, router, dashboardProps]);
+	}, [id, openSections, setURL, setSearchParams]);
 
 	// add listener to details element to update query params
 	useEffect(() => {

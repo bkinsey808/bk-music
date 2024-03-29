@@ -1,23 +1,56 @@
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 
+import { DashboardProps } from "./[tuning]/[keyScale]/[chord]/page";
+
+type DashboardParams = DashboardProps["params"];
+type DashboardSearchParams = DashboardProps["searchParams"];
+type DashboardUrlOptions = {
+	params?: DashboardParams;
+	searchParams?: DashboardSearchParams;
+};
+
 export const useDashboardURL = () => {
 	const router = useRouter();
-	const params = useParams();
-	const searchParams = useSearchParams();
-	const searchParamsString = new URLSearchParams(searchParams).toString();
+	const currentParams: DashboardParams = useParams();
+	const currentReadonlyURLSearchParams = useSearchParams();
+	const currentSearchParams: DashboardSearchParams = Object.fromEntries(
+		currentReadonlyURLSearchParams.entries(),
+	);
 
-	const getURL = (key: string, value: string) => {
+	const setParams = (key: keyof typeof currentParams, value: string) => {
 		const newParams = {
-			...params,
+			...currentParams,
 			[key]: value,
 		};
 
-		return `/d/${newParams.tuning}/${newParams.keyScale}/${newParams.chord}?${searchParamsString}`;
+		return newParams;
 	};
 
-	const setURL = (key: string, value: string) => {
-		router.push(getURL(key, value));
+	const setSearchParams = (key: keyof DashboardSearchParams, value: string) => {
+		const newSearchParams = {
+			...currentSearchParams,
+			[key]: value,
+		};
+
+		if (value === undefined || value === "") {
+			delete newSearchParams[key];
+		}
+
+		return newSearchParams;
 	};
 
-	return { getURL, setURL };
+	const getURL = ({
+		params = currentParams,
+		searchParams = currentSearchParams,
+	}: DashboardUrlOptions) => {
+		const searchParamsString = new URLSearchParams(searchParams).toString();
+
+		return `/d/${params.tuning}/${params.keyScale}/${params.chord}?${searchParamsString}`;
+	};
+
+	const setURL = (options: DashboardUrlOptions) => {
+		router.push(getURL(options));
+	};
+
+	return { setParams, setSearchParams, getURL, setURL };
 };

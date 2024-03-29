@@ -48,8 +48,8 @@ export interface DashboardProps {
 		chord: string;
 	};
 	searchParams: {
-		focus: string;
-		o: string;
+		focus?: string;
+		o?: string;
 	};
 }
 
