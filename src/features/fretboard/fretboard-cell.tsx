@@ -1,7 +1,6 @@
-import { ZerothFretControls } from "./zeroth-fret-controls";
-import { getScaleDegree } from "@/helpers/get-scale-degree";
-import { isNoteInScale } from "@/helpers/is-note-in-scale";
-import { transposeNote } from "@/helpers/transpose-note";
+import { getScaleDegree } from "@/features/music/get-scale-degree";
+import { isNoteInScale } from "@/features/music/is-note-in-scale";
+import { transposeNote } from "@/features/music/transpose-note";
 
 type FretboardCellProps = {
 	tuning: string[];

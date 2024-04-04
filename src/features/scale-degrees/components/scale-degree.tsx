@@ -1,7 +1,7 @@
 import { ScaleDegreeChord } from "./scale-degree-chord";
 import { DashboardProps } from "@/app/d/dashboard-url";
+import { getScaleIndexFromRomanNumeral } from "@/features/music/get-roman-numerals";
 import { getChords } from "@/features/scale-degrees/helpers/get-chords";
-import { getScaleIndexFromRomanNumeral } from "@/helpers/get-roman-numerals";
 
 interface ScaleDegreeProps {
 	keyNote: string;

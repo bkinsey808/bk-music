@@ -1,6 +1,6 @@
 import { DashboardProps } from "@/app/d/dashboard-url";
-import { getScaleIndexFromRomanNumeral } from "@/helpers/get-roman-numerals";
-import { getSciBySpelling } from "@/helpers/sci";
+import { getScaleIndexFromRomanNumeral } from "@/features/music/get-roman-numerals";
+import { getSciBySpelling } from "@/features/music/sci";
 
 export const Chord = ({
 	dashboardProps,

@@ -1,7 +1,7 @@
 import * as S from "@effect/schema/Schema";
 import * as Either from "effect/Either";
 
-import * as sciListJson from "@/helpers/sci-list.json";
+import * as sciListJson from "@/features/music/sci-list.json";
 
 export const Sci = S.struct({
 	id: S.number,

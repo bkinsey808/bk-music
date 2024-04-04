@@ -1,6 +1,6 @@
 import { ScaleDegree } from "./scale-degree";
 import { DashboardProps } from "@/app/d/dashboard-url";
-import { getRomanNumerals } from "@/helpers/get-roman-numerals";
+import { getRomanNumerals } from "@/features/music/get-roman-numerals";
 
 export const ScaleDegrees = ({
 	dashboardProps,

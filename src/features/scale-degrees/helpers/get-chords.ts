@@ -1,7 +1,7 @@
-import { getRomanNumerals } from "@/helpers/get-roman-numerals";
-import { getSciNumbers } from "@/helpers/get-sci-numbers";
+import { getRomanNumerals } from "@/features/music/get-roman-numerals";
+import { getSciNumbers } from "@/features/music/get-sci-numbers";
+import { sciList, sciListError } from "@/features/music/sci";
 import { range } from "@/helpers/range";
-import { sciList, sciListError } from "@/helpers/sci";
 
 export const getChords = ({
 	scale,
