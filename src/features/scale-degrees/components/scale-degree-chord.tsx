@@ -1,10 +1,8 @@
-"use client";
-
 import Link from "next/link";
 
 import { getChords } from "../helpers/get-chords";
 import { DashboardProps, getDashboardUrl } from "@/app/d/dashboard-url";
-import { useStateUrl } from "@/hooks/use-state-url";
+import { setPageParam } from "@/helpers/state-url";
 
 interface ScaleDegreeChordProps {
 	chord: NonNullable<ReturnType<typeof getChords>>[number];
@@ -17,8 +15,8 @@ export const ScaleDegreeChord = ({
 	selected,
 	dashboardProps,
 }: ScaleDegreeChordProps) => {
-	const { setParams } = useStateUrl(getDashboardUrl);
-	const params = setParams(
+	const params = setPageParam(
+		dashboardProps,
 		"chord",
 		`${chord?.romanNumeral?.toLowerCase()}-${chord?.chord?.txtSpelling?.replaceAll(",", "-")}`,
 	);
