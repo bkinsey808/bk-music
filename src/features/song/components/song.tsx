@@ -1,4 +1,4 @@
-import { DashboardProps } from "@/app/d/[tuning]/[keyScale]/[chord]/page";
+import { DashboardProps } from "@/app/d/dashboard-url";
 
 export function Song({
 	dashboardProps: _dashboardProps,

@@ -1,5 +1,5 @@
-// "use client";
 import { ScaleDegreeChord } from "./scale-degree-chord";
+import { DashboardProps } from "@/app/d/dashboard-url";
 import { getChords } from "@/features/scale-degrees/helpers/get-chords";
 import { getScaleIndexFromRomanNumeral } from "@/helpers/get-roman-numerals";
 
@@ -9,6 +9,7 @@ interface ScaleDegreeProps {
 	romanNumeral: string;
 	scaleIndex: number;
 	chord: string;
+	dashboardProps: DashboardProps;
 }
 
 export const ScaleDegree = ({
@@ -17,6 +18,7 @@ export const ScaleDegree = ({
 	romanNumeral,
 	scaleIndex,
 	chord: selectedChord,
+	dashboardProps,
 }: ScaleDegreeProps) => {
 	const chords = getChords({
 		scale,
@@ -43,7 +45,12 @@ export const ScaleDegree = ({
 							selectedChordScaleIndex;
 
 					return (
-						<ScaleDegreeChord key={index} chord={chord} selected={selected} />
+						<ScaleDegreeChord
+							key={index}
+							chord={chord}
+							selected={selected}
+							dashboardProps={dashboardProps}
+						/>
 					);
 				})}
 			</div>

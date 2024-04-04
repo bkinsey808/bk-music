@@ -1,5 +1,5 @@
 import { ScaleDegree } from "./scale-degree";
-import { DashboardProps } from "@/app/d/[tuning]/[keyScale]/[chord]/page";
+import { DashboardProps } from "@/app/d/dashboard-url";
 import { getRomanNumerals } from "@/helpers/get-roman-numerals";
 
 export const ScaleDegrees = ({
@@ -23,9 +23,9 @@ export const ScaleDegrees = ({
 					scale={scale}
 					romanNumeral={scaleDegree}
 					chord={dashboardProps.params.chord}
+					dashboardProps={dashboardProps}
 				/>
 			))}
 		</section>
 	);
 };
-0;

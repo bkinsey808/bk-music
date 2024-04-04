@@ -12,10 +12,10 @@
     "analyze": "ANALYZE=true pnpm run build",
     "deploy": "vercel --prod",
     "vercel:login": "vercel login"
-
   },
   "dependencies": {
     "@effect/schema": "^0.64.5",
+    "@tailwindcss/container-queries": "^0.1.1",
     "class-variance-authority": "^0.7.0",
     "effect": "2.4.7",
     "next": "latest",

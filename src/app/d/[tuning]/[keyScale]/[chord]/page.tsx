@@ -1,3 +1,4 @@
+import { DashboardProps } from "@/app/d/dashboard-url";
 import AccordionItem from "@/components/accordion-item";
 import { PageColumn } from "@/components/page-column";
 import { Chord } from "@/features/chord/components/chord";
@@ -41,40 +42,30 @@ const centerSections: Section[] = ["scale", "scaleDegrees", "fretboard"];
 const rightSections: Section[] = ["chord"];
 const pageColumns = [leftSections, centerSections, rightSections];
 
-export interface DashboardProps {
-	params: {
-		tuning: string;
-		keyScale: string;
-		chord: string;
-	};
-	searchParams: {
-		focus?: string;
-		o?: string;
-	};
-}
-
 export default function Dashboard(dashboardProps: DashboardProps) {
 	return (
-		<main className="flex flex-wrap justify-between gap-[0.5rem] [&>*]:min-w-[33%]">
-			{pageColumns.map((pageColumn, columnIndex) => (
-				<PageColumn key={columnIndex}>
-					{pageColumn.map((section) => {
-						const { title, component: Section } = sections[section];
+		<div className="@container">
+			<main className="grid grid-cols-1 gap-[0.5rem] @[1700px]:grid-cols-3">
+				{pageColumns.map((pageColumn, columnIndex) => (
+					<PageColumn key={columnIndex}>
+						{pageColumn.map((section) => {
+							const { title, component: Section } = sections[section];
 
-						return (
-							<AccordionItem
-								key={section}
-								id={section}
-								title={title}
-								dashboardProps={dashboardProps}
-							>
-								<Section dashboardProps={dashboardProps} />
-							</AccordionItem>
-						);
-					})}
-				</PageColumn>
-			))}
-		</main>
+							return (
+								<AccordionItem
+									key={section}
+									id={section}
+									title={title}
+									dashboardProps={dashboardProps}
+								>
+									<Section dashboardProps={dashboardProps} />
+								</AccordionItem>
+							);
+						})}
+					</PageColumn>
+				))}
+			</main>
+		</div>
 	);
 }
 /*

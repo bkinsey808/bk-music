@@ -33,12 +33,25 @@ export const FretboardCell = ({
 					? "var(--color-cell-background-in-scale)"
 					: "var(--color-cell-background)",
 			}}
-			className="relative border-2 border-solid bg-[var(--color-cell-background)] pl-1 pr-12 text-right text-4xl"
+			className="grid grid-cols-[2rem_1fr_2rem] border-2 border-solid bg-[var(--color-cell-background)]"
 		>
-			{transposedNote}
-			<br />
-			{scaleDegree}
-			{fret === 0 && <ZerothFretControls />}
+			{fret === 0 && (
+				<div className="flex w-4 flex-col justify-center [&>button]:text-base">
+					<button aria-label="Add course">+</button>
+					<button aria-label="Remove Course">-</button>
+				</div>
+			)}
+			<div className="col-[2] flex justify-center text-center">
+				{transposedNote}
+				<br />
+				{scaleDegree}
+			</div>
+			{fret === 0 && (
+				<div className="ml-auto flex flex-col justify-center [&>button]:text-xs">
+					<button aria-label="Add half step">▲</button>
+					<button aria-label="Remove half step">▼</button>
+				</div>
+			)}
 		</div>
 	);
 };
