@@ -1,7 +1,7 @@
 import { FretboardCell } from "./fretboard-cell";
 import { DashboardProps } from "@/app/d/dashboard-url";
+import { range } from "@/features/math/range";
 import { getSciNumbers } from "@/features/music/get-sci-numbers";
-import { range } from "@/helpers/range";
 
 export const Fretboard = ({
 	dashboardProps,

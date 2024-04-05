@@ -10,5 +10,8 @@ export const transposeNote = (note: string, interval: number) => {
 	}
 
 	const newNoteNumber = noteNumber + interval;
-	return getNoteFromNumber(newNoteNumber, !note.includes("#"));
+	return getNoteFromNumber({
+		noteNumber: newNoteNumber,
+		preferFlats: !note.includes("#"),
+	});
 };

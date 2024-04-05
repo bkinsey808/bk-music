@@ -17,7 +17,7 @@ export const chordScaleDegrees = (scale: string, chord: string) => {
 		// if it is, add it to the array
 		// if it isn't, do nothing
 
-		const noteAtScaleDegree = getNoteFromNumber(scaleNumber);
+		const noteAtScaleDegree = getNoteFromNumber({ noteNumber: scaleNumber });
 		const chordNumbers = getSciNumbers(chord, noteAtScaleDegree);
 
 		const chordInScale = chordNumbers.every((chordNumber) =>
