@@ -3,8 +3,8 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 
 import "./globals.css";
-import DarkModeProvider from "@/components/dark-mode-provider";
-import { DARK_MODE_LOCAL_STORAGE_KEY } from "@/helpers/dark-mode";
+import DarkModeProvider from "@/features/dark-mode/DarkModeProvider";
+import { DARK_MODE_LOCAL_STORAGE_KEY } from "@/features/dark-mode/consts";
 
 const inter = Inter({ subsets: ["latin"] });
 

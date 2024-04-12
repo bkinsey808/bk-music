@@ -1,13 +1,13 @@
-import { DashboardProps } from "@/app/d/dashboard-url";
-import AccordionItem from "@/components/accordion-item";
-import { PageColumn } from "@/components/page-column";
-import { Chord } from "@/features/chord/components/chord";
-import { Fretboard } from "@/features/fretboard/components/fretboard";
-import { Lyrics } from "@/features/lyrics/components/lyrics";
-import { Positions } from "@/features/positions/components/positions";
-import { ScaleDegrees } from "@/features/scale-degrees/components/scale-degrees";
-import { Scale } from "@/features/scale/components/scale";
-import { Song } from "@/features/song/components/song";
+import { DashboardProps, getDashboardUrl } from "@/app/d/dashboardUrl";
+import { Chord } from "@/features/chord/Chord";
+import { Fretboard } from "@/features/fretboard/Fretboard";
+import { AccordionItem } from "@/features/global/AccordionItem";
+import { PageColumn } from "@/features/global/PageColumn";
+import { Lyrics } from "@/features/lyrics/Lyrics";
+import { Positions } from "@/features/positions/Positions";
+import { ScaleDegrees } from "@/features/scale-degrees/ScaleDegrees";
+import { Scale } from "@/features/scale/Scale";
+import { Song } from "@/features/song/Song";
 
 const sections = {
 	song: {
@@ -61,7 +61,8 @@ export default function Dashboard(dashboardProps: DashboardProps) {
 									key={section}
 									id={section}
 									title={title}
-									dashboardProps={dashboardProps}
+									pageProps={dashboardProps}
+									getPageUrl={getDashboardUrl}
 								>
 									<Section dashboardProps={dashboardProps} />
 								</AccordionItem>
