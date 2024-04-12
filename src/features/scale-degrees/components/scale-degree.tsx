@@ -4,20 +4,16 @@ import { getScaleIndexFromRomanNumeral } from "@/features/music/get-roman-numera
 import { getChords } from "@/features/scale-degrees/helpers/get-chords";
 
 interface ScaleDegreeProps {
-	keyNote: string;
 	scale: string;
 	romanNumeral: string;
 	scaleIndex: number;
-	chord: string;
 	dashboardProps: DashboardProps;
 }
 
 export const ScaleDegree = ({
-	keyNote: _keyNote,
 	scale,
 	romanNumeral,
 	scaleIndex,
-	chord: selectedChord,
 	dashboardProps,
 }: ScaleDegreeProps) => {
 	const chords = getChords({
@@ -25,6 +21,7 @@ export const ScaleDegree = ({
 		scaleIndex,
 	});
 
+	const selectedChord = dashboardProps.params.chord;
 	const selectedChordParts = selectedChord.split("-");
 	const selectedChordRomanNumeral = selectedChordParts[0];
 	const selectedChordScaleIndex = getScaleIndexFromRomanNumeral(

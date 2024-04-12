@@ -17,5 +17,5 @@ export const isNoteInScale = (
 				? "1"
 				: scale.split("-")[scaleDegreeIndex - 1];
 
-	return scaleDegree;
+	return !!scaleDegree;
 };

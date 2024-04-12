@@ -3,6 +3,7 @@ export interface DashboardProps {
 		tuning: string;
 		keyScale: string;
 		chord: string;
+		position: string;
 	};
 	searchParams: {
 		focus?: string;
@@ -15,7 +16,7 @@ export const getDashboardUrl = (dashboardProps: DashboardProps) => {
 		dashboardProps.searchParams,
 	).toString();
 
-	const { tuning, keyScale, chord } = dashboardProps.params;
+	const { tuning, keyScale, chord, position } = dashboardProps.params;
 
-	return `/d/${tuning}/${keyScale}/${chord}?${searchParamsString}`;
+	return `/d/${tuning}/${keyScale}/${chord}/${position}?${searchParamsString}`;
 };

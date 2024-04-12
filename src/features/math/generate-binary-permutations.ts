@@ -17,3 +17,17 @@ export const generateBinaryPermutations = (n: number) => {
 		num.toString(2).padStart(n, "0").split("").reverse().join(""),
 	);
 };
+
+/**
+ *
+ *  1 0 0 0
+ *  1 0 0 x
+ *  1 0 0 1
+ *  1 0 x x
+ *
+ *
+ *
+ *  get each binary permutation of n bits, where n is number of courses
+ *  for each course that's zero
+ *
+ */

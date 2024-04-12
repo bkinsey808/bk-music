@@ -2,10 +2,11 @@ import { DashboardProps } from "@/app/d/dashboard-url";
 import AccordionItem from "@/components/accordion-item";
 import { PageColumn } from "@/components/page-column";
 import { Chord } from "@/features/chord/components/chord";
-import { Fretboard } from "@/features/fretboard/fretboard";
+import { Fretboard } from "@/features/fretboard/components/fretboard";
 import { Lyrics } from "@/features/lyrics/components/lyrics";
+import { Positions } from "@/features/positions/components/positions";
 import { ScaleDegrees } from "@/features/scale-degrees/components/scale-degrees";
-import { Scale } from "@/features/scale/scale";
+import { Scale } from "@/features/scale/components/scale";
 import { Song } from "@/features/song/components/song";
 
 const sections = {
@@ -29,6 +30,10 @@ const sections = {
 		title: "Chord",
 		component: Chord,
 	},
+	positions: {
+		title: "Positions",
+		component: Positions,
+	},
 	fretboard: {
 		title: "Fretboard",
 		component: Fretboard,
@@ -39,7 +44,7 @@ type Section = keyof typeof sections;
 
 const leftSections: Section[] = ["song", "lyrics"];
 const centerSections: Section[] = ["scale", "scaleDegrees", "fretboard"];
-const rightSections: Section[] = ["chord"];
+const rightSections: Section[] = ["chord", "positions"];
 const pageColumns = [leftSections, centerSections, rightSections];
 
 export default function Dashboard(dashboardProps: DashboardProps) {

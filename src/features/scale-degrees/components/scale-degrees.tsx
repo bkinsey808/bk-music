@@ -8,21 +8,18 @@ export const ScaleDegrees = ({
 	dashboardProps: DashboardProps;
 }) => {
 	const { keyScale } = dashboardProps.params;
-	const keyNote = keyScale.split("-")[0];
 
 	// scale is all of the elements after the first
 	const scale = keyScale.split("-").slice(1).join("-");
 
 	return (
 		<section data-title="Chords" className="flex flex-col gap-[0.5rem]">
-			{getRomanNumerals(scale)?.map((scaleDegree, index) => (
+			{getRomanNumerals(scale)?.map((romanNumeral, index) => (
 				<ScaleDegree
 					key={index}
 					scaleIndex={index}
-					keyNote={keyNote}
 					scale={scale}
-					romanNumeral={scaleDegree}
-					chord={dashboardProps.params.chord}
+					romanNumeral={romanNumeral}
 					dashboardProps={dashboardProps}
 				/>
 			))}

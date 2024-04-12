@@ -1,26 +1,18 @@
 import { getSciNumbers } from "./get-sci-numbers";
 import { getSpellingFromNoteNumber } from "./get-spelling-from-note-number";
+import { romanNumerals } from "./roman-numerals";
 
-const romanNumerals = [
-	"I",
-	"bII",
-	"II",
-	"bIII",
-	"III",
-	"IV",
-	"bV",
-	"V",
-	"bVI",
-	"VI",
-	"bVII",
-	"VII",
-];
-
-export const getScaleIndexFromRomanNumeral = (romanNumeral: string) =>
-	romanNumerals.findIndex(
+export const getScaleIndexFromRomanNumeral = (romanNumeral: string) => {
+	const index = romanNumerals.findIndex(
 		(numeral) => numeral.toLowerCase() === romanNumeral.toLowerCase(),
 	);
 
+	if (index === -1) {
+		return undefined;
+	}
+
+	return index;
+};
 export const getRomanNumerals = (scale: string) => {
 	const scaleNumbers = getSciNumbers(scale);
 

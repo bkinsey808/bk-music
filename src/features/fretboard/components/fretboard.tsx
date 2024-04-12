@@ -1,22 +1,14 @@
 import { FretboardCell } from "./fretboard-cell";
 import { DashboardProps } from "@/app/d/dashboard-url";
 import { range } from "@/features/math/range";
-import { getSciNumbers } from "@/features/music/get-sci-numbers";
 
 export const Fretboard = ({
 	dashboardProps,
 }: {
 	dashboardProps: DashboardProps;
 }) => {
-	const { keyScale } = dashboardProps.params;
-	const keyNote = keyScale.split("-")[0];
-
-	// scale is all of the elements after the first
-	const scale = keyScale.split("-").slice(1).join("-");
-
-	const tuning = ["G4", "C4", "E4", "A4"];
+	const tuningArray = dashboardProps.params.tuning.split("-");
 	const maxFrets = 13;
-	const scaleNumbers = getSciNumbers(scale, keyNote);
 
 	return (
 		<section aria-label="Fretboard">
@@ -24,7 +16,7 @@ export const Fretboard = ({
 				data-title="Fretboard Grid"
 				style={{
 					"--max-frets": maxFrets,
-					"--courses": tuning.length,
+					"--courses": tuningArray.length,
 				}}
 				className="grid grid-flow-col grid-cols-[1.5rem_repeat(var(--courses),1fr)_1rem] grid-rows-[1rem_1fr_0.25rem_repeat(calc(var(--max-frets)-1),1fr)] gap-[0.25rem]"
 			>
@@ -54,15 +46,15 @@ export const Fretboard = ({
 					</div>
 				))}
 
-				{range(tuning.length).map((course) => (
+				{range(tuningArray.length).map((course) => (
 					<>
 						<div
 							style={{
 								"--course": course + 1,
 							}}
-							className="row-1 col-[calc(var(--course)+1)] grid h-[0.5rem] justify-center"
+							className="row-1 col-[calc(var(--course)+1)] flex h-[0.5rem] justify-center"
 						>
-							Course {course}
+							<span>Course {course}</span>
 						</div>
 						{range(maxFrets).map((fret) => (
 							<div
@@ -75,12 +67,9 @@ export const Fretboard = ({
 								className="col-[calc(var(--course)+1)] row-[calc(var(--fret)+1)]"
 							>
 								<FretboardCell
-									tuning={tuning}
 									course={course}
 									fret={fret}
-									scaleNumbers={scaleNumbers}
-									keyNote={keyNote}
-									scale={scale}
+									dashboardProps={dashboardProps}
 								/>
 							</div>
 						))}
