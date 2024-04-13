@@ -5,20 +5,31 @@ import { DashboardProps, getDashboardUrl } from "@/app/d/dashboardUrl";
 import { setPageParam } from "@/features/state-url/setPageParam";
 
 interface ScaleDegreeChordProps {
-	chord: NonNullable<ReturnType<typeof getChords>>[number];
+	sci:
+		| NonNullable<NonNullable<ReturnType<typeof getChords>>[number]>["sci"]
+		| undefined;
 	selected: boolean;
 	dashboardProps: DashboardProps;
+	romanNumeral: string;
 }
 
 export const ScaleDegreeChord = ({
-	chord,
+	sci,
 	selected,
 	dashboardProps,
+	romanNumeral,
 }: ScaleDegreeChordProps) => {
 	const params = setPageParam(
-		dashboardProps,
-		"chord",
-		`${chord?.romanNumeral?.toLowerCase()}-${chord?.chord?.txtSpelling?.replaceAll(",", "-")}`,
+		{
+			...dashboardProps,
+			params: setPageParam(
+				dashboardProps,
+				"chord",
+				`${romanNumeral?.toLowerCase()}-${sci?.txtSpelling?.replaceAll(",", "-")}`,
+			),
+		},
+		"position",
+		"-",
 	);
 
 	const url = getDashboardUrl({
@@ -33,7 +44,7 @@ export const ScaleDegreeChord = ({
 			href={url}
 			className="flex h-[2rem] items-center border-[0.1rem] border-transparent px-[0.2rem] [&[data-selected='true']]:border-current"
 		>
-			{chord?.chord?.txtCode}
+			{sci?.txtCode}
 		</Link>
 	);
 };

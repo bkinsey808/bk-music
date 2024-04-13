@@ -14,10 +14,9 @@ export const ScaleDegrees = ({
 
 	return (
 		<section data-title="Chords" className="flex flex-col gap-[0.5rem]">
-			{getRomanNumerals(scale)?.map((romanNumeral, index) => (
+			{getRomanNumerals(scale)?.map((romanNumeral) => (
 				<ScaleDegree
-					key={index}
-					scaleIndex={index}
+					key={romanNumeral}
 					scale={scale}
 					romanNumeral={romanNumeral}
 					dashboardProps={dashboardProps}

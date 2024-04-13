@@ -9,7 +9,7 @@ export const getPositions = ({
 	chord,
 	maxMuted = 0,
 	maxFret = 17,
-	maxFretSpan = 5,
+	maxFretSpan = 4,
 }: {
 	tuning: string;
 	keyNote: string;

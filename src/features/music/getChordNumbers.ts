@@ -2,17 +2,19 @@ import { getNoteNumber } from "./getNoteNumber";
 import { getScaleIndexFromRomanNumeral } from "./getScaleIndexFromRomanNumeral";
 import { scaleDegrees } from "./scaleDegrees";
 
-export const getChordNumbers = (chord: string, scaleKeyNote: string) => {
+export const getChordNumbers = (chord: string, scaleKeyNote?: string) => {
 	const chordParts = chord.split("-");
 
 	const chordRomanNumeral = chordParts[0];
+	// console.log({ chordRomanNumeral });
 	const chordScaleIndex = getScaleIndexFromRomanNumeral(chordRomanNumeral);
-	const scaleKeyNumber = getNoteNumber(scaleKeyNote);
-	const [, ...chordSpellingArray] = chordParts;
+	const scaleKeyNumber = getNoteNumber(scaleKeyNote) ?? 0;
 
 	if (scaleKeyNumber === undefined || chordScaleIndex === undefined) {
 		return [];
 	}
+
+	const [, ...chordSpellingArray] = chordParts;
 
 	return [
 		0,

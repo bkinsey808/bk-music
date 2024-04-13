@@ -35,7 +35,7 @@ export function AccordionItem<PageProps extends PagePropsGeneric>({
 		}
 	}, [id, openSections]);
 
-	const handleToggle = useCallback(() => {
+	const handleToggle = useCallback(async () => {
 		const details = detailsRef.current;
 		if (details) {
 			const newOpenSections = details.open
@@ -48,7 +48,12 @@ export function AccordionItem<PageProps extends PagePropsGeneric>({
 				newOpenSections.join("_"),
 			);
 
-			router.push(getPageUrl({ params, searchParams } as PageProps));
+			const pageUrl = getPageUrl({ params, searchParams } as PageProps);
+
+			router.push(
+				// sometimes pageUrl is a promise. I haven't figured out why yet.
+				await pageUrl,
+			);
 		}
 	}, [id, params, openSections, pageProps, router, getPageUrl]);
 

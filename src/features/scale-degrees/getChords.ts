@@ -1,5 +1,6 @@
+import { getChordNumbers } from "../music/getChordNumbers";
+import { romanNumerals } from "../music/romanNumerals";
 import { range } from "@/features/math/range";
-import { getRomanNumerals } from "@/features/music/getRomanNumerals";
 import { getSciNumbers } from "@/features/music/getSciNumbers";
 import { sciList, sciListError } from "@/features/music/sci";
 
@@ -9,6 +10,7 @@ export const getChords = ({
 	maxNotes = 4,
 	scaleIndex,
 	preferred = true,
+	keyNote,
 }: {
 	scale: string;
 	minNotes?: number;
@@ -30,18 +32,7 @@ export const getChords = ({
 			? [scaleIndex, scaleIndex]
 			: [0, scaleNumbers.length - 1];
 
-	const romanNumerals = getRomanNumerals(scale);
-
 	return range(minIndex, maxIndex + 1).flatMap((scaleIndex) => {
-		const scaleNumber = scaleNumbers[scaleIndex];
-
-		const modeNumbers = [
-			...scaleNumbers.slice(scaleIndex),
-			...scaleNumbers.slice(0, scaleIndex),
-		]
-			// next subtract the first scale number from all the scale numbers
-			.map((innerScaleNumber) => (innerScaleNumber - scaleNumber + 12) % 12);
-
 		const romanNumeral = romanNumerals[scaleIndex];
 
 		const chords = sciList
@@ -54,13 +45,14 @@ export const getChords = ({
 					return false;
 				}
 
-				const chordNumbers = getSciNumbers(sci.txtSpelling);
+				const chord = `${romanNumeral}-${sci.txtSpelling.replaceAll(",", "-")}`;
+				const chordNumbers = getChordNumbers(chord, keyNote);
 				const chordInScale = chordNumbers.every((chordNumber) =>
-					modeNumbers.includes(chordNumber),
+					scaleNumbers.includes(chordNumber),
 				);
 				return chordInScale;
 			})
-			.map((sci) => ({ chord: sci, romanNumeral, scaleIndex }));
+			.map((sci) => ({ sci, chord: sci.txtSpelling, romanNumeral }));
 
 		return chords;
 	});

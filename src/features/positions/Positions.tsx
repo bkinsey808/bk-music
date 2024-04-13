@@ -12,7 +12,7 @@ export function Positions({
 		keyNote: dashboardProps.params.keyScale.split("-")[0],
 		tuning: dashboardProps.params.tuning,
 		maxFret: 12,
-		maxFretSpan: 5,
+		maxFretSpan: 4,
 		maxMuted: 1,
 	});
 	return (

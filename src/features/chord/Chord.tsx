@@ -1,16 +1,9 @@
+import { getInKeyScale } from "../music/getInKeyScale";
 import { DashboardProps } from "@/app/d/dashboardUrl";
 import { range } from "@/features/math/range";
 import { getCasedRomanNumeral } from "@/features/music/getCasedRomanNumeral";
-import { getChordNumbers } from "@/features/music/getChordNumbers";
-import { getRomanNumerals } from "@/features/music/getRomanNumerals";
 import { romanNumerals } from "@/features/music/romanNumerals";
-// import {
-// 	getRomanNumerals,
-// 	getScaleIndexFromRomanNumeral,
-// } from "@/features/music/get-roman-numerals";
 import { getSciBySpelling } from "@/features/music/sci";
-
-// import { getChords } from "@/features/scale-degrees/helpers/get-chords";
 
 export const Chord = ({
 	dashboardProps,
@@ -19,49 +12,46 @@ export const Chord = ({
 }) => {
 	const selectedChordParts = dashboardProps.params.chord.split("-");
 	const selectedChordRomanNumeral = selectedChordParts[0];
-	// const _selectedChordScaleIndex = getScaleIndexFromRomanNumeral(
-	// 	selectedChordRomanNumeral,
-	// );
 	const [, ...selectedChordSpellingArray] = selectedChordParts;
 	const selectedChordSpelling = selectedChordSpellingArray.join("-");
 	const sci = getSciBySpelling(selectedChordSpelling);
 
 	const { keyScale } = dashboardProps.params;
-	const keyNote = keyScale.split("-")[0];
 
 	const scale = keyScale.split("-").slice(1).join("-");
-	// const romanNumerals = getRomanNumerals(scale);
 
-	// const chordsByRomanNumeral = romanNumerals.map((romanNumeral, scaleIndex) => {
-	// 	const chords = getChords({
-	// 		scale,
-	// 		scaleIndex,
-	// 	});
-	// 	const found = chords?.find(
-	// 		(chord) => chord?.chord.txtSpelling === selectedChordSpelling,
-	// 	);
-	// 	return { found, romanNumeral };
-	// });
-
-	// console.log({
-	// 	chordsByRomanNumeral: JSON.stringify(chordsByRomanNumeral, null, 2),
-	// });
-
-	const casedRomanNumerals = range(0, 11).map((scaleDegree) => {
-		const romanNumeral = getCasedRomanNumeral(
-			romanNumerals[scaleDegree],
-			scale,
-		);
+	const casedRomanNumerals = range(0, 12).map((scaleIndex) => {
+		const romanNumeral = getCasedRomanNumeral(romanNumerals[scaleIndex], scale);
 		const chord = `${romanNumeral}-${selectedChordSpelling}`;
 		return {
 			romanNumeral,
 			chord,
-			chordNumbers: getChordNumbers(chord, keyNote),
+			selected: chord === dashboardProps.params.chord,
+			inKeyScale: getInKeyScale(chord, keyScale),
 		};
 	});
 
 	return (
 		<section data-title="Chord">
+			<div className="grid w-[95%] auto-cols-fr grid-flow-col">
+				{casedRomanNumerals.map(
+					({ selected, romanNumeral, chord, inKeyScale }) => (
+						<div
+							key={chord}
+							data-in-key-scale={inKeyScale}
+							className="mr-[-0.1rem] break-all border-[0.1rem] border-current p-[0.4rem] text-center [&[data-in-key-scale='true']]:bg-[var(--color-cell-background-in-scale)]"
+						>
+							<div
+								data-selected={selected}
+								className="h-full border-[0.1rem] border-transparent [&[data-selected='true']]:border-current"
+							>
+								<div>{romanNumeral}</div>
+								{sci?.txtCode}
+							</div>
+						</div>
+					),
+				)}
+			</div>
 			<div>
 				{getCasedRomanNumeral(selectedChordRomanNumeral, scale)} {sci?.txtCode}
 			</div>
@@ -69,4 +59,3 @@ export const Chord = ({
 		</section>
 	);
 };
-0;

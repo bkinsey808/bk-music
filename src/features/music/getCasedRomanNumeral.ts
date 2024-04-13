@@ -3,7 +3,7 @@ import { getRomanNumerals } from "./getRomanNumerals";
 export const getCasedRomanNumeral = (romanNumeral: string, scale: string) => {
 	const romanNumerals = getRomanNumerals(scale);
 	const foundRomanNumeral = romanNumerals.find(
-		(rn) => rn.toLowerCase() === romanNumeral.toLowerCase(),
+		(rn) => rn.toLowerCase() === romanNumeral?.toLowerCase(),
 	);
 
 	if (foundRomanNumeral) {
