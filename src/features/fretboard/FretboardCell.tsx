@@ -42,9 +42,9 @@ export const FretboardCell = ({
 				</div>
 			)}
 			<div className="col-[2] flex justify-center border-[0.3rem] border-transparent text-center">
-				{note}
+				{note?.replace("b", "♭")}
 				<br />
-				{scaleDegree}
+				{scaleDegree?.replace("b", "♭")}
 			</div>
 			{fret === 0 && (
 				<div className="ml-auto flex flex-col justify-center [&>button]:text-xs">

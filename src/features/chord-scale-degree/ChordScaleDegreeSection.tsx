@@ -35,7 +35,7 @@ export const ChordScaleDegreeSection = ({
 	return (
 		<section
 			data-title="Chord Scale Degree Section"
-			className="grid w-[95%] auto-cols-fr grid-flow-col"
+			className="grid w-[calc(100%-1rem)] grid-cols-[repeat(6,1fr)]"
 		>
 			{casedRomanNumerals.map(
 				({ selected, romanNumeral, chord, inKeyScale }) => (

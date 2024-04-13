@@ -9,6 +9,7 @@ import { AccordionItem } from "@/features/global/AccordionItem";
 import { PageColumn } from "@/features/global/PageColumn";
 import { LyricsSection } from "@/features/lyrics/LyricsSection";
 import { Positions } from "@/features/positions/PositionsSection";
+import { QRCodeSection } from "@/features/qrcode/QRCodeSection";
 import { ScaleDegreesSection } from "@/features/scale-degrees/ScaleDegreesSection";
 import { ScaleSection } from "@/features/scale/ScaleSection";
 import { SongSection } from "@/features/song/SongSection";
@@ -50,6 +51,10 @@ const sections = {
 		title: "Fretboard",
 		section: FretboardSection,
 	},
+	qrcode: {
+		title: "QR Code",
+		section: QRCodeSection,
+	},
 };
 
 type Section = keyof typeof sections;
@@ -61,6 +66,7 @@ const rightSections: Section[] = [
 	"chordScaleDegree",
 	"chordSpelling",
 	"positions",
+	"qrcode",
 ];
 const pageColumns = [leftSections, centerSections, rightSections];
 
