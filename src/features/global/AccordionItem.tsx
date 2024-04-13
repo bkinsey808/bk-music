@@ -13,7 +13,7 @@ export function AccordionItem<PageProps extends PagePropsGeneric>({
 	getPageUrl,
 	children,
 }: {
-	title: string;
+	title: ReactNode;
 	id: string;
 	pageProps: PageProps;
 	getPageUrl: (pageProps: PageProps) => string;

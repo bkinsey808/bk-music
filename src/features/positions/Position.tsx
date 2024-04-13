@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { DashboardProps, getDashboardUrl } from "@/app/d/dashboardUrl";
 import { getPositionArray } from "@/features/music/getPositionArrayget-position-array";
-import { setPageParam } from "@/features/state-url/setPageParam";
+import { setPageParams } from "@/features/state-url/setPageParams";
 
 export function Position({
 	position,
@@ -11,7 +11,7 @@ export function Position({
 	position: string;
 	dashboardProps: DashboardProps;
 }) {
-	const params = setPageParam(dashboardProps, "position", position);
+	const params = setPageParams(dashboardProps, { position });
 
 	const url = getDashboardUrl({
 		params,

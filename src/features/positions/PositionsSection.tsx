@@ -7,7 +7,7 @@ export function Positions({
 }: {
 	dashboardProps: DashboardProps;
 }) {
-	const positions = getPositions({
+	const PositionsSection = getPositions({
 		chord: dashboardProps.params.chord,
 		keyNote: dashboardProps.params.keyScale.split("-")[0],
 		tuning: dashboardProps.params.tuning,
@@ -17,10 +17,10 @@ export function Positions({
 	});
 	return (
 		<section
-			data-title="Positions"
+			data-title="Positions Section"
 			className="flex flex-wrap gap-x-[1rem] [&>a[data-selected='true']]:border-current [&>a]:border-[0.1rem] [&>a]:border-transparent [&>a]:px-[0.5rem]"
 		>
-			{positions.map((position) => (
+			{PositionsSection.map((position) => (
 				<Position
 					key={position}
 					dashboardProps={dashboardProps}

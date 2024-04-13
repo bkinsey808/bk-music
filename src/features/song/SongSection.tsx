@@ -1,9 +1,9 @@
 import { DashboardProps } from "@/app/d/dashboardUrl";
 
-export function Song({
+export function SongSection({
 	dashboardProps: _dashboardProps,
 }: {
 	dashboardProps: DashboardProps;
 }) {
-	return <section>Song</section>;
+	return <section data-title="Song Section">Song</section>;
 }

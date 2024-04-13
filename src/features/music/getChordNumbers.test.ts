@@ -20,8 +20,8 @@ describe("getChordNumbers", () => {
 		expect(getChordNumbers("", "C")).toEqual([]);
 	});
 
-	it("should return an empty array for invalid scale key note input", () => {
-		expect(getChordNumbers("I-3-5", "invalid-note")).toEqual([]);
-		expect(getChordNumbers("I-3-5", "")).toEqual([]);
+	it("empty or invalid scale key note input should be defaulted to zero", () => {
+		expect(getChordNumbers("I-3-5", "invalid-note")).toEqual([0, 4, 7]);
+		expect(getChordNumbers("I-3-5", "")).toEqual([0, 4, 7]);
 	});
 });

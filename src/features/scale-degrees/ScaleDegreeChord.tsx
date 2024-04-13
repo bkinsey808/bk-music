@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { getChords } from "./getChords";
 import { DashboardProps, getDashboardUrl } from "@/app/d/dashboardUrl";
-import { setPageParam } from "@/features/state-url/setPageParam";
+import { setPageParams } from "@/features/state-url/setPageParams";
 
 interface ScaleDegreeChordProps {
 	sci:
@@ -19,18 +19,10 @@ export const ScaleDegreeChord = ({
 	dashboardProps,
 	romanNumeral,
 }: ScaleDegreeChordProps) => {
-	const params = setPageParam(
-		{
-			...dashboardProps,
-			params: setPageParam(
-				dashboardProps,
-				"chord",
-				`${romanNumeral?.toLowerCase()}-${sci?.txtSpelling?.replaceAll(",", "-")}`,
-			),
-		},
-		"position",
-		"-",
-	);
+	const params = setPageParams(dashboardProps, {
+		chord: `${romanNumeral?.toLowerCase()}-${sci?.txtSpelling?.replaceAll(",", "-")}`,
+		position: "-",
+	});
 
 	const url = getDashboardUrl({
 		params,

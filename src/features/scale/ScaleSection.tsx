@@ -1,6 +1,6 @@
 import { DashboardProps } from "@/app/d/dashboardUrl";
 
-export const Scale = ({
+export const ScaleSection = ({
 	dashboardProps,
 }: {
 	dashboardProps: DashboardProps;
@@ -12,7 +12,7 @@ export const Scale = ({
 	const scale = keyScale.split("-").slice(1).join("-");
 
 	return (
-		<section>
+		<section data-title="Scale Section">
 			<h2>Scale</h2>
 			<div className="flex flex-col">
 				Key: {keyNote}

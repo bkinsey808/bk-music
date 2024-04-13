@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Merriweather } from "next/font/google";
 import Script from "next/script";
 
 import "./globals.css";
 import DarkModeProvider from "@/features/dark-mode/DarkModeProvider";
 import { DARK_MODE_LOCAL_STORAGE_KEY } from "@/features/dark-mode/consts";
 
-const inter = Inter({ subsets: ["latin"] });
+const merriweather = Merriweather({
+	weight: "400",
+	subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -29,7 +32,7 @@ export default function RootLayout({
                 }`}
 				</Script>
 			</head>
-			<body className={inter.className}>
+			<body className={merriweather.className}>
 				<DarkModeProvider>{children}</DarkModeProvider>
 			</body>
 		</html>

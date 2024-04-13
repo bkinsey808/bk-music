@@ -1,42 +1,54 @@
 import { DashboardProps, getDashboardUrl } from "@/app/d/dashboardUrl";
-import { Chord } from "@/features/chord/Chord";
-import { Fretboard } from "@/features/fretboard/Fretboard";
+import { ChordScaleDegreeSection } from "@/features/chord-scale-degree/ChordScaleDegreeSection";
+import { ChordScaleDegreeTitle } from "@/features/chord-scale-degree/ChordScaleDegreeTitle";
+import { ChordSpellingSection } from "@/features/chord-spelling/ChordSpellingSection";
+import { ChordSpellingTitle } from "@/features/chord-spelling/ChordSpellingTitle";
+import { ChordSection } from "@/features/chord/ChordSection";
+import { FretboardSection } from "@/features/fretboard/FretboardSection";
 import { AccordionItem } from "@/features/global/AccordionItem";
 import { PageColumn } from "@/features/global/PageColumn";
-import { Lyrics } from "@/features/lyrics/Lyrics";
-import { Positions } from "@/features/positions/Positions";
-import { ScaleDegrees } from "@/features/scale-degrees/ScaleDegrees";
-import { Scale } from "@/features/scale/Scale";
-import { Song } from "@/features/song/Song";
+import { LyricsSection } from "@/features/lyrics/LyricsSection";
+import { Positions } from "@/features/positions/PositionsSection";
+import { ScaleDegreesSection } from "@/features/scale-degrees/ScaleDegreesSection";
+import { ScaleSection } from "@/features/scale/ScaleSection";
+import { SongSection } from "@/features/song/SongSection";
 
 const sections = {
 	song: {
 		title: "Song",
-		component: Song,
+		section: SongSection,
 	},
 	lyrics: {
 		title: "Lyrics",
-		component: Lyrics,
+		section: LyricsSection,
 	},
 	scale: {
 		title: "Scale",
-		component: Scale,
+		section: ScaleSection,
 	},
 	scaleDegrees: {
 		title: "Scale Degrees",
-		component: ScaleDegrees,
+		section: ScaleDegreesSection,
 	},
 	chord: {
 		title: "Chord",
-		component: Chord,
+		section: ChordSection,
+	},
+	chordScaleDegree: {
+		title: ChordScaleDegreeTitle,
+		section: ChordScaleDegreeSection,
+	},
+	chordSpelling: {
+		title: ChordSpellingTitle,
+		section: ChordSpellingSection,
 	},
 	positions: {
 		title: "Positions",
-		component: Positions,
+		section: Positions,
 	},
 	fretboard: {
 		title: "Fretboard",
-		component: Fretboard,
+		section: FretboardSection,
 	},
 };
 
@@ -44,7 +56,12 @@ type Section = keyof typeof sections;
 
 const leftSections: Section[] = ["song", "lyrics"];
 const centerSections: Section[] = ["scale", "scaleDegrees", "fretboard"];
-const rightSections: Section[] = ["chord", "positions"];
+const rightSections: Section[] = [
+	"chord",
+	"chordScaleDegree",
+	"chordSpelling",
+	"positions",
+];
 const pageColumns = [leftSections, centerSections, rightSections];
 
 export default function Dashboard(dashboardProps: DashboardProps) {
@@ -54,13 +71,19 @@ export default function Dashboard(dashboardProps: DashboardProps) {
 				{pageColumns.map((pageColumn, columnIndex) => (
 					<PageColumn key={columnIndex}>
 						{pageColumn.map((section) => {
-							const { title, component: Section } = sections[section];
+							const { title: Title, section: Section } = sections[section];
 
 							return (
 								<AccordionItem
 									key={section}
 									id={section}
-									title={title}
+									title={
+										typeof Title === "string" ? (
+											Title
+										) : (
+											<Title dashboardProps={dashboardProps} />
+										)
+									}
 									pageProps={dashboardProps}
 									getPageUrl={getDashboardUrl}
 								>

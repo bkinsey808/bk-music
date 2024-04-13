@@ -2,7 +2,7 @@ import { FretboardCell } from "./FretboardCell";
 import { DashboardProps } from "@/app/d/dashboardUrl";
 import { range } from "@/features/math/range";
 
-export const Fretboard = ({
+export const FretboardSection = ({
 	dashboardProps,
 }: {
 	dashboardProps: DashboardProps;
@@ -11,7 +11,7 @@ export const Fretboard = ({
 	const maxFrets = 13;
 
 	return (
-		<section data-title="Fretboard">
+		<section data-title="Fretboard Section">
 			<div
 				data-title="Fretboard Grid"
 				style={{

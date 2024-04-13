@@ -1,13 +1,12 @@
 import { PagePropsGeneric } from "./types";
 
-export const setPageParam = <PageProps extends PagePropsGeneric>(
+export const setPageParams = <PageProps extends PagePropsGeneric>(
 	pageProps: PageProps,
-	key: keyof PageProps["params"],
-	value: string,
+	keyValues: Partial<PageProps["params"]>,
 ) => {
 	const newParams = {
 		...pageProps.params,
-		[key]: value,
+		...keyValues,
 	};
 
 	return newParams;

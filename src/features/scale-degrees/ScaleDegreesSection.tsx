@@ -2,7 +2,7 @@ import { ScaleDegree } from "./ScaleDegree";
 import { DashboardProps } from "@/app/d/dashboardUrl";
 import { getRomanNumerals } from "@/features/music/getRomanNumerals";
 
-export const ScaleDegrees = ({
+export const ScaleDegreesSection = ({
 	dashboardProps,
 }: {
 	dashboardProps: DashboardProps;
@@ -13,7 +13,10 @@ export const ScaleDegrees = ({
 	const scale = keyScale.split("-").slice(1).join("-");
 
 	return (
-		<section data-title="Chords" className="flex flex-col gap-[0.5rem]">
+		<section
+			data-title="Scale Degrees Section"
+			className="flex flex-col gap-[0.5rem]"
+		>
 			{getRomanNumerals(scale)?.map((romanNumeral) => (
 				<ScaleDegree
 					key={romanNumeral}
