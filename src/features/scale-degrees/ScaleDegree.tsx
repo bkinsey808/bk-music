@@ -1,20 +1,20 @@
+"use client";
+
 import { romanNumerals } from "../music/romanNumerals";
 import { ScaleDegreeChord } from "./ScaleDegreeChord";
-import { DashboardProps } from "@/app/d/dashboardUrl";
-// import { getScaleIndexFromRomanNumeral } from "@/features/music/getScaleIndexFromRomanNumeral";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { getChords } from "@/features/scale-degrees/getChords";
 
 interface ScaleDegreeProps {
-	scale: string;
 	romanNumeral: string;
-	dashboardProps: DashboardProps;
 }
 
-export const ScaleDegree = ({
-	scale,
-	romanNumeral,
-	dashboardProps,
-}: ScaleDegreeProps) => {
+export const ScaleDegree = ({ romanNumeral }: ScaleDegreeProps) => {
+	const { keyScale } = useDashboardState();
+
+	// scale is all of the elements after the first
+	const scale = keyScale.split("-").slice(1).join("-");
+
 	const romanNumeralIndex = romanNumerals.findIndex(
 		(r) => r.toLowerCase() === romanNumeral.toLowerCase(),
 	);
@@ -23,30 +23,16 @@ export const ScaleDegree = ({
 		scaleIndex: romanNumeralIndex,
 	});
 
-	const selectedChord = dashboardProps.params.chord;
-	const selectedChordParts = selectedChord.split("-");
-	const [, ...selectedChordSpellingArray] = selectedChordParts;
-	const selectedChordRomanNumeral = selectedChordParts[0];
-	const selectedChordSpelling = selectedChordSpellingArray.join("-");
-
 	return (
 		<div className="flex flex-row gap-[0.1rem]">
 			<div className="min-w-[2rem]">{romanNumeral}</div>
 			<div className="flex flex-row flex-wrap gap-[0.2rem]">
 				{chords?.map((chord) => {
-					const selected =
-						chord?.sci?.txtSpelling?.replaceAll(",", "-") ===
-							selectedChordSpelling &&
-						romanNumeral.toLowerCase() ===
-							selectedChordRomanNumeral.toLowerCase();
-
 					return (
 						<ScaleDegreeChord
 							key={chord?.sci?.txtSpelling}
-							sci={chord?.sci}
-							selected={selected}
-							dashboardProps={dashboardProps}
 							romanNumeral={romanNumeral}
+							sci={chord?.sci}
 						/>
 					);
 				})}

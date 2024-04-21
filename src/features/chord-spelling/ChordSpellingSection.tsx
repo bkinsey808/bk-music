@@ -1,10 +1,4 @@
-import { DashboardProps } from "@/app/d/dashboardUrl";
-
-export const ChordSpellingSection = ({
-	dashboardProps,
-}: {
-	dashboardProps: DashboardProps;
-}) => {
+export const ChordSpellingSection = () => {
 	return (
 		<section data-title="Chord Scale Degree Section">chord spelling</section>
 	);

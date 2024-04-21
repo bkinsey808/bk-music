@@ -1,40 +1,46 @@
+"ues client";
+
 import Link from "next/link";
 
 import { getChords } from "./getChords";
-import { DashboardProps, getDashboardUrl } from "@/app/d/dashboardUrl";
-import { setPageParams } from "@/features/state-url/setPageParams";
+import { useDashboardState } from "@/app/d/useDashboardState";
 
 interface ScaleDegreeChordProps {
 	sci:
 		| NonNullable<NonNullable<ReturnType<typeof getChords>>[number]>["sci"]
 		| undefined;
-	selected: boolean;
-	dashboardProps: DashboardProps;
 	romanNumeral: string;
 }
 
 export const ScaleDegreeChord = ({
 	sci,
-	selected,
-	dashboardProps,
 	romanNumeral,
 }: ScaleDegreeChordProps) => {
-	const params = setPageParams(dashboardProps, {
-		chord: `${romanNumeral?.toLowerCase()}-${sci?.txtSpelling?.replaceAll(",", "-")}`,
-		position: "-",
-	});
+	const { chord: selectedChord, getChordUrl, setChord } = useDashboardState();
 
-	const url = getDashboardUrl({
-		params,
-		searchParams: dashboardProps.searchParams,
-	});
+	const newChord = `${romanNumeral?.toLowerCase()}-${sci?.txtSpelling?.replaceAll(",", "-")}`;
+	const url = getChordUrl(newChord);
+
+	const selectedChordParts = selectedChord.split("-");
+	const [, ...selectedChordSpellingArray] = selectedChordParts;
+	const selectedChordRomanNumeral = selectedChordParts[0];
+	const selectedChordSpelling = selectedChordSpellingArray.join("-");
+
+	const selected =
+		sci?.txtSpelling?.replaceAll(",", "-") === selectedChordSpelling &&
+		romanNumeral.toLowerCase() === selectedChordRomanNumeral.toLowerCase();
 
 	return (
 		<Link
 			data-title="Scale Degree Chord"
 			data-selected={selected}
+			className="flex h-[2rem] cursor-pointer items-center border-[0.1rem] border-transparent px-[0.2rem] [&[data-selected='true']]:border-current"
 			href={url}
-			className="flex h-[2rem] items-center border-[0.1rem] border-transparent px-[0.2rem] [&[data-selected='true']]:border-current"
+			onClick={(e) => {
+				e.preventDefault();
+				setChord(newChord);
+				return false;
+			}}
 		>
 			{sci?.txtCode}
 		</Link>

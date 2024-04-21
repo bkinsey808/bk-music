@@ -1,28 +1,33 @@
+"use client";
+
 import Link from "next/link";
 
-import { DashboardProps, getDashboardUrl } from "@/app/d/dashboardUrl";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { getPositionArray } from "@/features/music/getPositionArrayget-position-array";
-import { setPageParams } from "@/features/state-url/setPageParams";
 
-export function Position({
-	position,
-	dashboardProps,
-}: {
-	position: string;
-	dashboardProps: DashboardProps;
-}) {
-	const params = setPageParams(dashboardProps, { position });
+export const Position = ({ position }: { position: string }) => {
+	const {
+		position: selectedPosition,
+		getPositionUrl,
+		setPosition,
+	} = useDashboardState();
 
-	const url = getDashboardUrl({
-		params,
-		searchParams: dashboardProps.searchParams,
-	});
-
-	const selected = position === dashboardProps.params.position;
+	const selected = position === selectedPosition;
 	const positionArray = getPositionArray(position);
 
+	const url = getPositionUrl(position);
+
 	return (
-		<Link data-title="Position" data-selected={selected} href={url}>
+		<Link
+			data-title="Position"
+			data-selected={selected}
+			href={url}
+			onClick={(e) => {
+				e.preventDefault();
+				setPosition(position);
+				return false;
+			}}
+		>
 			<div className="flex gap-[0.5rem] [&>div]:w-[1rem] [&>div]:text-end">
 				[
 				{positionArray.map((positionArrayElement, index) => (
@@ -32,4 +37,4 @@ export function Position({
 			</div>
 		</Link>
 	);
-}
+};

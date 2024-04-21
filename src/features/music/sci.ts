@@ -3,23 +3,23 @@ import * as Either from "effect/Either";
 
 import * as sciListJson from "@/features/music/sci-list.json";
 
-export const Sci = S.struct({
-	id: S.number,
-	txtName: S.string,
-	txtCode: S.string,
-	txtSpelling: S.string,
-	booPrefer: S.number,
-	numNote: S.number,
-	numOrdering: S.number,
-	numSymForms: S.number,
-	numHalfStepsInRow: S.number,
-	txtNumIntervalForm: S.string,
-	txtAltNames: S.string,
+export const Sci = S.Struct({
+	id: S.Number,
+	txtName: S.String,
+	txtCode: S.String,
+	txtSpelling: S.String,
+	booPrefer: S.Number,
+	numNote: S.Number,
+	numOrdering: S.Number,
+	numSymForms: S.Number,
+	numHalfStepsInRow: S.Number,
+	txtNumIntervalForm: S.String,
+	txtAltNames: S.String,
 });
 
 export type SciType = S.Schema.Type<typeof Sci>;
 
-export const SciList = S.array(Sci);
+export const SciList = S.Array(Sci);
 
 // I don't understand why this manual processing seems to be needed
 const sciListArray = Array.isArray(sciListJson)

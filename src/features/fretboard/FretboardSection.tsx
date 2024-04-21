@@ -1,13 +1,12 @@
+"use client";
+
 import { FretboardCell } from "./FretboardCell";
-import { DashboardProps } from "@/app/d/dashboardUrl";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { range } from "@/features/math/range";
 
-export const FretboardSection = ({
-	dashboardProps,
-}: {
-	dashboardProps: DashboardProps;
-}) => {
-	const tuningArray = dashboardProps.params.tuning.split("-");
+export const FretboardSection = () => {
+	const { tuning } = useDashboardState();
+	const tuningArray = tuning.split("-");
 	const maxFrets = 13;
 
 	return (
@@ -18,7 +17,7 @@ export const FretboardSection = ({
 					"--max-frets": maxFrets,
 					"--courses": tuningArray.length,
 				}}
-				className="grid grid-flow-col grid-cols-[1.5rem_repeat(var(--courses),1fr)_1rem] grid-rows-[1rem_1fr_0.25rem_repeat(calc(var(--max-frets)-1),1fr)] gap-[0.25rem]"
+				className="grid grid-flow-col grid-cols-[1.5rem_repeat(var(--courses),1fr)_1rem] grid-rows-[2rem_1fr_0.25rem_repeat(calc(var(--max-frets)-1),1fr)] gap-[0.25rem]"
 			>
 				<div
 					data-title="Zeroth fret"
@@ -47,34 +46,31 @@ export const FretboardSection = ({
 				))}
 
 				{range(tuningArray.length).map((course) => (
-					<>
+					<div
+						key={`course-${course}`}
+						style={{
+							"--course": course + 1,
+						}}
+						className="row-1 col-[calc(var(--course)+1)] flex justify-center"
+					>
+						<span>Course {course}</span>
+					</div>
+				))}
+				{range(tuningArray.length).map((course) =>
+					range(maxFrets).map((fret) => (
 						<div
+							data-title="Fretboard cell wrapper"
+							key={`${course}-${fret}`}
 							style={{
 								"--course": course + 1,
+								"--fret": fret + (fret > 0 ? 2 : 1),
 							}}
-							className="row-1 col-[calc(var(--course)+1)] flex h-[0.5rem] justify-center"
+							className="col-[calc(var(--course)+1)] row-[calc(var(--fret)+1)]"
 						>
-							<span>Course {course}</span>
+							<FretboardCell course={course} fret={fret} />
 						</div>
-						{range(maxFrets).map((fret) => (
-							<div
-								data-title="Fretboard cell wrapper"
-								key={`${course}-${fret}`}
-								style={{
-									"--course": course + 1,
-									"--fret": fret + (fret > 0 ? 2 : 1),
-								}}
-								className="col-[calc(var(--course)+1)] row-[calc(var(--fret)+1)]"
-							>
-								<FretboardCell
-									course={course}
-									fret={fret}
-									dashboardProps={dashboardProps}
-								/>
-							</div>
-						))}
-					</>
-				))}
+					)),
+				)}
 			</div>
 		</section>
 	);

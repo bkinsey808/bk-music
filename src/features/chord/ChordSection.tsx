@@ -1,19 +1,16 @@
-import { DashboardProps } from "@/app/d/dashboardUrl";
+"use client";
+
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { getCasedRomanNumeral } from "@/features/music/getCasedRomanNumeral";
 import { getSciBySpelling } from "@/features/music/sci";
 
-export const ChordSection = ({
-	dashboardProps,
-}: {
-	dashboardProps: DashboardProps;
-}) => {
-	const selectedChordParts = dashboardProps.params.chord.split("-");
+export const ChordSection = () => {
+	const { chord, keyScale } = useDashboardState();
+	const selectedChordParts = chord.split("-");
 	const selectedChordRomanNumeral = selectedChordParts[0];
 	const [, ...selectedChordSpellingArray] = selectedChordParts;
 	const selectedChordSpelling = selectedChordSpellingArray.join("-");
 	const sci = getSciBySpelling(selectedChordSpelling);
-
-	const { keyScale } = dashboardProps.params;
 
 	const scale = keyScale.split("-").slice(1).join("-");
 

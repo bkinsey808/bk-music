@@ -1,11 +1,10 @@
-import { DashboardProps } from "@/app/d/dashboardUrl";
+"use client";
 
-export const ChordSpellingTitle = ({
-	dashboardProps,
-}: {
-	dashboardProps: DashboardProps;
-}) => {
-	const selectedChordParts = dashboardProps.params.chord.split("-");
+import { useDashboardState } from "@/app/d/useDashboardState";
+
+export const ChordSpellingTitle = () => {
+	const { chord } = useDashboardState();
+	const selectedChordParts = chord.split("-");
 	const [, ...selectedChordSpellingArray] = selectedChordParts;
 	const selectedChordSpelling = selectedChordSpellingArray.join(" ");
 

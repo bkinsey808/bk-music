@@ -1,16 +1,15 @@
+"use client";
+
 import { Position } from "./Position";
-import { DashboardProps } from "@/app/d/dashboardUrl";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { getPositions } from "@/features/music/getPositions";
 
-export function Positions({
-	dashboardProps,
-}: {
-	dashboardProps: DashboardProps;
-}) {
+export function Positions() {
+	const { chord, keyScale, tuning } = useDashboardState();
 	const PositionsSection = getPositions({
-		chord: dashboardProps.params.chord,
-		keyNote: dashboardProps.params.keyScale.split("-")[0],
-		tuning: dashboardProps.params.tuning,
+		chord,
+		keyNote: keyScale.split("-")[0],
+		tuning,
 		maxFret: 12,
 		maxFretSpan: 4,
 		maxMuted: 1,
@@ -21,11 +20,7 @@ export function Positions({
 			className="flex flex-wrap gap-x-[1rem] [&>a[data-selected='true']]:border-current [&>a]:border-[0.1rem] [&>a]:border-transparent [&>a]:px-[0.5rem]"
 		>
 			{PositionsSection.map((position) => (
-				<Position
-					key={position}
-					dashboardProps={dashboardProps}
-					position={position}
-				/>
+				<Position key={position} position={position} />
 			))}
 		</section>
 	);

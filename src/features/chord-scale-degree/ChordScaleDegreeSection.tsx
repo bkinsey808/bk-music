@@ -1,22 +1,20 @@
+"use client";
+
 import { range } from "../math/range";
 import { getCasedRomanNumeral } from "../music/getCasedRomanNumeral";
 import { getInKeyScale } from "../music/getInKeyScale";
 import { romanNumerals } from "../music/romanNumerals";
 import { getSciBySpelling } from "../music/sci";
 import { ChordScaleDegree } from "./ChordScaleDegree";
-import { DashboardProps } from "@/app/d/dashboardUrl";
+import { useDashboardState } from "@/app/d/useDashboardState";
 
-export const ChordScaleDegreeSection = ({
-	dashboardProps,
-}: {
-	dashboardProps: DashboardProps;
-}) => {
-	const selectedChordParts = dashboardProps.params.chord.split("-");
+export const ChordScaleDegreeSection = () => {
+	const { chord: selectedChord, keyScale } = useDashboardState();
+
+	const selectedChordParts = selectedChord.split("-");
 	const [, ...selectedChordSpellingArray] = selectedChordParts;
 	const selectedChordSpelling = selectedChordSpellingArray.join("-");
 	const sci = getSciBySpelling(selectedChordSpelling);
-
-	const { keyScale } = dashboardProps.params;
 
 	const scale = keyScale.split("-").slice(1).join("-");
 
@@ -27,7 +25,7 @@ export const ChordScaleDegreeSection = ({
 		return {
 			romanNumeral,
 			chord,
-			selected: chord === dashboardProps.params.chord,
+			selected: chord === selectedChord,
 			inKeyScale: getInKeyScale(chord, keyScale),
 		};
 	});
@@ -35,7 +33,7 @@ export const ChordScaleDegreeSection = ({
 	return (
 		<section
 			data-title="Chord Scale Degree Section"
-			className="grid w-[calc(100%-1rem)] grid-cols-[repeat(6,1fr)]"
+			className="grid grid-cols-[repeat(6,1fr)]"
 		>
 			{casedRomanNumerals.map(
 				({ selected, romanNumeral, chord, inKeyScale }) => (
@@ -46,7 +44,6 @@ export const ChordScaleDegreeSection = ({
 						selected={selected}
 						romanNumeral={romanNumeral}
 						chordCode={sci?.txtCode}
-						dashboardProps={dashboardProps}
 					/>
 				),
 			)}

@@ -1,4 +1,3 @@
-import { DashboardProps, getDashboardUrl } from "@/app/d/dashboardUrl";
 import { ChordScaleDegreeSection } from "@/features/chord-scale-degree/ChordScaleDegreeSection";
 import { ChordScaleDegreeTitle } from "@/features/chord-scale-degree/ChordScaleDegreeTitle";
 import { ChordSpellingSection } from "@/features/chord-spelling/ChordSpellingSection";
@@ -14,86 +13,101 @@ import { ScaleDegreesSection } from "@/features/scale-degrees/ScaleDegreesSectio
 import { ScaleSection } from "@/features/scale/ScaleSection";
 import { SongSection } from "@/features/song/SongSection";
 
-const sections = {
-	song: {
+const enum Section {
+	SONG = "so",
+	LYRICS = "l",
+	SCALE = "sc",
+	SCALE_DEGREES = "sd",
+	CHORD = "c",
+	CHORD_SCALE_DEGREE = "csd",
+	CHORD_SPELLING = "cs",
+	POSITIONS = "ps",
+	FRETBOARD = "f",
+	QRCODE = "q",
+}
+
+type DashboardComponent = () => JSX.Element;
+
+const sections: Record<
+	Section,
+	{
+		title: DashboardComponent | string;
+		section: DashboardComponent;
+	}
+> = {
+	[Section.SONG]: {
 		title: "Song",
 		section: SongSection,
 	},
-	lyrics: {
+	[Section.LYRICS]: {
 		title: "Lyrics",
 		section: LyricsSection,
 	},
-	scale: {
+	[Section.SCALE]: {
 		title: "Scale",
 		section: ScaleSection,
 	},
-	scaleDegrees: {
+	[Section.SCALE_DEGREES]: {
 		title: "Scale Degrees",
 		section: ScaleDegreesSection,
 	},
-	chord: {
+	[Section.CHORD]: {
 		title: "Chord",
 		section: ChordSection,
 	},
-	chordScaleDegree: {
+	[Section.CHORD_SCALE_DEGREE]: {
 		title: ChordScaleDegreeTitle,
 		section: ChordScaleDegreeSection,
 	},
-	chordSpelling: {
+	[Section.CHORD_SPELLING]: {
 		title: ChordSpellingTitle,
 		section: ChordSpellingSection,
 	},
-	positions: {
+	[Section.POSITIONS]: {
 		title: "Positions",
 		section: Positions,
 	},
-	fretboard: {
+	[Section.FRETBOARD]: {
 		title: "Fretboard",
 		section: FretboardSection,
 	},
-	qrcode: {
+	[Section.QRCODE]: {
 		title: "QR Code",
 		section: QRCodeSection,
 	},
 };
 
-type Section = keyof typeof sections;
-
-const leftSections: Section[] = ["song", "lyrics"];
-const centerSections: Section[] = ["scale", "scaleDegrees", "fretboard"];
+const leftSections: Section[] = [Section.SONG, Section.LYRICS];
+const centerSections: Section[] = [
+	Section.SCALE,
+	Section.SCALE_DEGREES,
+	Section.FRETBOARD,
+];
 const rightSections: Section[] = [
-	"chord",
-	"chordScaleDegree",
-	"chordSpelling",
-	"positions",
-	"qrcode",
+	Section.CHORD,
+	Section.CHORD_SCALE_DEGREE,
+	Section.CHORD_SPELLING,
+	Section.POSITIONS,
+	Section.QRCODE,
 ];
 const pageColumns = [leftSections, centerSections, rightSections];
 
-export default function Dashboard(dashboardProps: DashboardProps) {
+export default function Dashboard() {
 	return (
 		<div className="@container">
-			<main className="grid grid-cols-1 gap-[0.5rem] @[1700px]:grid-cols-3">
+			<main className="grid grid-cols-1 @[1700px]:grid-cols-3">
 				{pageColumns.map((pageColumn, columnIndex) => (
 					<PageColumn key={columnIndex}>
-						{pageColumn.map((section) => {
+						{pageColumn.map(async (section) => {
 							const { title: Title, section: Section } = sections[section];
 
 							return (
 								<AccordionItem
 									key={section}
 									id={section}
-									title={
-										typeof Title === "string" ? (
-											Title
-										) : (
-											<Title dashboardProps={dashboardProps} />
-										)
-									}
-									pageProps={dashboardProps}
-									getPageUrl={getDashboardUrl}
+									title={typeof Title === "string" ? Title : <Title />}
 								>
-									<Section dashboardProps={dashboardProps} />
+									<Section />
 								</AccordionItem>
 							);
 						})}

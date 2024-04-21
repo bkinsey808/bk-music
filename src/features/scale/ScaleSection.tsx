@@ -1,11 +1,9 @@
-import { DashboardProps } from "@/app/d/dashboardUrl";
+"use client";
 
-export const ScaleSection = ({
-	dashboardProps,
-}: {
-	dashboardProps: DashboardProps;
-}) => {
-	const { keyScale } = dashboardProps.params;
+import { useDashboardState } from "@/app/d/useDashboardState";
+
+export const ScaleSection = () => {
+	const { keyScale } = useDashboardState();
 	const keyNote = keyScale.split("-")[0];
 
 	// scale is all of the elements after the first
@@ -22,4 +20,3 @@ export const ScaleSection = ({
 		</section>
 	);
 };
-0;
