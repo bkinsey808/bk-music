@@ -15,12 +15,13 @@ export const AccordionItem = ({
 }) => {
 	const detailsRef = useRef<HTMLDetailsElement>(null);
 
-	const { accordionOpen, toggleAccordion } = useDashboardState();
+	const { isAccordionOpen, toggleAccordion } = useDashboardState();
 
 	const handleToggle = useCallback(async () => {
 		toggleAccordion(id);
 	}, [id, toggleAccordion]);
 	const details = detailsRef.current;
+	const accordionOpen = isAccordionOpen(id);
 
 	// add listener to details element to update query params
 	useEffect(() => {
@@ -29,8 +30,9 @@ export const AccordionItem = ({
 		}
 
 		(async () => {
-			details.open = accordionOpen(id);
+			details.open = accordionOpen;
 
+			// wait long enough so that setting the open attribute doesn't trigger the toggle event
 			await new Promise((resolve) => setTimeout(resolve, 0));
 
 			details.addEventListener("toggle", handleToggle);
@@ -43,8 +45,18 @@ export const AccordionItem = ({
 	}, [details, handleToggle, id]);
 
 	return (
-		<details id={id} ref={detailsRef}>
-			<summary className="mb-[0.75rem] cursor-pointer">{title}</summary>
+		<details id={id} ref={detailsRef} data-open={accordionOpen}>
+			<summary
+				className="mb-[0.75rem] flex cursor-pointer flex-row
+       flex-nowrap gap-[0.5rem]"
+			>
+				<div>
+					<div className="transition-all [[data-open='true']>summary>div>&]:rotate-90">
+						▶
+					</div>
+				</div>
+				{title}
+			</summary>
 			{children}
 		</details>
 	);

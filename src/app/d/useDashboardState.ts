@@ -80,7 +80,7 @@ export const dashboardStateReducer = (
 export type DashboardStateContextProps = {
 	appState: DashboardState;
 	dispatch: Dispatch<DashboardAction>;
-	accordionOpen: (id: string) => boolean;
+	isAccordionOpen: (id: string) => boolean;
 	toggleAccordion: (id: string) => void;
 	song: string;
 	setSong: (song: string) => void;
@@ -119,7 +119,7 @@ export const useDashboardState = (): DashboardStateContextProps => {
 	const tuning = context.appState[DashboardStateKey.TUNING];
 	const position = context.appState[DashboardStateKey.POSITION];
 
-	const accordionOpen = (id: string) =>
+	const isAccordionOpen = (id: string) =>
 		context.appState[DashboardStateKey.OPEN_ACCORDION_IDS]?.includes(id);
 
 	const toggleAccordion = (id: string) => {
@@ -178,7 +178,7 @@ export const useDashboardState = (): DashboardStateContextProps => {
 
 	return {
 		...context,
-		accordionOpen,
+		isAccordionOpen,
 		toggleAccordion,
 		song,
 		setSong,

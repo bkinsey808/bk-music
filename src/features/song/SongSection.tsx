@@ -14,6 +14,9 @@ export const SongSection = () => {
 				onChange={(e) => {
 					setSong(e.target.value);
 				}}
+				onBlur={(e) => {
+					setSong(e.target.value.trim());
+				}}
 			/>
 		</section>
 	);

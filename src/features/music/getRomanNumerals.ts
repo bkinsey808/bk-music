@@ -3,6 +3,10 @@ import { getSpellingFromNoteNumber } from "./getSpellingFromNoteNumber";
 import { romanNumerals } from "./romanNumerals";
 
 export const getRomanNumerals = (scale: string) => {
+	if (!scale) {
+		return [];
+	}
+
 	const scaleNumbers = getSciNumbers(scale);
 
 	return scaleNumbers.map((scaleNumber, index) => {

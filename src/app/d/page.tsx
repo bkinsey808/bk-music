@@ -12,6 +12,7 @@ import { QRCodeSection } from "@/features/qrcode/QRCodeSection";
 import { ScaleDegreesSection } from "@/features/scale-degrees/ScaleDegreesSection";
 import { ScaleSection } from "@/features/scale/ScaleSection";
 import { SongSection } from "@/features/song/SongSection";
+import { SongTitle } from "@/features/song/SongTitle";
 
 const enum Section {
 	SONG = "so",
@@ -36,7 +37,7 @@ const sections: Record<
 	}
 > = {
 	[Section.SONG]: {
-		title: "Song",
+		title: SongTitle,
 		section: SongSection,
 	},
 	[Section.LYRICS]: {
