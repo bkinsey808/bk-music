@@ -1,4 +1,4 @@
-import { getPositionArray } from "./getPositionArrayget-position-array";
+import { getPositionArray } from "./getPositionArray";
 import { getTuningNumbers } from "./getTuningNumbers";
 
 export const getPositionNumbers = (position: string, tuning: string) => {

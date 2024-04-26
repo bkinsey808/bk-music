@@ -36,7 +36,7 @@ describe("getChords", () => {
 			"Con",
 		];
 		const results = getChords({
-			scale: "2-3-4-5-6-7",
+			scale: "2-3-4-5-6-7".split("-"),
 			minNotes: 3,
 			scaleIndex: 2,
 		});

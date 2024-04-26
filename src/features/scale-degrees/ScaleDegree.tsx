@@ -10,10 +10,7 @@ interface ScaleDegreeProps {
 }
 
 export const ScaleDegree = ({ romanNumeral }: ScaleDegreeProps) => {
-	const { keyScale } = useDashboardState();
-
-	// scale is all of the elements after the first
-	const scale = keyScale.split("-").slice(1).join("-");
+	const { scale } = useDashboardState();
 
 	const romanNumeralIndex = romanNumerals.findIndex(
 		(r) => r.toLowerCase() === romanNumeral.toLowerCase(),
@@ -25,8 +22,10 @@ export const ScaleDegree = ({ romanNumeral }: ScaleDegreeProps) => {
 
 	return (
 		<div className="flex flex-row gap-[0.1rem]">
-			<div className="min-w-[2rem]">{romanNumeral}</div>
-			<div className="flex flex-row flex-wrap gap-[0.2rem]">
+			<div className="flex min-w-[2rem] items-center justify-center border-[0.1rem] border-current bg-[var(--color-cell-background-in-scale)] text-lg font-bold text-[hsl(var(--background))]">
+				{romanNumeral}
+			</div>
+			<div className="flex flex-row flex-wrap gap-[0.2rem] align-baseline">
 				{chords?.map((chord) => {
 					return (
 						<ScaleDegreeChord

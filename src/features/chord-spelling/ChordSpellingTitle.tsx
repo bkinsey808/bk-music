@@ -4,7 +4,7 @@ import { useDashboardState } from "@/app/d/useDashboardState";
 
 export const ChordSpellingTitle = () => {
 	const { chord } = useDashboardState();
-	const selectedChordParts = chord.split("-");
+	const selectedChordParts = chord;
 	const [, ...selectedChordSpellingArray] = selectedChordParts;
 	const selectedChordSpelling = selectedChordSpellingArray.join(" ");
 

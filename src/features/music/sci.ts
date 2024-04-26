@@ -36,5 +36,5 @@ export const sciList = Either.isRight(parseEitherResult)
 
 export const sciListError = Either.isLeft(parseEitherResult);
 
-export const getSciBySpelling = (spelling: string) =>
-	sciList?.find((sci) => sci.txtSpelling === spelling.replaceAll("-", ","));
+export const getSciBySpelling = (spelling: readonly string[]) =>
+	sciList?.find((sci) => sci.txtSpelling === spelling.join(","));

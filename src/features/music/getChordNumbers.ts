@@ -1,9 +1,13 @@
 import { getNoteNumber } from "./getNoteNumber";
 import { getScaleIndexFromRomanNumeral } from "./getScaleIndexFromRomanNumeral";
 import { scaleDegrees } from "./scaleDegrees";
+import { useDashboardState } from "@/app/d/useDashboardState";
 
-export const getChordNumbers = (chord: string, scaleKeyNote?: string) => {
-	const chordParts = chord.split("-");
+export const getChordNumbers = (
+	chord: ReturnType<typeof useDashboardState>["chord"],
+	scaleKeyNote?: string,
+) => {
+	const chordParts = chord;
 
 	const chordRomanNumeral = chordParts[0];
 	// console.log({ chordRomanNumeral });

@@ -6,7 +6,7 @@ import { getFullUrl } from "./getFullUrl";
 
 export const QRCodeSection = () => {
 	return (
-		<div className="bg-white p-[2rem]">
+		<div className="max-h-[50vh] max-w-[50vh] bg-white p-[2rem]">
 			<QRCode
 				size={256}
 				style={{ height: "auto", maxWidth: "100%", width: "100%" }}

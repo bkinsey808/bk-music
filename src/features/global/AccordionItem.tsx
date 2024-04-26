@@ -46,10 +46,7 @@ export const AccordionItem = ({
 
 	return (
 		<details id={id} ref={detailsRef} data-open={accordionOpen}>
-			<summary
-				className="mb-[0.75rem] flex cursor-pointer flex-row
-       flex-nowrap gap-[0.5rem]"
-			>
+			<summary className="mb-[0.25rem] flex cursor-pointer flex-row flex-nowrap gap-[0.5rem]">
 				<div>
 					<div className="transition-all [[data-open='true']>summary>div>&]:rotate-90">
 						▶

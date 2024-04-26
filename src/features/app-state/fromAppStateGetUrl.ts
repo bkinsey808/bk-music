@@ -1,7 +1,9 @@
 import { getKeys } from "../global/getKeys";
 
 export const fromAppStateGetUrl = <
-	AppStateType extends { [key: string]: string | readonly string[] },
+	AppStateType extends {
+		[key: string]: string | readonly string[];
+	},
 >({
 	appState,
 	appStateKeys,

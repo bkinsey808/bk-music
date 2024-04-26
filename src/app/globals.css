@@ -32,4 +32,5 @@ body {
 	color: hsl(var(--foreground));
 	border-color: hsl(var(--border));
 	--color-cell-background-in-scale: gray;
+	--section-gap: 1rem;
 }

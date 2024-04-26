@@ -5,10 +5,7 @@ import { useDashboardState } from "@/app/d/useDashboardState";
 import { getRomanNumerals } from "@/features/music/getRomanNumerals";
 
 export const ScaleDegreesSection = () => {
-	const { keyScale } = useDashboardState();
-
-	// scale is all of the elements after the first
-	const scale = keyScale.split("-").slice(1).join("-");
+	const { scale } = useDashboardState();
 
 	return (
 		<section

@@ -6,13 +6,12 @@ import { romanNumerals } from "../music/romanNumerals";
 import { useDashboardState } from "@/app/d/useDashboardState";
 
 export const ChordScaleDegreeTitle = () => {
-	const { chord: selectedChord, keyScale } = useDashboardState();
-	const selectedChordParts = selectedChord.split("-");
+	const { chord: selectedChord, keyNote } = useDashboardState();
+	const selectedChordParts = selectedChord;
 	const selectedChordRomanNumeral = selectedChordParts[0];
 	const romanNumeralIndex = romanNumerals.findIndex(
-		(r) => r.toLowerCase() === selectedChordRomanNumeral.toLowerCase(),
+		(r) => r?.toLowerCase() === selectedChordRomanNumeral?.toLowerCase(),
 	);
-	const keyNote = keyScale.split("-")[0];
 	const keyNoteNumber = getNoteNumber(keyNote) ?? 0;
 	const chordStartingNoteNumber = (keyNoteNumber + romanNumeralIndex) % 12;
 	const chordStartingNote = getNoteFromNumber({
@@ -22,7 +21,7 @@ export const ChordScaleDegreeTitle = () => {
 
 	return (
 		<span>
-			Chord Scale Degree: {selectedChordRomanNumeral.replace("b", "♭")} (
+			Chord Scale Degree: {selectedChordRomanNumeral?.replace("b", "♭")} (
 			{chordStartingNote.replace("b", "♭")})
 		</span>
 	);

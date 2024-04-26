@@ -4,30 +4,36 @@ import { Dispatch, useContext } from "react";
 import { fromAppStateGetUrl } from "@/features/app-state/fromAppStateGetUrl";
 import { toggleArrayItem } from "@/features/app-state/toggleArrayItem";
 import { AppStateContext } from "@/features/app-state/useAppState";
+import { scaleDegrees } from "@/features/music/scaleDegrees";
 
 export const dashboardInitialPath = "/d";
 export const enum DashboardActionType {
 	TOGGLE_ACCORDION = "toggleAccordion",
+	TOGGLE_SCALE_DEGREE = "toggleScaleDegree",
 	SET_KEY_VALUE = "setKeyValue",
 }
 
 export enum DashboardStateKey {
 	SONG = "s",
+	LYRICS = "l",
 	OPEN_ACCORDION_IDS = "o",
 
 	TUNING = "t",
-	KEY_SCALE = "ks",
+	KEY_NOTE = "k",
+	SCALE = "sc",
 	CHORD = "c",
 	POSITION = "p",
 }
 
 export const dashboardSchemaOption = {
 	[DashboardStateKey.TUNING]: S.String,
-	[DashboardStateKey.KEY_SCALE]: S.String,
-	[DashboardStateKey.CHORD]: S.String,
+	[DashboardStateKey.KEY_NOTE]: S.String,
+	[DashboardStateKey.SCALE]: S.Array(S.String),
+	[DashboardStateKey.CHORD]: S.Array(S.String),
 	[DashboardStateKey.POSITION]: S.String,
 	[DashboardStateKey.OPEN_ACCORDION_IDS]: S.Array(S.String),
 	[DashboardStateKey.SONG]: S.String,
+	[DashboardStateKey.LYRICS]: S.String,
 };
 
 const DashboardStateSchema = S.Struct(dashboardSchemaOption);
@@ -39,6 +45,10 @@ export type DashboardAction =
 	| {
 			type: DashboardActionType.TOGGLE_ACCORDION;
 			payload: { id: string };
+	  }
+	| {
+			type: DashboardActionType.TOGGLE_SCALE_DEGREE;
+			payload: { scaleDegree: string };
 	  }
 	| {
 			type: DashboardActionType.SET_KEY_VALUE;
@@ -60,11 +70,26 @@ export const dashboardStateReducer = (
 ): DashboardState => {
 	switch (action.type) {
 		case DashboardActionType.TOGGLE_ACCORDION:
-			return toggleArrayItem(
+			return toggleArrayItem({
 				state,
-				DashboardStateKey.OPEN_ACCORDION_IDS,
-				action.payload.id,
-			);
+				key: DashboardStateKey.OPEN_ACCORDION_IDS,
+				id: action.payload.id,
+			});
+
+		case DashboardActionType.TOGGLE_SCALE_DEGREE:
+			return toggleArrayItem({
+				state,
+				key: DashboardStateKey.SCALE,
+				id: action.payload.scaleDegree,
+				sorter: (
+					a: (typeof scaleDegrees)[number],
+					b: (typeof scaleDegrees)[number],
+				) => {
+					const aScaleDegreeNumber = scaleDegrees.indexOf(a);
+					const bScaleDegreeNumber = scaleDegrees.indexOf(b);
+					return aScaleDegreeNumber - bScaleDegreeNumber;
+				},
+			});
 
 		case DashboardActionType.SET_KEY_VALUE:
 			return {
@@ -80,18 +105,25 @@ export const dashboardStateReducer = (
 export type DashboardStateContextProps = {
 	appState: DashboardState;
 	dispatch: Dispatch<DashboardAction>;
-	isAccordionOpen: (id: string) => boolean;
-	toggleAccordion: (id: string) => void;
 	song: string;
-	setSong: (song: string) => void;
-	keyScale: string;
-	chord: string;
-	setChord: (chord: string) => void;
-	getChordUrl: (chord: string) => string;
+	lyrics: string;
+	keyNote: string;
+	scale: readonly string[];
+	chord: readonly string[];
 	tuning: string;
 	position: string;
+	isAccordionOpen: (id: string) => boolean;
+	toggleAccordion: (id: string) => void;
+	isScaleDegreeInScale: (scaleDegree: string) => boolean;
+	toggleScaleDegree: (scaleDegree: string) => void;
+	setSong: (song: string) => void;
+	setLyrics(lyrics: string): void;
+	setChord: (chord: readonly string[]) => void;
+	getChordUrl: (chord: readonly string[]) => string;
 	setPosition: (position: string) => void;
 	getPositionUrl: (position: string) => string;
+	setKeyNote: (keyNote: string) => void;
+	getKeyNoteUrl: (keyNote: string) => string;
 };
 
 const fromDashboardStateGetUrl = (state: DashboardState) =>
@@ -113,12 +145,6 @@ export const useDashboardState = (): DashboardStateContextProps => {
 		);
 	}
 
-	const song = context.appState[DashboardStateKey.SONG];
-	const keyScale = context.appState[DashboardStateKey.KEY_SCALE];
-	const chord = context.appState[DashboardStateKey.CHORD];
-	const tuning = context.appState[DashboardStateKey.TUNING];
-	const position = context.appState[DashboardStateKey.POSITION];
-
 	const isAccordionOpen = (id: string) =>
 		context.appState[DashboardStateKey.OPEN_ACCORDION_IDS]?.includes(id);
 
@@ -129,6 +155,16 @@ export const useDashboardState = (): DashboardStateContextProps => {
 		});
 	};
 
+	const isScaleDegreeInScale = (scaleDegree: string) =>
+		context.appState[DashboardStateKey.SCALE]?.includes(scaleDegree);
+
+	const toggleScaleDegree = (scaleDegree: string) => {
+		context.dispatch({
+			type: DashboardActionType.TOGGLE_SCALE_DEGREE,
+			payload: { scaleDegree },
+		});
+	};
+
 	const setSong = (song: string) => {
 		context.dispatch({
 			type: DashboardActionType.SET_KEY_VALUE,
@@ -136,7 +172,14 @@ export const useDashboardState = (): DashboardStateContextProps => {
 		});
 	};
 
-	const setChord = (chord: string) => {
+	const setLyrics = (lyrics: string) => {
+		context.dispatch({
+			type: DashboardActionType.SET_KEY_VALUE,
+			payload: { key: DashboardStateKey.LYRICS, value: lyrics },
+		});
+	};
+
+	const setChord = (chord: readonly string[]) => {
 		context.dispatch({
 			type: DashboardActionType.SET_KEY_VALUE,
 			payload: { key: DashboardStateKey.CHORD, value: chord },
@@ -150,11 +193,20 @@ export const useDashboardState = (): DashboardStateContextProps => {
 		}
 	};
 
-	const getChordUrl = (chord: string) => {
+	const getChordUrl = (chord: readonly string[]) => {
 		const newState = {
 			...context.appState,
 			[DashboardStateKey.POSITION]: "",
 			[DashboardStateKey.CHORD]: chord,
+		};
+
+		return fromDashboardStateGetUrl(newState);
+	};
+
+	const getKeyNoteUrl = (keyNote: string) => {
+		const newState = {
+			...context.appState,
+			[DashboardStateKey.KEY_NOTE]: keyNote,
 		};
 
 		return fromDashboardStateGetUrl(newState);
@@ -176,19 +228,33 @@ export const useDashboardState = (): DashboardStateContextProps => {
 		return fromDashboardStateGetUrl(newState);
 	};
 
+	const setKeyNote = (keyNote: string) => {
+		context.dispatch({
+			type: DashboardActionType.SET_KEY_VALUE,
+			payload: { key: DashboardStateKey.KEY_NOTE, value: keyNote },
+		});
+	};
+
 	return {
 		...context,
+		song: context.appState[DashboardStateKey.SONG],
+		lyrics: context.appState[DashboardStateKey.LYRICS],
+		keyNote: context.appState[DashboardStateKey.KEY_NOTE],
+		scale: context.appState[DashboardStateKey.SCALE],
+		chord: context.appState[DashboardStateKey.CHORD],
+		tuning: context.appState[DashboardStateKey.TUNING],
+		position: context.appState[DashboardStateKey.POSITION],
 		isAccordionOpen,
 		toggleAccordion,
-		song,
 		setSong,
-		keyScale,
-		chord,
+		setLyrics,
 		setChord,
 		getChordUrl,
-		tuning,
-		position,
 		setPosition,
 		getPositionUrl,
+		setKeyNote,
+		getKeyNoteUrl,
+		isScaleDegreeInScale,
+		toggleScaleDegree,
 	};
 };

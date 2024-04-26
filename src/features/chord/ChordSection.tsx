@@ -5,14 +5,11 @@ import { getCasedRomanNumeral } from "@/features/music/getCasedRomanNumeral";
 import { getSciBySpelling } from "@/features/music/sci";
 
 export const ChordSection = () => {
-	const { chord, keyScale } = useDashboardState();
-	const selectedChordParts = chord.split("-");
+	const { chord, scale } = useDashboardState();
+	const selectedChordParts = chord;
 	const selectedChordRomanNumeral = selectedChordParts[0];
 	const [, ...selectedChordSpellingArray] = selectedChordParts;
-	const selectedChordSpelling = selectedChordSpellingArray.join("-");
-	const sci = getSciBySpelling(selectedChordSpelling);
-
-	const scale = keyScale.split("-").slice(1).join("-");
+	const sci = getSciBySpelling(selectedChordSpellingArray);
 
 	return (
 		<section data-title="Chord Section">

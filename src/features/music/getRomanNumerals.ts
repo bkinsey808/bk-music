@@ -1,8 +1,11 @@
 import { getSciNumbers } from "./getSciNumbers";
 import { getSpellingFromNoteNumber } from "./getSpellingFromNoteNumber";
 import { romanNumerals } from "./romanNumerals";
+import { useDashboardState } from "@/app/d/useDashboardState";
 
-export const getRomanNumerals = (scale: string) => {
+export const getRomanNumerals = (
+	scale: ReturnType<typeof useDashboardState>["scale"],
+) => {
 	if (!scale) {
 		return [];
 	}

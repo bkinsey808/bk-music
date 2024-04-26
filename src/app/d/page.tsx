@@ -6,17 +6,22 @@ import { ChordSection } from "@/features/chord/ChordSection";
 import { FretboardSection } from "@/features/fretboard/FretboardSection";
 import { AccordionItem } from "@/features/global/AccordionItem";
 import { PageColumn } from "@/features/global/PageColumn";
+import { KeySection } from "@/features/key/KeySection";
+import { KeyTitle } from "@/features/key/KeyTitle";
 import { LyricsSection } from "@/features/lyrics/LyricsSection";
 import { Positions } from "@/features/positions/PositionsSection";
 import { QRCodeSection } from "@/features/qrcode/QRCodeSection";
 import { ScaleDegreesSection } from "@/features/scale-degrees/ScaleDegreesSection";
+import { ScaleDegreesTitle } from "@/features/scale-degrees/ScaleDegreesTitle";
 import { ScaleSection } from "@/features/scale/ScaleSection";
+import { ScaleTitle } from "@/features/scale/ScaleTitle";
 import { SongSection } from "@/features/song/SongSection";
 import { SongTitle } from "@/features/song/SongTitle";
 
 const enum Section {
 	SONG = "so",
 	LYRICS = "l",
+	KEY = "k",
 	SCALE = "sc",
 	SCALE_DEGREES = "sd",
 	CHORD = "c",
@@ -44,12 +49,17 @@ const sections: Record<
 		title: "Lyrics",
 		section: LyricsSection,
 	},
+	[Section.KEY]: {
+		title: KeyTitle,
+		section: KeySection,
+	},
+
 	[Section.SCALE]: {
-		title: "Scale",
+		title: ScaleTitle,
 		section: ScaleSection,
 	},
 	[Section.SCALE_DEGREES]: {
-		title: "Scale Degrees",
+		title: ScaleDegreesTitle,
 		section: ScaleDegreesSection,
 	},
 	[Section.CHORD]: {
@@ -78,7 +88,7 @@ const sections: Record<
 	},
 };
 
-const leftSections: Section[] = [Section.SONG, Section.LYRICS];
+const leftSections: Section[] = [Section.SONG, Section.LYRICS, Section.KEY];
 const centerSections: Section[] = [
 	Section.SCALE,
 	Section.SCALE_DEGREES,

@@ -17,7 +17,7 @@ export const FretboardSection = () => {
 					"--max-frets": maxFrets,
 					"--courses": tuningArray.length,
 				}}
-				className="grid grid-flow-col grid-cols-[1.5rem_repeat(var(--courses),1fr)_1rem] grid-rows-[2rem_1fr_0.25rem_repeat(calc(var(--max-frets)-1),1fr)] gap-[0.25rem]"
+				className="grid grid-flow-col grid-cols-[1.5rem_repeat(var(--courses),minmax(0,1fr))_1rem] grid-rows-[2rem_1fr_0.25rem_repeat(calc(var(--max-frets)-1),1fr)] gap-[0.25rem]"
 			>
 				<div
 					data-title="Zeroth fret"

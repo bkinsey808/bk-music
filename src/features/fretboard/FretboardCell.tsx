@@ -12,14 +12,12 @@ type FretboardCellProps = {
 };
 
 export const FretboardCell = ({ course, fret }: FretboardCellProps) => {
-	const { keyScale, tuning, position } = useDashboardState();
+	const { keyNote, scale, tuning, position } = useDashboardState();
 	const tuningArray = tuning.split("-");
-	const keyNote = keyScale.split("-")[0];
 
 	const openNote = tuningArray[course];
 	const note = transposeNote(openNote, fret);
 	const scaleDegree = getScaleDegree(keyNote, note);
-	const scale = keyScale.split("-").slice(1).join("-");
 
 	const noteInScale = isNoteInScale(keyNote, scale, note);
 	const noteInPosition = isCellInPosition({ position, fret, course });
@@ -29,7 +27,7 @@ export const FretboardCell = ({ course, fret }: FretboardCellProps) => {
 			data-title={`Fretboard Cell - fret ${fret} of course ${course} is ${note}`}
 			data-in-scale={noteInScale}
 			data-in-position={noteInPosition}
-			className="grid grid-cols-[2rem_1fr_2rem] border-[0.2rem] border-solid bg-[var(--color-cell-background)] [&[data-in-position='true']>div]:border-current [&[data-in-scale='true']]:bg-[var(--color-cell-background-in-scale)]"
+			className="grid grid-cols-[2rem_1fr_2rem] border-[0.2rem] border-solid bg-[var(--color-cell-background)] [&[data-in-scale='true']]:bg-[var(--color-cell-background-in-scale)] "
 		>
 			{fret === 0 && (
 				<div className="flex w-4 flex-col justify-center [&>button]:text-base">
@@ -37,7 +35,7 @@ export const FretboardCell = ({ course, fret }: FretboardCellProps) => {
 					<button aria-label="Remove Course">-</button>
 				</div>
 			)}
-			<div className="col-[2] flex justify-center border-[0.3rem] border-transparent text-center">
+			<div className="col-[2] flex justify-center rounded-full border-[0.3rem] border-transparent text-center [[data-in-position='true']>&]:border-current">
 				{note?.replace("b", "♭")}
 				<br />
 				{scaleDegree?.replace("b", "♭")}

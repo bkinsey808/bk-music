@@ -1,4 +1,4 @@
-import { getPositionArray } from "./getPositionArrayget-position-array";
+import { getPositionArray } from "./getPositionArray";
 
 export const isCellInPosition = ({
 	position,
