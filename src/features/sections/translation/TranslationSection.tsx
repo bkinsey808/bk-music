@@ -2,22 +2,25 @@
 
 import TextareaAutosize from "react-textarea-autosize";
 
-import { useDashboardState } from "@/app/d/useDashboardState";
+import {
+	DashboardStateKey,
+	useDashboardState,
+} from "@/app/d/useDashboardState";
 
-export function LyricsSection() {
-	const { lyrics, setLyrics } = useDashboardState();
+export function TranslationSection() {
+	const { getValue, setValue } = useDashboardState();
 
 	return (
 		<section data-title="Lyrics Section">
 			<TextareaAutosize
 				className="w-full rounded-[0.2rem] border-[0.1rem] border-current bg-[var(--background)] p-[0.3rem] px-[0.6rem] text-current"
 				name="lyrics"
-				value={lyrics}
+				value={getValue(DashboardStateKey.TRANSLATION)}
 				onChange={(e) => {
-					setLyrics(e.target.value);
+					setValue(DashboardStateKey.TRANSLATION, e.target.value);
 				}}
 				onBlur={(e) => {
-					setLyrics(e.target.value.trim());
+					setValue(DashboardStateKey.TRANSLATION, e.target.value.trim());
 				}}
 			/>
 		</section>

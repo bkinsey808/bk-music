@@ -1,9 +1,13 @@
 "use client";
 
-import { useDashboardState } from "@/app/d/useDashboardState";
+import {
+	DashboardStateKey,
+	useDashboardState,
+} from "@/app/d/useDashboardState";
 
 export const ChordSpellingTitle = () => {
-	const { chord } = useDashboardState();
+	const { getValue } = useDashboardState();
+	const chord = getValue(DashboardStateKey.CHORD);
 	const selectedChordParts = chord;
 	const [, ...selectedChordSpellingArray] = selectedChordParts;
 	const selectedChordSpelling = selectedChordSpellingArray.join(" ");

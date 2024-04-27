@@ -15,7 +15,9 @@ export const enum DashboardActionType {
 
 export enum DashboardStateKey {
 	SONG = "s",
+	CREDITS = "cr",
 	LYRICS = "l",
+	TRANSLATION = "tr",
 	OPEN_ACCORDION_IDS = "o",
 
 	TUNING = "t",
@@ -33,12 +35,16 @@ export const dashboardSchemaOption = {
 	[DashboardStateKey.POSITION]: S.String,
 	[DashboardStateKey.OPEN_ACCORDION_IDS]: S.Array(S.String),
 	[DashboardStateKey.SONG]: S.String,
+	[DashboardStateKey.CREDITS]: S.String,
 	[DashboardStateKey.LYRICS]: S.String,
+	[DashboardStateKey.TRANSLATION]: S.String,
 };
 
 const DashboardStateSchema = S.Struct(dashboardSchemaOption);
 
 export type DashboardState = S.Schema.Type<typeof DashboardStateSchema>;
+export type Scale = DashboardState[DashboardStateKey.SCALE];
+export type Chord = DashboardState[DashboardStateKey.CHORD];
 
 export type DashboardAction =
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -105,25 +111,22 @@ export const dashboardStateReducer = (
 export type DashboardStateContextProps = {
 	appState: DashboardState;
 	dispatch: Dispatch<DashboardAction>;
-	song: string;
-	lyrics: string;
-	keyNote: string;
-	scale: readonly string[];
-	chord: readonly string[];
-	tuning: string;
-	position: string;
 	isAccordionOpen: (id: string) => boolean;
 	toggleAccordion: (id: string) => void;
 	isScaleDegreeInScale: (scaleDegree: string) => boolean;
 	toggleScaleDegree: (scaleDegree: string) => void;
-	setSong: (song: string) => void;
-	setLyrics(lyrics: string): void;
-	setChord: (chord: readonly string[]) => void;
-	getChordUrl: (chord: readonly string[]) => string;
-	setPosition: (position: string) => void;
-	getPositionUrl: (position: string) => string;
-	setKeyNote: (keyNote: string) => void;
-	getKeyNoteUrl: (keyNote: string) => string;
+	getValue: <K extends keyof DashboardState>(key: K) => DashboardState[K];
+	getValues: <K extends DashboardStateKey[]>(
+		keys: [...K],
+	) => { [I in keyof K]: DashboardState[K[I]] };
+	setValue: <K extends keyof DashboardState>(
+		key: K,
+		value: DashboardState[K],
+	) => void;
+	getUrl: <K extends keyof DashboardState>(
+		key: K,
+		value: DashboardState[K],
+	) => string;
 };
 
 const fromDashboardStateGetUrl = (state: DashboardState) =>
@@ -165,96 +168,46 @@ export const useDashboardState = (): DashboardStateContextProps => {
 		});
 	};
 
-	const setSong = (song: string) => {
+	const getValue = <K extends keyof DashboardState>(
+		key: K,
+	): DashboardState[K] => {
+		return context.appState[key];
+	};
+
+	const getValues = <K extends DashboardStateKey[]>(
+		keys: [...K],
+	): { [I in keyof K]: DashboardState[K[I]] } =>
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		keys.map((key) => context.appState[key]) as any;
+
+	const setValue = (key: DashboardStateKey, value: unknown) => {
 		context.dispatch({
 			type: DashboardActionType.SET_KEY_VALUE,
-			payload: { key: DashboardStateKey.SONG, value: song },
+			payload: { key, value },
 		});
 	};
 
-	const setLyrics = (lyrics: string) => {
-		context.dispatch({
-			type: DashboardActionType.SET_KEY_VALUE,
-			payload: { key: DashboardStateKey.LYRICS, value: lyrics },
-		});
-	};
-
-	const setChord = (chord: readonly string[]) => {
-		context.dispatch({
-			type: DashboardActionType.SET_KEY_VALUE,
-			payload: { key: DashboardStateKey.CHORD, value: chord },
-		});
-
-		if (context.appState[DashboardStateKey.POSITION]) {
-			context.dispatch({
-				type: DashboardActionType.SET_KEY_VALUE,
-				payload: { key: DashboardStateKey.POSITION, value: "" },
-			});
-		}
-	};
-
-	const getChordUrl = (chord: readonly string[]) => {
+	const getUrl = <K extends keyof DashboardState>(
+		key: K,
+		value: DashboardState[K],
+	) => {
 		const newState = {
 			...context.appState,
-			[DashboardStateKey.POSITION]: "",
-			[DashboardStateKey.CHORD]: chord,
+			[key]: value,
 		};
 
 		return fromDashboardStateGetUrl(newState);
-	};
-
-	const getKeyNoteUrl = (keyNote: string) => {
-		const newState = {
-			...context.appState,
-			[DashboardStateKey.KEY_NOTE]: keyNote,
-		};
-
-		return fromDashboardStateGetUrl(newState);
-	};
-
-	const setPosition = (position: string) => {
-		context.dispatch({
-			type: DashboardActionType.SET_KEY_VALUE,
-			payload: { key: DashboardStateKey.POSITION, value: position },
-		});
-	};
-
-	const getPositionUrl = (position: string) => {
-		const newState = {
-			...context.appState,
-			[DashboardStateKey.POSITION]: position,
-		};
-
-		return fromDashboardStateGetUrl(newState);
-	};
-
-	const setKeyNote = (keyNote: string) => {
-		context.dispatch({
-			type: DashboardActionType.SET_KEY_VALUE,
-			payload: { key: DashboardStateKey.KEY_NOTE, value: keyNote },
-		});
 	};
 
 	return {
 		...context,
-		song: context.appState[DashboardStateKey.SONG],
-		lyrics: context.appState[DashboardStateKey.LYRICS],
-		keyNote: context.appState[DashboardStateKey.KEY_NOTE],
-		scale: context.appState[DashboardStateKey.SCALE],
-		chord: context.appState[DashboardStateKey.CHORD],
-		tuning: context.appState[DashboardStateKey.TUNING],
-		position: context.appState[DashboardStateKey.POSITION],
 		isAccordionOpen,
 		toggleAccordion,
-		setSong,
-		setLyrics,
-		setChord,
-		getChordUrl,
-		setPosition,
-		getPositionUrl,
-		setKeyNote,
-		getKeyNoteUrl,
 		isScaleDegreeInScale,
 		toggleScaleDegree,
+		getValue,
+		getValues,
+		setValue,
+		getUrl,
 	};
 };

@@ -1,25 +1,29 @@
-import { ChordScaleDegreeSection } from "@/features/chord-scale-degree/ChordScaleDegreeSection";
-import { ChordScaleDegreeTitle } from "@/features/chord-scale-degree/ChordScaleDegreeTitle";
 import { ChordSpellingSection } from "@/features/chord-spelling/ChordSpellingSection";
 import { ChordSpellingTitle } from "@/features/chord-spelling/ChordSpellingTitle";
-import { ChordSection } from "@/features/chord/ChordSection";
-import { FretboardSection } from "@/features/fretboard/FretboardSection";
 import { AccordionItem } from "@/features/global/AccordionItem";
 import { PageColumn } from "@/features/global/PageColumn";
-import { KeySection } from "@/features/key/KeySection";
-import { KeyTitle } from "@/features/key/KeyTitle";
-import { LyricsSection } from "@/features/lyrics/LyricsSection";
-import { Positions } from "@/features/positions/PositionsSection";
-import { QRCodeSection } from "@/features/qrcode/QRCodeSection";
-import { ScaleDegreesSection } from "@/features/scale-degrees/ScaleDegreesSection";
-import { ScaleDegreesTitle } from "@/features/scale-degrees/ScaleDegreesTitle";
-import { ScaleSection } from "@/features/scale/ScaleSection";
-import { ScaleTitle } from "@/features/scale/ScaleTitle";
-import { SongSection } from "@/features/song/SongSection";
-import { SongTitle } from "@/features/song/SongTitle";
+import { ChordScaleDegreeSection } from "@/features/sections/chord-scale-degree/ChordScaleDegreeSection";
+import { ChordScaleDegreeTitle } from "@/features/sections/chord-scale-degree/ChordScaleDegreeTitle";
+import { ChordSection } from "@/features/sections/chord/ChordSection";
+import { CreditsSection } from "@/features/sections/credits/CreditsSection";
+import { FretboardSection } from "@/features/sections/fretboard/FretboardSection";
+import { KeySection } from "@/features/sections/key/KeySection";
+import { KeyTitle } from "@/features/sections/key/KeyTitle";
+import { LyricsSection } from "@/features/sections/lyrics/LyricsSection";
+import { Positions } from "@/features/sections/positions/PositionsSection";
+import { QRCodeSection } from "@/features/sections/qrcode/QRCodeSection";
+import { ScaleDegreesSection } from "@/features/sections/scale-degrees/ScaleDegreesSection";
+import { ScaleDegreesTitle } from "@/features/sections/scale-degrees/ScaleDegreesTitle";
+import { ScaleSection } from "@/features/sections/scale/ScaleSection";
+import { ScaleTitle } from "@/features/sections/scale/ScaleTitle";
+import { SongSection } from "@/features/sections/song/SongSection";
+import { SongTitle } from "@/features/sections/song/SongTitle";
+import { TranslationSection } from "@/features/sections/translation/TranslationSection";
 
 const enum Section {
 	SONG = "so",
+	TRANSLATION = "tr",
+	CREDITS = "cr",
 	LYRICS = "l",
 	KEY = "k",
 	SCALE = "sc",
@@ -49,6 +53,15 @@ const sections: Record<
 		title: "Lyrics",
 		section: LyricsSection,
 	},
+	[Section.CREDITS]: {
+		title: "Credits",
+		section: CreditsSection,
+	},
+	[Section.TRANSLATION]: {
+		title: "Translation",
+		section: TranslationSection,
+	},
+
 	[Section.KEY]: {
 		title: KeyTitle,
 		section: KeySection,
@@ -88,7 +101,13 @@ const sections: Record<
 	},
 };
 
-const leftSections: Section[] = [Section.SONG, Section.LYRICS, Section.KEY];
+const leftSections: Section[] = [
+	Section.SONG,
+	Section.CREDITS,
+	Section.LYRICS,
+	Section.TRANSLATION,
+	Section.KEY,
+];
 const centerSections: Section[] = [
 	Section.SCALE,
 	Section.SCALE_DEGREES,

@@ -1,12 +1,8 @@
 import { getChordNumbers } from "./getChordNumbers";
 import { getKeyScaleNumbers } from "./getKeyScaleNumbers";
-import { useDashboardState } from "@/app/d/useDashboardState";
+import { Chord, Scale } from "@/app/d/useDashboardState";
 
-export const getInKeyScale = (
-	chord: ReturnType<typeof useDashboardState>["chord"],
-	keyNote: string,
-	scale: ReturnType<typeof useDashboardState>["scale"],
-) => {
+export const getInKeyScale = (chord: Chord, keyNote: string, scale: Scale) => {
 	const chordNumbers = getChordNumbers(chord, keyNote);
 	const keyScaleNumbers = getKeyScaleNumbers(keyNote, scale);
 

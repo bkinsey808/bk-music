@@ -1,11 +1,18 @@
 "use client";
 
 import { Position } from "./Position";
-import { useDashboardState } from "@/app/d/useDashboardState";
+import {
+	DashboardStateKey,
+	useDashboardState,
+} from "@/app/d/useDashboardState";
 import { getPositions } from "@/features/music/getPositions";
 
 export function Positions() {
-	const { chord, keyNote, tuning } = useDashboardState();
+	const { getValue } = useDashboardState();
+	const chord = getValue(DashboardStateKey.CHORD);
+	const keyNote = getValue(DashboardStateKey.KEY_NOTE);
+	const tuning = getValue(DashboardStateKey.TUNING);
+
 	const PositionsSection = getPositions({
 		chord,
 		keyNote,

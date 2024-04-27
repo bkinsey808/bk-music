@@ -62,7 +62,7 @@ export const AppStateProvider = <
 			appParamKeys,
 			initialPath,
 		});
-		router.push(url);
+		router.push(url, { shallow: true });
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [appState]);
 

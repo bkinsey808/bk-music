@@ -1,11 +1,9 @@
 import { getSciNumbers } from "./getSciNumbers";
 import { getSpellingFromNoteNumber } from "./getSpellingFromNoteNumber";
 import { romanNumerals } from "./romanNumerals";
-import { useDashboardState } from "@/app/d/useDashboardState";
+import { Scale } from "@/app/d/useDashboardState";
 
-export const getRomanNumerals = (
-	scale: ReturnType<typeof useDashboardState>["scale"],
-) => {
+export const getRomanNumerals = (scale: Scale) => {
 	if (!scale) {
 		return [];
 	}

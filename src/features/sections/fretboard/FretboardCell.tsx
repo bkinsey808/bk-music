@@ -1,6 +1,9 @@
 "use client";
 
-import { useDashboardState } from "@/app/d/useDashboardState";
+import {
+	DashboardStateKey,
+	useDashboardState,
+} from "@/app/d/useDashboardState";
 import { getScaleDegree } from "@/features/music/getScaleDegree";
 import { isCellInPosition } from "@/features/music/isCellInPosition";
 import { isNoteInScale } from "@/features/music/isNoteInScale";
@@ -12,7 +15,13 @@ type FretboardCellProps = {
 };
 
 export const FretboardCell = ({ course, fret }: FretboardCellProps) => {
-	const { keyNote, scale, tuning, position } = useDashboardState();
+	const { getValues } = useDashboardState();
+	const [keyNote, scale, tuning, position] = getValues([
+		DashboardStateKey.KEY_NOTE,
+		DashboardStateKey.SCALE,
+		DashboardStateKey.TUNING,
+		DashboardStateKey.POSITION,
+	]);
 	const tuningArray = tuning.split("-");
 
 	const openNote = tuningArray[course];

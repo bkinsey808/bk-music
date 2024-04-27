@@ -2,15 +2,15 @@
 
 import Link from "next/link";
 
-import { notesAndFlatNotes } from "../music/notes";
-import { useDashboardState } from "@/app/d/useDashboardState";
+import {
+	DashboardStateKey,
+	useDashboardState,
+} from "@/app/d/useDashboardState";
+import { notesAndFlatNotes } from "@/features/music/notes";
 
 export const KeySection = () => {
-	const {
-		keyNote: selectedKeyNote,
-		setKeyNote,
-		getKeyNoteUrl,
-	} = useDashboardState();
+	const { getValue, setValue, getUrl } = useDashboardState();
+	const selectedKeyNote = getValue(DashboardStateKey.KEY_NOTE);
 
 	return (
 		<section
@@ -21,11 +21,11 @@ export const KeySection = () => {
 				<Link
 					key={note}
 					data-title="Chord Scale Degree"
-					href={getKeyNoteUrl(note)}
+					href={getUrl(DashboardStateKey.KEY_NOTE, note)}
 					className="mr-[-0.1rem] break-all border-[0.1rem] border-current p-[0.4rem] text-center"
 					onClick={(e) => {
 						e.preventDefault();
-						setKeyNote(note);
+						setValue(DashboardStateKey.KEY_NOTE, note);
 						return false;
 					}}
 				>

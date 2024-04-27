@@ -1,16 +1,20 @@
 "use client";
 
-import { romanNumerals } from "../music/romanNumerals";
 import { ScaleDegreeChord } from "./ScaleDegreeChord";
-import { useDashboardState } from "@/app/d/useDashboardState";
-import { getChords } from "@/features/scale-degrees/getChords";
+import { getChords } from "./getChords";
+import {
+	DashboardStateKey,
+	useDashboardState,
+} from "@/app/d/useDashboardState";
+import { romanNumerals } from "@/features/music/romanNumerals";
 
 interface ScaleDegreeProps {
 	romanNumeral: string;
 }
 
 export const ScaleDegree = ({ romanNumeral }: ScaleDegreeProps) => {
-	const { scale } = useDashboardState();
+	const { getValue } = useDashboardState();
+	const scale = getValue(DashboardStateKey.SCALE);
 
 	const romanNumeralIndex = romanNumerals.findIndex(
 		(r) => r.toLowerCase() === romanNumeral.toLowerCase(),

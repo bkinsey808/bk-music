@@ -1,9 +1,13 @@
 "use client";
 
-import { useDashboardState } from "@/app/d/useDashboardState";
+import {
+	DashboardStateKey,
+	useDashboardState,
+} from "@/app/d/useDashboardState";
 
 export const KeyTitle = () => {
-	const { keyNote } = useDashboardState();
+	const { getValue } = useDashboardState();
+	const keyNote = getValue(DashboardStateKey.KEY_NOTE);
 
 	return (
 		<>

@@ -1,8 +1,8 @@
-import { getChordNumbers } from "../music/getChordNumbers";
-import { romanNumerals } from "../music/romanNumerals";
-import { useDashboardState } from "@/app/d/useDashboardState";
+import { Scale } from "@/app/d/useDashboardState";
 import { range } from "@/features/math/range";
+import { getChordNumbers } from "@/features/music/getChordNumbers";
 import { getSciNumbers } from "@/features/music/getSciNumbers";
+import { romanNumerals } from "@/features/music/romanNumerals";
 import { sciList, sciListError } from "@/features/music/sci";
 
 export const getChords = ({
@@ -13,7 +13,7 @@ export const getChords = ({
 	preferred = true,
 	keyNote,
 }: {
-	scale: ReturnType<typeof useDashboardState>["scale"];
+	scale: Scale;
 	minNotes?: number;
 	maxNotes?: number;
 	scaleIndex?: number;

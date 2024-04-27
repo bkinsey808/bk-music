@@ -2,15 +2,20 @@
 
 import Link from "next/link";
 
-import { getNoteNumber } from "../music/getNoteNumber";
-import { isScaleDegreeInScale } from "../music/isScaleDegreeInScale";
-import { notesAndFlatNotes } from "../music/notes";
-import { scaleDegrees } from "../music/scaleDegrees";
-import { getSciBySpelling } from "../music/sci";
-import { useDashboardState } from "@/app/d/useDashboardState";
+import {
+	DashboardStateKey,
+	useDashboardState,
+} from "@/app/d/useDashboardState";
+import { getNoteNumber } from "@/features/music/getNoteNumber";
+import { isScaleDegreeInScale } from "@/features/music/isScaleDegreeInScale";
+import { notesAndFlatNotes } from "@/features/music/notes";
+import { scaleDegrees } from "@/features/music/scaleDegrees";
+import { getSciBySpelling } from "@/features/music/sci";
 
 export const ScaleSection = () => {
-	const { keyNote, scale, toggleScaleDegree } = useDashboardState();
+	const { getValue, toggleScaleDegree } = useDashboardState();
+	const keyNote = getValue(DashboardStateKey.KEY_NOTE);
+	const scale = getValue(DashboardStateKey.SCALE);
 	const keyNoteNumber = getNoteNumber(keyNote);
 	const sci = getSciBySpelling(scale);
 

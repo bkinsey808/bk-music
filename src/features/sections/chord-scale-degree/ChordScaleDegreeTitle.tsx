@@ -1,12 +1,19 @@
 "use client";
 
-import { getNoteFromNumber } from "../music/getNoteFromNumber";
-import { getNoteNumber } from "../music/getNoteNumber";
-import { romanNumerals } from "../music/romanNumerals";
-import { useDashboardState } from "@/app/d/useDashboardState";
+import {
+	DashboardStateKey,
+	useDashboardState,
+} from "@/app/d/useDashboardState";
+import { getNoteFromNumber } from "@/features/music/getNoteFromNumber";
+import { getNoteNumber } from "@/features/music/getNoteNumber";
+import { romanNumerals } from "@/features/music/romanNumerals";
 
 export const ChordScaleDegreeTitle = () => {
-	const { chord: selectedChord, keyNote } = useDashboardState();
+	const { getValues } = useDashboardState();
+	const [selectedChord, keyNote] = getValues([
+		DashboardStateKey.CHORD,
+		DashboardStateKey.KEY_NOTE,
+	]);
 	const selectedChordParts = selectedChord;
 	const selectedChordRomanNumeral = selectedChordParts[0];
 	const romanNumeralIndex = romanNumerals.findIndex(

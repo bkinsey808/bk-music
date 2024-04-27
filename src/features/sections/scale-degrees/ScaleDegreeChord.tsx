@@ -3,7 +3,10 @@
 import Link from "next/link";
 
 import { getChords } from "./getChords";
-import { useDashboardState } from "@/app/d/useDashboardState";
+import {
+	DashboardStateKey,
+	useDashboardState,
+} from "@/app/d/useDashboardState";
 
 interface ScaleDegreeChordProps {
 	sci:
@@ -16,13 +19,15 @@ export const ScaleDegreeChord = ({
 	sci,
 	romanNumeral,
 }: ScaleDegreeChordProps) => {
-	const { chord: selectedChord, getChordUrl, setChord } = useDashboardState();
+	const { getValue, setValue, getUrl } = useDashboardState();
 
 	const newChord =
 		`${romanNumeral?.toLowerCase()}-${sci?.txtSpelling?.replaceAll(",", "-")}`.split(
 			"-",
 		);
-	const url = getChordUrl(newChord);
+	const url = getUrl(DashboardStateKey.CHORD, newChord);
+
+	const selectedChord = getValue(DashboardStateKey.CHORD);
 
 	const selectedChordParts = selectedChord;
 	const [, ...selectedChordSpellingArray] = selectedChordParts;
@@ -41,7 +46,7 @@ export const ScaleDegreeChord = ({
 			href={url}
 			onClick={(e) => {
 				e.preventDefault();
-				setChord(newChord);
+				setValue(DashboardStateKey.CHORD, newChord);
 				return false;
 			}}
 		>

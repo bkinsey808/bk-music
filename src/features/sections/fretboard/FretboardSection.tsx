@@ -1,11 +1,15 @@
 "use client";
 
 import { FretboardCell } from "./FretboardCell";
-import { useDashboardState } from "@/app/d/useDashboardState";
+import {
+	DashboardStateKey,
+	useDashboardState,
+} from "@/app/d/useDashboardState";
 import { range } from "@/features/math/range";
 
 export const FretboardSection = () => {
-	const { tuning } = useDashboardState();
+	const { getValue } = useDashboardState();
+	const tuning = getValue(DashboardStateKey.TUNING);
 	const tuningArray = tuning.split("-");
 	const maxFrets = 13;
 

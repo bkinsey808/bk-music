@@ -1,15 +1,23 @@
 "use client";
 
-import { range } from "../math/range";
-import { getCasedRomanNumeral } from "../music/getCasedRomanNumeral";
-import { getInKeyScale } from "../music/getInKeyScale";
-import { romanNumerals } from "../music/romanNumerals";
-import { getSciBySpelling } from "../music/sci";
 import { ChordScaleDegree } from "./ChordScaleDegree";
-import { useDashboardState } from "@/app/d/useDashboardState";
+import {
+	DashboardStateKey,
+	useDashboardState,
+} from "@/app/d/useDashboardState";
+import { range } from "@/features/math/range";
+import { getCasedRomanNumeral } from "@/features/music/getCasedRomanNumeral";
+import { getInKeyScale } from "@/features/music/getInKeyScale";
+import { romanNumerals } from "@/features/music/romanNumerals";
+import { getSciBySpelling } from "@/features/music/sci";
 
 export const ChordScaleDegreeSection = () => {
-	const { chord: selectedChord, keyNote, scale } = useDashboardState();
+	const { getValues } = useDashboardState();
+	const [selectedChord, keyNote, scale] = getValues([
+		DashboardStateKey.CHORD,
+		DashboardStateKey.KEY_NOTE,
+		DashboardStateKey.SCALE,
+	]);
 
 	const selectedChordParts = selectedChord;
 	const [, ...selectedChordSpellingArray] = selectedChordParts;

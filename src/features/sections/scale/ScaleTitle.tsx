@@ -1,10 +1,15 @@
 "use client";
 
-import { getSciBySpelling } from "../music/sci";
-import { useDashboardState } from "@/app/d/useDashboardState";
+import {
+	DashboardStateKey,
+	useDashboardState,
+} from "@/app/d/useDashboardState";
+import { getSciBySpelling } from "@/features/music/sci";
 
 export const ScaleTitle = () => {
-	const { keyNote, scale } = useDashboardState();
+	const { getValue } = useDashboardState();
+	const scale = getValue(DashboardStateKey.SCALE);
+	const keyNote = getValue(DashboardStateKey.KEY_NOTE);
 	const sci = getSciBySpelling(scale);
 
 	return (

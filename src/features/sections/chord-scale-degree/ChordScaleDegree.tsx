@@ -2,10 +2,14 @@
 
 import Link from "next/link";
 
-import { getNoteFromNumber } from "../music/getNoteFromNumber";
-import { getNoteNumber } from "../music/getNoteNumber";
-import { romanNumerals } from "../music/romanNumerals";
-import { useDashboardState } from "@/app/d/useDashboardState";
+import {
+	Chord,
+	DashboardStateKey,
+	useDashboardState,
+} from "@/app/d/useDashboardState";
+import { getNoteFromNumber } from "@/features/music/getNoteFromNumber";
+import { getNoteNumber } from "@/features/music/getNoteNumber";
+import { romanNumerals } from "@/features/music/romanNumerals";
 
 export const ChordScaleDegree = ({
 	chord,
@@ -14,17 +18,18 @@ export const ChordScaleDegree = ({
 	romanNumeral,
 	chordCode,
 }: {
-	chord: ReturnType<typeof useDashboardState>["chord"];
+	chord: Chord;
 	inKeyScale: boolean;
 	selected: boolean;
 	romanNumeral: string;
 	chordCode: string | undefined;
 }) => {
-	const { keyNote, setChord, getChordUrl } = useDashboardState();
+	const { getValue, setValue, getUrl } = useDashboardState();
 
 	const romanNumeralIndex = romanNumerals.findIndex(
 		(r) => r.toLowerCase() === romanNumeral.toLowerCase(),
 	);
+	const keyNote = getValue(DashboardStateKey.KEY_NOTE);
 	const keyNoteNumber = getNoteNumber(keyNote) ?? 0;
 	const chordStartingNoteNumber = (keyNoteNumber + romanNumeralIndex) % 12;
 
@@ -33,7 +38,7 @@ export const ChordScaleDegree = ({
 		includeOctave: false,
 	});
 
-	const url = getChordUrl(chord);
+	const url = getUrl(DashboardStateKey.CHORD, chord);
 
 	return (
 		<Link
@@ -43,7 +48,7 @@ export const ChordScaleDegree = ({
 			className="mr-[-0.1rem] break-all border-[0.1rem] border-current p-[0.4rem] text-center [&[data-in-key-scale='true']]:bg-[var(--color-cell-background-in-scale)]"
 			onClick={(e) => {
 				e.preventDefault();
-				setChord(chord);
+				setValue(DashboardStateKey.CHORD, chord);
 				return false;
 			}}
 		>

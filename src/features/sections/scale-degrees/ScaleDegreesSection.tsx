@@ -1,11 +1,15 @@
 "use client";
 
 import { ScaleDegree } from "./ScaleDegree";
-import { useDashboardState } from "@/app/d/useDashboardState";
+import {
+	DashboardStateKey,
+	useDashboardState,
+} from "@/app/d/useDashboardState";
 import { getRomanNumerals } from "@/features/music/getRomanNumerals";
 
 export const ScaleDegreesSection = () => {
-	const { scale } = useDashboardState();
+	const { getValue } = useDashboardState();
+	const scale = getValue(DashboardStateKey.SCALE);
 
 	return (
 		<section

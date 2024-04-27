@@ -1,9 +1,13 @@
 "use client";
 
-import { useDashboardState } from "@/app/d/useDashboardState";
+import {
+	DashboardStateKey,
+	useDashboardState,
+} from "@/app/d/useDashboardState";
 
 export const SongTitle = () => {
-	const { song } = useDashboardState();
+	const { getValue } = useDashboardState();
+	const song = getValue(DashboardStateKey.SONG);
 
 	return (
 		<>
