@@ -1,3 +1,5 @@
+import dynamic from "next/dynamic";
+
 import { ChordSpellingSection } from "@/features/chord-spelling/ChordSpellingSection";
 import { ChordSpellingTitle } from "@/features/chord-spelling/ChordSpellingTitle";
 import { AccordionItem } from "@/features/global/AccordionItem";
@@ -19,6 +21,14 @@ import { ScaleTitle } from "@/features/sections/scale/ScaleTitle";
 import { SongSection } from "@/features/sections/song/SongSection";
 import { SongTitle } from "@/features/sections/song/SongTitle";
 import { TranslationSection } from "@/features/sections/translation/TranslationSection";
+
+const DynamicAccordionItem = dynamic(
+	() =>
+		import("@/features/global/AccordionItem").then((mod) => mod.AccordionItem),
+	{
+		ssr: false,
+	},
+);
 
 const enum Section {
 	SONG = "so",

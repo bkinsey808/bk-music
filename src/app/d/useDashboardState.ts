@@ -63,12 +63,6 @@ export type DashboardAction =
 
 export const dashboardStateKeys: DashboardStateKey[] =
 	Object.values(DashboardStateKey);
-export const dashboardParamKeys: DashboardStateKey[] = [
-	// DashboardStateKey.TUNING,
-	// DashboardStateKey.KEY_SCALE,
-	// DashboardStateKey.CHORD,
-	// DashboardStateKey.POSITION,
-];
 
 export const dashboardStateReducer = (
 	state: DashboardState,
@@ -127,13 +121,12 @@ export type DashboardStateContextProps = {
 		key: K,
 		value: DashboardState[K],
 	) => string;
+	getAppUrl: () => string;
 };
 
 const fromDashboardStateGetUrl = (state: DashboardState) =>
 	fromAppStateGetUrl({
 		appState: state,
-		appStateKeys: dashboardStateKeys,
-		appParamKeys: dashboardParamKeys,
 		initialPath: dashboardInitialPath,
 	});
 
@@ -199,6 +192,8 @@ export const useDashboardState = (): DashboardStateContextProps => {
 		return fromDashboardStateGetUrl(newState);
 	};
 
+	const getAppUrl = () => fromDashboardStateGetUrl(context.appState);
+
 	return {
 		...context,
 		isAccordionOpen,
@@ -209,5 +204,6 @@ export const useDashboardState = (): DashboardStateContextProps => {
 		getValues,
 		setValue,
 		getUrl,
+		getAppUrl,
 	};
 };

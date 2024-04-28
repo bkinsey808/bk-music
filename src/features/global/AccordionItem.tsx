@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useCallback, useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 
 import { useDashboardState } from "@/app/d/useDashboardState";
 
@@ -17,36 +17,27 @@ export const AccordionItem = ({
 
 	const { isAccordionOpen, toggleAccordion } = useDashboardState();
 
-	const handleToggle = useCallback(async () => {
-		toggleAccordion(id);
-	}, [id, toggleAccordion]);
-	const details = detailsRef.current;
-	const accordionOpen = isAccordionOpen(id);
-
-	// add listener to details element to update query params
+	// initialize the accordion state
 	useEffect(() => {
-		if (!details) {
-			return;
+		if (detailsRef.current) {
+			detailsRef.current.open = isAccordionOpen(id);
 		}
-
-		(async () => {
-			details.open = accordionOpen;
-
-			// wait long enough so that setting the open attribute doesn't trigger the toggle event
-			await new Promise((resolve) => setTimeout(resolve, 0));
-
-			details.addEventListener("toggle", handleToggle);
-		})();
-
-		return () => {
-			details.removeEventListener("toggle", handleToggle);
-		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [details, handleToggle, id]);
+	}, [detailsRef.current]);
 
 	return (
-		<details id={id} ref={detailsRef} data-open={accordionOpen}>
-			<summary className="mb-[0.25rem] flex cursor-pointer flex-row flex-nowrap gap-[0.5rem]">
+		<details id={id} ref={detailsRef} data-open={isAccordionOpen(id)}>
+			<summary
+				className="mb-[0.25rem] flex cursor-pointer flex-row flex-nowrap gap-[0.5rem]"
+				onClick={(e) => {
+					e.preventDefault();
+					toggleAccordion(id);
+
+					if (detailsRef.current) {
+						detailsRef.current.open = !detailsRef.current.open;
+					}
+				}}
+			>
 				<div>
 					<div className="transition-all [[data-open='true']>summary>div>&]:rotate-90">
 						▶

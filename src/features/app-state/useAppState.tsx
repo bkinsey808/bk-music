@@ -1,14 +1,14 @@
 "use client";
 
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import React, {
 	Dispatch,
 	ReactNode,
 	createContext,
 	useContext,
-	useEffect,
 	useReducer,
 } from "react";
+import useDebouncedEffect from "use-debounced-effect";
 
 import { fromAppStateGetUrl } from "./fromAppStateGetUrl";
 import { getInitialAppState } from "./getInitialAppState";
@@ -28,7 +28,6 @@ export const AppStateProvider = <
 >({
 	appSchemaOption,
 	appStateKeys,
-	appParamKeys,
 	appStateReducer,
 	initialPath,
 	children,
@@ -36,7 +35,6 @@ export const AppStateProvider = <
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	appSchemaOption: { [key in keyof MyAppState]: any };
 	appStateKeys: (keyof MyAppState)[];
-	appParamKeys: (keyof MyAppState)[];
 	appStateReducer: (state: MyAppState, action: MyAppAction) => MyAppState;
 	initialPath: string;
 	children: ReactNode;
@@ -50,21 +48,23 @@ export const AppStateProvider = <
 		appStateKeys,
 		appSchemaOption,
 	});
-	const router = useRouter();
 
 	const [appState, dispatch] = useReducer(appStateReducer, initialAppState);
 
 	// update url based on state
-	useEffect(() => {
-		const url = fromAppStateGetUrl({
-			appState,
-			appStateKeys,
-			appParamKeys,
-			initialPath,
-		});
-		router.push(url, { shallow: true });
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [appState]);
+	useDebouncedEffect(
+		() => {
+			const url = fromAppStateGetUrl({
+				appState,
+				initialPath,
+			});
+
+			history.pushState(null, "", url);
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		},
+		1000,
+		[appState],
+	);
 
 	type AppStateContextProps = {
 		appState: MyAppState;

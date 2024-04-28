@@ -13,15 +13,16 @@ import { scaleDegrees } from "@/features/music/scaleDegrees";
 import { getSciBySpelling } from "@/features/music/sci";
 
 export const ScaleSection = () => {
-	const { getValue, toggleScaleDegree } = useDashboardState();
-	const keyNote = getValue(DashboardStateKey.KEY_NOTE);
-	const scale = getValue(DashboardStateKey.SCALE);
+	const { getValues, toggleScaleDegree } = useDashboardState();
+	const [keyNote, scale] = getValues([
+		DashboardStateKey.KEY_NOTE,
+		DashboardStateKey.SCALE,
+	]);
 	const keyNoteNumber = getNoteNumber(keyNote);
 	const sci = getSciBySpelling(scale);
 
 	return (
 		<section data-title="Scale Section">
-			<div className="text-sm font-thin italic">{sci?.txtAltNames}</div>
 			<div className="grid grid-cols-[repeat(6,1fr)]">
 				{scaleDegrees.map((scaleDegree, index) => {
 					const note =
@@ -66,6 +67,7 @@ export const ScaleSection = () => {
 					);
 				})}
 			</div>
+			<div className="text-sm font-thin italic">{sci?.txtAltNames}</div>
 		</section>
 	);
 };

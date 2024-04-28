@@ -4,7 +4,6 @@ import { Suspense } from "react";
 
 import {
 	dashboardInitialPath,
-	dashboardParamKeys,
 	dashboardSchemaOption,
 	dashboardStateKeys,
 	dashboardStateReducer,
@@ -22,7 +21,6 @@ export default function DashboardLayout({
 				initialPath={dashboardInitialPath}
 				appSchemaOption={dashboardSchemaOption}
 				appStateKeys={dashboardStateKeys}
-				appParamKeys={dashboardParamKeys}
 				appStateReducer={dashboardStateReducer}
 			>
 				{children}
