@@ -1,158 +1,32 @@
-import dynamic from "next/dynamic";
-
-import { ChordSpellingSection } from "@/features/chord-spelling/ChordSpellingSection";
-import { ChordSpellingTitle } from "@/features/chord-spelling/ChordSpellingTitle";
+import { pageColumns, sections } from "../../features/sections/sections";
 import { AccordionItem } from "@/features/global/AccordionItem";
 import { PageColumn } from "@/features/global/PageColumn";
-import { ChordScaleDegreeSection } from "@/features/sections/chord-scale-degree/ChordScaleDegreeSection";
-import { ChordScaleDegreeTitle } from "@/features/sections/chord-scale-degree/ChordScaleDegreeTitle";
-import { ChordSection } from "@/features/sections/chord/ChordSection";
-import { CreditsSection } from "@/features/sections/credits/CreditsSection";
-import { FretboardSection } from "@/features/sections/fretboard/FretboardSection";
-import { KeySection } from "@/features/sections/key/KeySection";
-import { KeyTitle } from "@/features/sections/key/KeyTitle";
-import { LyricsSection } from "@/features/sections/lyrics/LyricsSection";
-import { Positions } from "@/features/sections/positions/PositionsSection";
-import { QRCodeSection } from "@/features/sections/qrcode/QRCodeSection";
-import { ScaleDegreesSection } from "@/features/sections/scale-degrees/ScaleDegreesSection";
-import { ScaleDegreesTitle } from "@/features/sections/scale-degrees/ScaleDegreesTitle";
-import { ScaleSection } from "@/features/sections/scale/ScaleSection";
-import { ScaleTitle } from "@/features/sections/scale/ScaleTitle";
-import { SongSection } from "@/features/sections/song/SongSection";
-import { SongTitle } from "@/features/sections/song/SongTitle";
-import { TranslationSection } from "@/features/sections/translation/TranslationSection";
-
-const DynamicAccordionItem = dynamic(
-	() =>
-		import("@/features/global/AccordionItem").then((mod) => mod.AccordionItem),
-	{
-		ssr: false,
-	},
-);
-
-const enum Section {
-	SONG = "so",
-	TRANSLATION = "tr",
-	CREDITS = "cr",
-	LYRICS = "l",
-	KEY = "k",
-	SCALE = "sc",
-	SCALE_DEGREES = "sd",
-	CHORD = "c",
-	CHORD_SCALE_DEGREE = "csd",
-	CHORD_SPELLING = "cs",
-	POSITIONS = "ps",
-	FRETBOARD = "f",
-	QRCODE = "q",
-}
-
-type DashboardComponent = () => JSX.Element;
-
-const sections: Record<
-	Section,
-	{
-		title: DashboardComponent | string;
-		section: DashboardComponent;
-	}
-> = {
-	[Section.SONG]: {
-		title: SongTitle,
-		section: SongSection,
-	},
-	[Section.LYRICS]: {
-		title: "Lyrics",
-		section: LyricsSection,
-	},
-	[Section.CREDITS]: {
-		title: "Credits",
-		section: CreditsSection,
-	},
-	[Section.TRANSLATION]: {
-		title: "Translation",
-		section: TranslationSection,
-	},
-
-	[Section.KEY]: {
-		title: KeyTitle,
-		section: KeySection,
-	},
-
-	[Section.SCALE]: {
-		title: ScaleTitle,
-		section: ScaleSection,
-	},
-	[Section.SCALE_DEGREES]: {
-		title: ScaleDegreesTitle,
-		section: ScaleDegreesSection,
-	},
-	[Section.CHORD]: {
-		title: "Chord",
-		section: ChordSection,
-	},
-	[Section.CHORD_SCALE_DEGREE]: {
-		title: ChordScaleDegreeTitle,
-		section: ChordScaleDegreeSection,
-	},
-	[Section.CHORD_SPELLING]: {
-		title: ChordSpellingTitle,
-		section: ChordSpellingSection,
-	},
-	[Section.POSITIONS]: {
-		title: "Positions",
-		section: Positions,
-	},
-	[Section.FRETBOARD]: {
-		title: "Fretboard",
-		section: FretboardSection,
-	},
-	[Section.QRCODE]: {
-		title: "QR Code",
-		section: QRCodeSection,
-	},
-};
-
-const leftSections: Section[] = [
-	Section.SONG,
-	Section.CREDITS,
-	Section.LYRICS,
-	Section.TRANSLATION,
-	Section.KEY,
-];
-const centerSections: Section[] = [
-	Section.SCALE,
-	Section.SCALE_DEGREES,
-	Section.FRETBOARD,
-];
-const rightSections: Section[] = [
-	Section.CHORD,
-	Section.CHORD_SCALE_DEGREE,
-	Section.CHORD_SPELLING,
-	Section.POSITIONS,
-	Section.QRCODE,
-];
-const pageColumns = [leftSections, centerSections, rightSections];
+import { Header } from "@/features/header/header";
 
 export default function Dashboard() {
 	return (
 		<div className="@container">
-			<main className="grid grid-cols-1 @[1700px]:grid-cols-3">
-				{pageColumns.map((pageColumn, columnIndex) => (
-					<PageColumn key={columnIndex}>
-						{pageColumn.map(async (section) => {
-							const { title: Title, section: Section } = sections[section];
+			<Header />
+			<main className="h-screen overflow-auto">
+				<div className="grid grid-cols-1 @[1700px]:grid-cols-3">
+					{pageColumns.map((pageColumn, columnIndex) => (
+						<PageColumn key={columnIndex}>
+							{pageColumn.map((section) => {
+								const { title: Title, section: Section } = sections[section];
 
-							return (
-								<AccordionItem
-									key={section}
-									id={section}
-									title={typeof Title === "string" ? Title : <Title />}
-								>
-									<Section />
-								</AccordionItem>
-							);
-						})}
-					</PageColumn>
-				))}
+								return (
+									<AccordionItem
+										key={section}
+										id={section}
+										title={typeof Title === "string" ? Title : <Title />}
+									>
+										<Section />
+									</AccordionItem>
+								);
+							})}
+						</PageColumn>
+					))}
+				</div>
 			</main>
 		</div>
 	);

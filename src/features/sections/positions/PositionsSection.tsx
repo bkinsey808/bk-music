@@ -13,6 +13,10 @@ export function Positions() {
 	const keyNote = getValue(DashboardStateKey.KEY_NOTE);
 	const tuning = getValue(DashboardStateKey.TUNING);
 
+	if (!chord || !keyNote || !tuning) {
+		return null;
+	}
+
 	const PositionsSection = getPositions({
 		chord,
 		keyNote,

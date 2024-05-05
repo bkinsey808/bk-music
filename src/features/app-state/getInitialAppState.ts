@@ -12,7 +12,6 @@ export const getInitialAppState = <AppState>({
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	appSchemaOption: Record<keyof AppState, any>;
 }) => {
-	console.log("called");
 	const emptyAppState = appStateKeyArray.reduce((acc, key) => {
 		const schemaOptionType = appSchemaOption[key];
 		const value = schemaOptionType.ast._tag === "TupleType" ? [] : "";

@@ -5,9 +5,7 @@ import { Chord } from "@/app/d/useDashboardState";
 
 export const getChordNumbers = (chord: Chord, scaleKeyNote?: string) => {
 	const chordParts = chord;
-
 	const chordRomanNumeral = chordParts[0];
-	// console.log({ chordRomanNumeral });
 	const chordScaleIndex = getScaleIndexFromRomanNumeral(chordRomanNumeral);
 	const scaleKeyNumber = getNoteNumber(scaleKeyNote) ?? 0;
 

@@ -1,7 +1,7 @@
 import { range } from "../math/range";
 import { getChordNumbers } from "./getChordNumbers";
 import { getPositionsAtFret } from "./getPositionsAtFret";
-import { Chord, useDashboardState } from "@/app/d/useDashboardState";
+import { Chord } from "@/app/d/useDashboardState";
 
 /** given tuning in the form of 'G4-C4-E4-E4' and keyNote in form of 'Eb' and chord in the form of i-b3-5, return an array of position arrays in the form [[2, 0, 0, 0], ...] in the order of chords sorted by smallest fret first */
 export const getPositions = ({

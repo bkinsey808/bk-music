@@ -22,7 +22,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en">
+		<html lang="en" className="overflow-hidden">
 			<head>
 				<Script id="dark-mode-script">
 					{`if (localStorage['${DARK_MODE_LOCAL_STORAGE_KEY}'] === 'dark' || (!('${DARK_MODE_LOCAL_STORAGE_KEY}' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
