@@ -1,5 +1,6 @@
 import { Scale } from "@/app/d/useDashboardState";
 import { range } from "@/features/math/range";
+import { degrees } from "@/features/music/degrees";
 import { getChordNumbers } from "@/features/music/getChordNumbers";
 import { getSciNumbers } from "@/features/music/getSciNumbers";
 import { romanNumerals } from "@/features/music/romanNumerals";
@@ -35,6 +36,7 @@ export const getChords = ({
 
 	return range(minIndex, maxIndex + 1).flatMap((scaleIndex) => {
 		const romanNumeral = romanNumerals[scaleIndex];
+		const chordScaleDegree = degrees[scaleIndex];
 
 		const chords = sciList
 			?.filter((sci) => {
@@ -46,9 +48,12 @@ export const getChords = ({
 					return false;
 				}
 
-				const chord =
-					`${romanNumeral}-${sci.txtSpelling.replaceAll(",", "-")}`.split("-");
-				const chordNumbers = getChordNumbers(chord, keyNote);
+				const chord = sci.txtSpelling.replaceAll(",", "-").split("-");
+				const chordNumbers = getChordNumbers({
+					chordScaleDegree,
+					chord,
+					keyNote,
+				});
 				const chordInScale = chordNumbers.every((chordNumber) =>
 					scaleNumbers.includes(chordNumber),
 				);

@@ -29,6 +29,7 @@ export enum DashboardStateKey {
 	KEY_NOTE = "k",
 	SCALE = "sc",
 	CHORD = "c",
+	CHORD_SCALE_DEGREE = "csd",
 	POSITION = "p",
 	MAX_FRETS = "mf",
 	SELECT_CELL_TO_SET = "scts",
@@ -46,6 +47,7 @@ export const dashboardSchemaOption = {
 	[DashboardStateKey.KEY_NOTE]: S.String,
 	[DashboardStateKey.SCALE]: S.Array(S.String),
 	[DashboardStateKey.CHORD]: S.Array(S.String),
+	[DashboardStateKey.CHORD_SCALE_DEGREE]: S.Literal(...Object.values(degrees)),
 	[DashboardStateKey.POSITION]: S.Array(S.Union(S.Literal("x"), S.Int)),
 	[DashboardStateKey.OPEN_ACCORDION_IDS]: S.Array(S.String),
 	[DashboardStateKey.SONG]: S.String,
@@ -64,6 +66,10 @@ export type Position = S.Schema.Type<
 >;
 export type Tuning = S.Schema.Type<
 	(typeof dashboardSchemaOption)[DashboardStateKey.TUNING]
+>;
+
+export type Degree = S.Schema.Type<
+	(typeof dashboardSchemaOption)[DashboardStateKey.CHORD_SCALE_DEGREE]
 >;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,23 +1,27 @@
 import { degrees } from "./degrees";
 import { getNoteNumber } from "./getNoteNumber";
-import { getScaleIndexFromRomanNumeral } from "./getScaleIndexFromRomanNumeral";
-import { Chord } from "@/app/d/useDashboardState";
+import { Chord, Degree } from "@/app/d/useDashboardState";
 
-export const getChordNumbers = (chord: Chord, scaleKeyNote?: string) => {
-	const chordParts = chord;
-	const chordRomanNumeral = chordParts[0];
-	const chordScaleIndex = getScaleIndexFromRomanNumeral(chordRomanNumeral);
-	const scaleKeyNumber = getNoteNumber(scaleKeyNote) ?? 0;
+export const getChordNumbers = ({
+	chordScaleDegree,
+	chord,
+	keyNote,
+}: {
+	chordScaleDegree: Degree;
+	chord: Chord;
+	keyNote?: string | undefined;
+}) => {
+	const chordScaleIndex = degrees.indexOf(chordScaleDegree);
+
+	const scaleKeyNumber = getNoteNumber(keyNote) ?? 0;
 
 	if (scaleKeyNumber === undefined || chordScaleIndex === undefined) {
 		return [];
 	}
 
-	const [, ...chordSpellingArray] = chordParts;
-
 	return [
 		0,
-		...chordSpellingArray.map((spelling) =>
+		...chord.map((spelling) =>
 			degrees.indexOf(spelling as (typeof degrees)[number]),
 		),
 	].map(

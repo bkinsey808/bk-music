@@ -6,6 +6,7 @@ import {
 	useDashboardState,
 } from "@/app/d/useDashboardState";
 import { range } from "@/features/math/range";
+import { degrees } from "@/features/music/degrees";
 import { getCasedRomanNumeral } from "@/features/music/getCasedRomanNumeral";
 import { getInKeyScale } from "@/features/music/getInKeyScale";
 import { romanNumerals } from "@/features/music/romanNumerals";
@@ -13,26 +14,26 @@ import { getSciBySpelling } from "@/features/music/sci";
 
 export const ChordScaleDegreeSection = () => {
 	const { getValues } = useDashboardState();
-	const [selectedChord, keyNote, scale] = getValues([
+	const [selectedChord, selectedChordScaleDegree, keyNote, scale] = getValues([
 		DashboardStateKey.CHORD,
+		DashboardStateKey.CHORD_SCALE_DEGREE,
 		DashboardStateKey.KEY_NOTE,
 		DashboardStateKey.SCALE,
 	]);
 
-	const selectedChordParts = selectedChord;
-	const [, ...selectedChordSpellingArray] = selectedChordParts;
-	const selectedChordSpelling = selectedChordSpellingArray.join("-");
-	const sci = getSciBySpelling(selectedChordSpellingArray);
+	const selectedChordSpelling = selectedChord.join("-");
+	const sci = getSciBySpelling(selectedChord);
 
 	const casedRomanNumerals = range(0, 12).map((scaleIndex) => {
 		const romanNumeral = getCasedRomanNumeral(romanNumerals[scaleIndex], scale);
 		const chord = `${romanNumeral}-${selectedChordSpelling}`.split("-");
+		const chordScaleDegree = degrees[scaleIndex];
 
 		return {
 			romanNumeral,
 			chord,
-			selected: chord.join("-") === selectedChord.join("-"),
-			inKeyScale: getInKeyScale(chord, keyNote, scale),
+			selected: chordScaleDegree === selectedChordScaleDegree,
+			inKeyScale: getInKeyScale({ chordScaleDegree, chord, keyNote, scale }),
 		};
 	});
 

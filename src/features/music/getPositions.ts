@@ -1,12 +1,13 @@
 import { range } from "../math/range";
 import { getChordNumbers } from "./getChordNumbers";
 import { getPositionsAtFret } from "./getPositionsAtFret";
-import { Chord, Tuning } from "@/app/d/useDashboardState";
+import { Chord, Degree, Tuning } from "@/app/d/useDashboardState";
 
 /** given tuning in the form of 'G4-C4-E4-E4' and keyNote in form of 'Eb' and chord in the form of i-b3-5, return an array of position arrays in the form [[2, 0, 0, 0], ...] in the order of chords sorted by smallest fret first */
 export const getPositions = ({
 	tuning,
 	keyNote,
+	chordScaleDegree,
 	chord,
 	maxMuted = 0,
 	maxFrets = 17,
@@ -14,6 +15,7 @@ export const getPositions = ({
 }: {
 	tuning: Tuning;
 	keyNote: string;
+	chordScaleDegree: Degree;
 	chord: Chord;
 	maxMuted?: number;
 	maxFrets?: number;
@@ -23,7 +25,7 @@ export const getPositions = ({
 		return undefined;
 	}
 
-	const chordNumbers = getChordNumbers(chord, keyNote);
+	const chordNumbers = getChordNumbers({ chordScaleDegree, chord, keyNote });
 
 	return range(0, maxFrets).flatMap((fret) => {
 		const positionsAtFret = getPositionsAtFret({
