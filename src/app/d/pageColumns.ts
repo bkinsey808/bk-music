@@ -3,6 +3,7 @@ import { ChordScaleDegreeTitle } from "@/features/sections/chord-scale-degree/Ch
 import { ChordSpellingSection } from "@/features/sections/chord-spelling/ChordSpellingSection";
 import { ChordSpellingTitle } from "@/features/sections/chord-spelling/ChordSpellingTitle";
 import { ChordSection } from "@/features/sections/chord/ChordSection";
+import { ChordTitle } from "@/features/sections/chord/ChordTitle";
 import { CreditsSection } from "@/features/sections/credits/CreditsSection";
 import { FretboardSection } from "@/features/sections/fretboard/FretboardSection";
 import { InstrumentSection } from "@/features/sections/instrument/InstrumentSection";
@@ -61,7 +62,7 @@ export const sections: Sections = {
 		section: ScaleDegreesSection,
 	},
 	[Section.CHORD]: {
-		title: "Chord",
+		title: ChordTitle,
 		section: ChordSection,
 	},
 	[Section.CHORD_SCALE_DEGREE]: {

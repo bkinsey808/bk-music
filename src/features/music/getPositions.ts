@@ -9,14 +9,14 @@ export const getPositions = ({
 	keyNote,
 	chord,
 	maxMuted = 0,
-	maxFret = 17,
+	maxFrets = 17,
 	maxFretSpan = 4,
 }: {
 	tuning: Tuning;
 	keyNote: string;
 	chord: Chord;
 	maxMuted?: number;
-	maxFret?: number;
+	maxFrets?: number;
 	maxFretSpan?: number;
 }) => {
 	if (!chord || !keyNote || !tuning) {
@@ -25,12 +25,12 @@ export const getPositions = ({
 
 	const chordNumbers = getChordNumbers(chord, keyNote);
 
-	return range(0, maxFret).flatMap((fret) => {
+	return range(0, maxFrets).flatMap((fret) => {
 		const positionsAtFret = getPositionsAtFret({
 			fret,
 			tuning,
 			chordNumbers,
-			maxFret,
+			maxFret: maxFrets,
 			maxFretSpan,
 			maxMuted,
 		});

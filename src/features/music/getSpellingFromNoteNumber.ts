@@ -1,6 +1,6 @@
-import { scaleDegrees } from "./scaleDegrees";
+import { degrees } from "./degrees";
 
 export const getSpellingFromNoteNumber = (noteNumber: number) => {
 	noteNumber = noteNumber % 12;
-	return scaleDegrees[noteNumber];
+	return degrees[noteNumber];
 };

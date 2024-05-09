@@ -8,10 +8,13 @@ import {
 import { getPositions } from "@/features/music/getPositions";
 
 export const PositionsSection = () => {
-	const { getValue } = useDashboardState();
-	const chord = getValue(DashboardStateKey.CHORD);
-	const keyNote = getValue(DashboardStateKey.KEY_NOTE);
-	const tuning = getValue(DashboardStateKey.TUNING);
+	const { getValues } = useDashboardState();
+	const [chord, keyNote, tuning, maxFrets] = getValues([
+		DashboardStateKey.CHORD,
+		DashboardStateKey.KEY_NOTE,
+		DashboardStateKey.TUNING,
+		DashboardStateKey.MAX_FRETS,
+	]);
 
 	const positions = getPositions({
 		chord,

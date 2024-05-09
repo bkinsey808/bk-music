@@ -1,4 +1,4 @@
-export const scaleDegrees = [
+export const degrees = [
 	"1",
 	"b2",
 	"2",

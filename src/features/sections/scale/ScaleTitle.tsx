@@ -7,9 +7,11 @@ import {
 import { getSciBySpelling } from "@/features/music/sci";
 
 export const ScaleTitle = () => {
-	const { getValue } = useDashboardState();
-	const scale = getValue(DashboardStateKey.SCALE);
-	const keyNote = getValue(DashboardStateKey.KEY_NOTE);
+	const { getValues } = useDashboardState();
+	const [scale, keyNote] = getValues([
+		DashboardStateKey.SCALE,
+		DashboardStateKey.KEY_NOTE,
+	]);
 	const sci = getSciBySpelling(scale);
 
 	return (

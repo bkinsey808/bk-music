@@ -4,7 +4,7 @@ import { Dispatch, useContext } from "react";
 import { fromAppStateGetUrl } from "@/features/app-state/fromAppStateGetUrl";
 import { toggleArrayItem } from "@/features/app-state/toggleArrayItem";
 import { AppStateContext } from "@/features/app-state/useAppState";
-import { scaleDegrees } from "@/features/music/scaleDegrees";
+import { degrees } from "@/features/music/degrees";
 import { Section } from "@/features/sections/sections";
 
 export const dashboardInitialPath = "/d";
@@ -12,6 +12,7 @@ export const enum DashboardActionType {
 	TOGGLE_ACCORDION = "toggleAccordion",
 	TOGGLE_SCALE_DEGREE = "toggleScaleDegree",
 	TOGGLE_POSITION_ELEMENT = "togglePositionElement",
+	TOGGLE_CHORD_DEGREE = "toggleChordDegree",
 	SET_KEY_VALUE = "setKeyValue",
 }
 
@@ -87,11 +88,15 @@ export type DashboardAction =
 	  }
 	| {
 			type: DashboardActionType.TOGGLE_SCALE_DEGREE;
-			payload: { scaleDegree: string };
+			payload: { degree: string };
 	  }
 	| {
 			type: DashboardActionType.TOGGLE_POSITION_ELEMENT;
 			payload: { fret: number; course: number };
+	  }
+	| {
+			type: DashboardActionType.TOGGLE_CHORD_DEGREE;
+			payload: { degree: string };
 	  }
 	| {
 			type: DashboardActionType.SET_KEY_VALUE;
@@ -118,14 +123,23 @@ export const dashboardStateReducer = (
 			return toggleArrayItem({
 				state,
 				key: DashboardStateKey.SCALE,
-				id: action.payload.scaleDegree,
-				sorter: (
-					a: (typeof scaleDegrees)[number],
-					b: (typeof scaleDegrees)[number],
-				) => {
-					const aScaleDegreeNumber = scaleDegrees.indexOf(a);
-					const bScaleDegreeNumber = scaleDegrees.indexOf(b);
-					return aScaleDegreeNumber - bScaleDegreeNumber;
+				id: action.payload.degree,
+				sorter: (a: (typeof degrees)[number], b: (typeof degrees)[number]) => {
+					const aDegreeNumber = degrees.indexOf(a);
+					const bDegreeNumber = degrees.indexOf(b);
+					return aDegreeNumber - bDegreeNumber;
+				},
+			});
+
+		case DashboardActionType.TOGGLE_CHORD_DEGREE:
+			return toggleArrayItem({
+				state,
+				key: DashboardStateKey.CHORD,
+				id: action.payload.degree,
+				sorter: (a: (typeof degrees)[number], b: (typeof degrees)[number]) => {
+					const aDegreeNumber = degrees.indexOf(a);
+					const bDegreeNumber = degrees.indexOf(b);
+					return aDegreeNumber - bDegreeNumber;
 				},
 			});
 
@@ -162,7 +176,8 @@ export type DashboardStateContextProps = {
 	isAccordionOpen: (section: Section) => boolean;
 	toggleAccordion: (section: Section, open?: boolean) => void;
 	isScaleDegreeInScale: (scaleDegree: string) => boolean;
-	toggleScaleDegree: (scaleDegree: string | undefined) => void;
+	toggleScaleDegree: (degree: string | undefined) => void;
+	toggleChordDegree: (degree: string | undefined) => void;
 	togglePositionElement: (fret: number, course: number) => void;
 	getValue: <K extends keyof DashboardState>(key: K) => DashboardState[K];
 	getValues: <K extends DashboardStateKey[]>(
@@ -206,17 +221,28 @@ export const useDashboardState = (): DashboardStateContextProps => {
 		});
 	};
 
-	const isScaleDegreeInScale = (scaleDegree: string) =>
-		context.appState[DashboardStateKey.SCALE]?.includes(scaleDegree);
+	const isScaleDegreeInScale = (degree: string) =>
+		context.appState[DashboardStateKey.SCALE]?.includes(degree);
 
-	const toggleScaleDegree = (scaleDegree: string | undefined) => {
-		if (scaleDegree === undefined) {
+	const toggleScaleDegree = (degree: string | undefined) => {
+		if (degree === undefined) {
 			return;
 		}
 
 		context.dispatch({
 			type: DashboardActionType.TOGGLE_SCALE_DEGREE,
-			payload: { scaleDegree },
+			payload: { degree },
+		});
+	};
+
+	const toggleChordDegree = (degree: string | undefined) => {
+		if (degree === undefined) {
+			return;
+		}
+
+		context.dispatch({
+			type: DashboardActionType.TOGGLE_CHORD_DEGREE,
+			payload: { degree },
 		});
 	};
 
@@ -267,6 +293,7 @@ export const useDashboardState = (): DashboardStateContextProps => {
 		isScaleDegreeInScale,
 		toggleScaleDegree,
 		togglePositionElement,
+		toggleChordDegree,
 		getValue,
 		getValues,
 		setValue,

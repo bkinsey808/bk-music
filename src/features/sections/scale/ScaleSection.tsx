@@ -6,10 +6,10 @@ import {
 	DashboardStateKey,
 	useDashboardState,
 } from "@/app/d/useDashboardState";
+import { degrees } from "@/features/music/degrees";
 import { getNoteNumber } from "@/features/music/getNoteNumber";
-import { isScaleDegreeInScale } from "@/features/music/isScaleDegreeInScale";
+import { isDegreeInScale } from "@/features/music/isDegreeInScale";
 import { notesAndFlatNotes } from "@/features/music/notes";
-import { scaleDegrees } from "@/features/music/scaleDegrees";
 import { getSciBySpelling } from "@/features/music/sci";
 
 export const ScaleSection = () => {
@@ -24,7 +24,7 @@ export const ScaleSection = () => {
 	return (
 		<section data-title="Scale Section">
 			<div className="grid grid-cols-[repeat(6,1fr)]">
-				{scaleDegrees.map((scaleDegree, index) => {
+				{degrees.map((scaleDegree, index) => {
 					const note =
 						keyNoteNumber === undefined
 							? undefined
@@ -33,8 +33,8 @@ export const ScaleSection = () => {
 									"♭",
 								);
 
-					const scaleDegreeInScale = isScaleDegreeInScale({
-						scaleDegree,
+					const scaleDegreeInScale = isDegreeInScale({
+						degree: scaleDegree,
 						scale,
 					});
 

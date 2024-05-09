@@ -1,6 +1,6 @@
+import { degrees } from "./degrees";
 import { getNoteNumber } from "./getNoteNumber";
 import { getScaleIndexFromRomanNumeral } from "./getScaleIndexFromRomanNumeral";
-import { scaleDegrees } from "./scaleDegrees";
 import { Chord } from "@/app/d/useDashboardState";
 
 export const getChordNumbers = (chord: Chord, scaleKeyNote?: string) => {
@@ -18,7 +18,7 @@ export const getChordNumbers = (chord: Chord, scaleKeyNote?: string) => {
 	return [
 		0,
 		...chordSpellingArray.map((spelling) =>
-			scaleDegrees.indexOf(spelling as (typeof scaleDegrees)[number]),
+			degrees.indexOf(spelling as (typeof degrees)[number]),
 		),
 	].map(
 		(degree) => ((scaleKeyNumber ?? 0) + degree + (chordScaleIndex ?? 0)) % 12,

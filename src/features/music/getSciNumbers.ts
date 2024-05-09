@@ -1,5 +1,5 @@
+import { degreeToNumber } from "./degreeToNumber";
 import { getNoteNumber } from "./getNoteNumber";
-import { scaleDegreeToNumber } from "./scaleDegreeToNumber";
 import { Scale } from "@/app/d/useDashboardState";
 
 export const getSciNumbers = (sci: Scale, keyNote?: string) => {
@@ -9,7 +9,7 @@ export const getSciNumbers = (sci: Scale, keyNote?: string) => {
 		keyNoteNumber,
 		...sci.map(
 			(scaleDegree) =>
-				((scaleDegreeToNumber(scaleDegree) ?? 0) + keyNoteNumber) % 12,
+				((degreeToNumber(scaleDegree) ?? 0) + keyNoteNumber) % 12,
 		),
 	];
 };

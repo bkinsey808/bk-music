@@ -1,6 +1,6 @@
+import { degrees } from "./degrees";
 import { getNoteFromNumber } from "./getNoteFromNumber";
 import { getSciNumbers } from "./getSciNumbers";
-import { scaleDegrees } from "./scaleDegrees";
 import { Chord, Scale } from "@/app/d/useDashboardState";
 
 /** given a scale in the form of '2-b3-4-5-b6-7', and a chord in the form of 'b3-5',
@@ -26,7 +26,7 @@ export const chordScaleDegrees = (scale: Scale, chord: Chord) => {
 		);
 
 		if (chordInScale) {
-			const scaleDegree = scaleDegrees[scaleNumbers[index]];
+			const scaleDegree = degrees[scaleNumbers[index]];
 			acc.push(scaleDegree);
 		}
 
