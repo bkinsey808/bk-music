@@ -1,6 +1,7 @@
 "use client";
 
 import { FretboardCell } from "./FretboardCell";
+import { FretboardControls } from "./FretboardControls";
 import {
 	DashboardStateKey,
 	useDashboardState,
@@ -8,33 +9,28 @@ import {
 import { range } from "@/features/math/range";
 
 export const FretboardSection = () => {
-	const { getValue } = useDashboardState();
-	const tuning = getValue(DashboardStateKey.TUNING);
-	const tuningArray = tuning.split("-");
-	const maxFrets = 13;
+	const { getValues } = useDashboardState();
+	const [tuning, maxFrets] = getValues([
+		DashboardStateKey.TUNING,
+		DashboardStateKey.MAX_FRETS,
+		DashboardStateKey.SELECT_CELL_TO_SET,
+	]);
 
 	return (
 		<section data-title="Fretboard Section">
+			<FretboardControls />
 			<div
 				data-title="Fretboard Grid"
 				style={{
 					"--max-frets": maxFrets,
-					"--courses": tuningArray.length,
+					"--courses": tuning.length,
 				}}
-				className="grid grid-flow-col grid-cols-[1.5rem_repeat(var(--courses),minmax(0,1fr))_1rem] grid-rows-[2rem_1fr_0.25rem_repeat(calc(var(--max-frets)-1),1fr)] gap-[0.25rem]"
+				className="grid grid-flow-col grid-cols-[1.5rem_repeat(var(--courses),minmax(0,1fr))] grid-rows-[2rem_1fr_0.25rem_repeat(calc(var(--max-frets)-1),1fr)] gap-[0.25rem]"
 			>
 				<div
 					data-title="Zeroth fret"
 					className="col-span-full row-[2] bg-[hsl(var(--background))]"
 				></div>
-
-				<button
-					aria-label="Add course"
-					autoFocus={true}
-					className="col-start-[-2] row-start-2 ml-[0.3rem]"
-				>
-					+
-				</button>
 
 				{range(maxFrets).map((fret) => (
 					<div
@@ -49,7 +45,7 @@ export const FretboardSection = () => {
 					</div>
 				))}
 
-				{range(tuningArray.length).map((course) => (
+				{range(tuning.length).map((course) => (
 					<div
 						key={`course-${course}`}
 						style={{
@@ -60,7 +56,7 @@ export const FretboardSection = () => {
 						<span>Course {course}</span>
 					</div>
 				))}
-				{range(tuningArray.length).map((course) =>
+				{range(tuning.length).map((course) =>
 					range(maxFrets).map((fret) => (
 						<div
 							data-title="Fretboard cell wrapper"

@@ -1,4 +1,4 @@
-import { PositionArray } from "./positionArray";
+import { Position } from "@/app/d/useDashboardState";
 
 export const getPositionValuesForFret = ({
 	fret,
@@ -9,7 +9,7 @@ export const getPositionValuesForFret = ({
 	maxFret: number;
 	maxFretSpan: number;
 }) => {
-	const valueSet = new Set<PositionArray[number]>([0, "x"]);
+	const valueSet = new Set<Position[number]>([0, "x"]);
 
 	if (fret > 0) {
 		const max = Math.min(maxFret, fret + maxFretSpan);

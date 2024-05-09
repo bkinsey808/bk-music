@@ -3,6 +3,7 @@ import { chordNumbersMatchPositionNumbers } from "./chordNumbersMatchPositionNum
 import { filterByMaxMuted } from "./filterByMaxMuted";
 import { getPositionNumbers } from "./getPositionNumbers";
 import { getPositionValuesForFret } from "./getPositionValuesForFret";
+import { Position, Tuning } from "@/app/d/useDashboardState";
 
 export const getPositionsAtFret = ({
 	fret,
@@ -13,7 +14,7 @@ export const getPositionsAtFret = ({
 	maxMuted,
 }: {
 	fret: number;
-	tuning: string;
+	tuning: Tuning;
 	chordNumbers: number[];
 	maxFret: number;
 	maxFretSpan: number;
@@ -24,8 +25,7 @@ export const getPositionsAtFret = ({
 		maxFret,
 		maxFretSpan,
 	});
-	const tuningArray = tuning.split("-");
-	const positionArrays = generateSequences(values, tuningArray.length)
+	const positionArrays = generateSequences(values, tuning.length)
 		.filter(filterByMaxMuted(maxMuted))
 		.filter((positionArray) =>
 			positionArray.some(
@@ -35,10 +35,9 @@ export const getPositionsAtFret = ({
 		.filter((positionArray) =>
 			chordNumbersMatchPositionNumbers(
 				chordNumbers,
-				getPositionNumbers(positionArray.join("-"), tuning),
+				getPositionNumbers(positionArray as Position, tuning),
 			),
-		)
-		.map((positionArray) => positionArray.join("-"));
+		);
 
 	return positionArrays;
 };

@@ -3,10 +3,12 @@ export const toggleArrayItem = <AppState extends object>({
 	key,
 	id,
 	sorter,
+	open,
 }: {
 	state: AppState;
 	key: keyof AppState;
 	id: string;
+	open?: boolean | undefined;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	sorter?: (a: any, b: any) => number;
 }) => {
@@ -17,12 +19,13 @@ export const toggleArrayItem = <AppState extends object>({
 	}
 
 	const previousIdFound = previousArray?.includes(id);
+	const newOpen = open ?? !previousIdFound;
 
 	const newState = {
 		...state,
-		[key]: previousIdFound
-			? previousArray?.filter((previousArrayId) => previousArrayId !== id)
-			: [...previousArray, id].sort(sorter),
+		[key]: newOpen
+			? [...previousArray, id].sort(sorter)
+			: previousArray?.filter((previousArrayId) => previousArrayId !== id),
 	};
 
 	return newState as AppState;

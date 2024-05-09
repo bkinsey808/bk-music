@@ -2,7 +2,7 @@ import { compressToEncodedURIComponent } from "lz-string";
 
 export const fromAppStateGetUrl = <
 	AppStateType extends {
-		[key: string]: string | readonly string[];
+		[key: string]: unknown;
 	},
 >({
 	appState,

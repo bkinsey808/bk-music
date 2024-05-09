@@ -1,4 +1,5 @@
 import { getNoteNumber } from "./getNoteNumber";
+import { Tuning } from "@/app/d/useDashboardState";
 
-export const getTuningNumbers = (tuning: string) =>
-	tuning.split("-").map((course) => getNoteNumber(course));
+export const getTuningNumbers = (tuning: Tuning) =>
+	tuning.map((course) => getNoteNumber(course));

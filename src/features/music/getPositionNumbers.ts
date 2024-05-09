@@ -1,7 +1,8 @@
 import { getPositionArray } from "./getPositionArray";
 import { getTuningNumbers } from "./getTuningNumbers";
+import { Position, Tuning } from "@/app/d/useDashboardState";
 
-export const getPositionNumbers = (position: string, tuning: string) => {
+export const getPositionNumbers = (position: Position, tuning: Tuning) => {
 	const positionArray = getPositionArray(position);
 	const tuningNumbers = getTuningNumbers(tuning);
 

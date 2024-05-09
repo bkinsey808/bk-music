@@ -5,11 +5,13 @@ import { fromAppStateGetUrl } from "@/features/app-state/fromAppStateGetUrl";
 import { toggleArrayItem } from "@/features/app-state/toggleArrayItem";
 import { AppStateContext } from "@/features/app-state/useAppState";
 import { scaleDegrees } from "@/features/music/scaleDegrees";
+import { Section } from "@/features/sections/sections";
 
 export const dashboardInitialPath = "/d";
 export const enum DashboardActionType {
 	TOGGLE_ACCORDION = "toggleAccordion",
 	TOGGLE_SCALE_DEGREE = "toggleScaleDegree",
+	TOGGLE_POSITION_ELEMENT = "togglePositionElement",
 	SET_KEY_VALUE = "setKeyValue",
 }
 
@@ -19,25 +21,57 @@ export enum DashboardStateKey {
 	LYRICS = "l",
 	TRANSLATION = "tr",
 	OPEN_ACCORDION_IDS = "o",
+	INSTRUMENT = "i",
+	INSTRUMENT_TUNING = "it",
 
 	TUNING = "t",
 	KEY_NOTE = "k",
 	SCALE = "sc",
 	CHORD = "c",
 	POSITION = "p",
+	MAX_FRETS = "mf",
+	SELECT_CELL_TO_SET = "scts",
+}
+
+export enum SelectCellToSet {
+	SCALE = "scale",
+	POSITION = "position",
+	TONE = "tone",
 }
 
 export const dashboardSchemaOption = {
-	[DashboardStateKey.TUNING]: S.String,
+	[DashboardStateKey.INSTRUMENT_TUNING]: S.String,
+	[DashboardStateKey.TUNING]: S.Array(S.String),
 	[DashboardStateKey.KEY_NOTE]: S.String,
 	[DashboardStateKey.SCALE]: S.Array(S.String),
 	[DashboardStateKey.CHORD]: S.Array(S.String),
-	[DashboardStateKey.POSITION]: S.String,
+	[DashboardStateKey.POSITION]: S.Array(S.Union(S.Literal("x"), S.Int)),
 	[DashboardStateKey.OPEN_ACCORDION_IDS]: S.Array(S.String),
 	[DashboardStateKey.SONG]: S.String,
+	[DashboardStateKey.INSTRUMENT]: S.String,
 	[DashboardStateKey.CREDITS]: S.String,
 	[DashboardStateKey.LYRICS]: S.String,
 	[DashboardStateKey.TRANSLATION]: S.String,
+	[DashboardStateKey.MAX_FRETS]: S.Number,
+	[DashboardStateKey.SELECT_CELL_TO_SET]: S.Literal(
+		...Object.values(SelectCellToSet),
+	),
+};
+
+export type Position = S.Schema.Type<
+	(typeof dashboardSchemaOption)[DashboardStateKey.POSITION]
+>;
+export type Tuning = S.Schema.Type<
+	(typeof dashboardSchemaOption)[DashboardStateKey.TUNING]
+>;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const guard = (key: DashboardStateKey, value: any) => {
+	const schema = dashboardSchemaOption[key];
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	return S.is(schema as any)(value)
+		? (value as S.Schema.Type<typeof schema>)
+		: undefined;
 };
 
 const DashboardStateSchema = S.Struct(dashboardSchemaOption);
@@ -47,14 +81,17 @@ export type Scale = DashboardState[DashboardStateKey.SCALE];
 export type Chord = DashboardState[DashboardStateKey.CHORD];
 
 export type DashboardAction =
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	| {
 			type: DashboardActionType.TOGGLE_ACCORDION;
-			payload: { id: string };
+			payload: { section: Section; open?: boolean | undefined };
 	  }
 	| {
 			type: DashboardActionType.TOGGLE_SCALE_DEGREE;
 			payload: { scaleDegree: string };
+	  }
+	| {
+			type: DashboardActionType.TOGGLE_POSITION_ELEMENT;
+			payload: { fret: number; course: number };
 	  }
 	| {
 			type: DashboardActionType.SET_KEY_VALUE;
@@ -73,7 +110,8 @@ export const dashboardStateReducer = (
 			return toggleArrayItem({
 				state,
 				key: DashboardStateKey.OPEN_ACCORDION_IDS,
-				id: action.payload.id,
+				id: action.payload.section,
+				open: action.payload.open,
 			});
 
 		case DashboardActionType.TOGGLE_SCALE_DEGREE:
@@ -91,6 +129,22 @@ export const dashboardStateReducer = (
 				},
 			});
 
+		case DashboardActionType.TOGGLE_POSITION_ELEMENT:
+			return {
+				...state,
+				[DashboardStateKey.POSITION]: state[DashboardStateKey.POSITION].map(
+					(positionElement, index) => {
+						if (index !== action.payload.course) {
+							return positionElement;
+						}
+
+						return positionElement === action.payload.fret
+							? "x"
+							: action.payload.fret;
+					},
+				),
+			};
+
 		case DashboardActionType.SET_KEY_VALUE:
 			return {
 				...state,
@@ -105,10 +159,11 @@ export const dashboardStateReducer = (
 export type DashboardStateContextProps = {
 	appState: DashboardState;
 	dispatch: Dispatch<DashboardAction>;
-	isAccordionOpen: (id: string) => boolean;
-	toggleAccordion: (id: string) => void;
+	isAccordionOpen: (section: Section) => boolean;
+	toggleAccordion: (section: Section, open?: boolean) => void;
 	isScaleDegreeInScale: (scaleDegree: string) => boolean;
-	toggleScaleDegree: (scaleDegree: string) => void;
+	toggleScaleDegree: (scaleDegree: string | undefined) => void;
+	togglePositionElement: (fret: number, course: number) => void;
 	getValue: <K extends keyof DashboardState>(key: K) => DashboardState[K];
 	getValues: <K extends DashboardStateKey[]>(
 		keys: [...K],
@@ -141,23 +196,34 @@ export const useDashboardState = (): DashboardStateContextProps => {
 		);
 	}
 
-	const isAccordionOpen = (id: string) =>
-		context.appState[DashboardStateKey.OPEN_ACCORDION_IDS]?.includes(id);
+	const isAccordionOpen = (section: Section) =>
+		context.appState[DashboardStateKey.OPEN_ACCORDION_IDS]?.includes(section);
 
-	const toggleAccordion = (id: string) => {
+	const toggleAccordion = (section: Section, open?: boolean) => {
 		context.dispatch({
 			type: DashboardActionType.TOGGLE_ACCORDION,
-			payload: { id },
+			payload: { section, open },
 		});
 	};
 
 	const isScaleDegreeInScale = (scaleDegree: string) =>
 		context.appState[DashboardStateKey.SCALE]?.includes(scaleDegree);
 
-	const toggleScaleDegree = (scaleDegree: string) => {
+	const toggleScaleDegree = (scaleDegree: string | undefined) => {
+		if (scaleDegree === undefined) {
+			return;
+		}
+
 		context.dispatch({
 			type: DashboardActionType.TOGGLE_SCALE_DEGREE,
 			payload: { scaleDegree },
+		});
+	};
+
+	const togglePositionElement = (fret: number, course: number) => {
+		context.dispatch({
+			type: DashboardActionType.TOGGLE_POSITION_ELEMENT,
+			payload: { fret, course },
 		});
 	};
 
@@ -200,6 +266,7 @@ export const useDashboardState = (): DashboardStateContextProps => {
 		toggleAccordion,
 		isScaleDegreeInScale,
 		toggleScaleDegree,
+		togglePositionElement,
 		getValue,
 		getValues,
 		setValue,

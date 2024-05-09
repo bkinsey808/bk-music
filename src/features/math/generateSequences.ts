@@ -8,7 +8,7 @@ export const generateSequences = <T extends number | string>(
 	values: T[],
 	n: number,
 ) => {
-	if (n === 1) {
+	if (n <= 1) {
 		return values.map((value) => [value]);
 	} else {
 		const sequences: T[][] = [];

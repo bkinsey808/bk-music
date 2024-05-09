@@ -2,17 +2,19 @@
 
 import Link from "next/link";
 
+import { Position as PositionType } from "@/app/d/useDashboardState";
 import {
 	DashboardStateKey,
 	useDashboardState,
 } from "@/app/d/useDashboardState";
 import { getPositionArray } from "@/features/music/getPositionArray";
 
-export const Position = ({ position }: { position: string }) => {
+export const Position = ({ position }: { position: PositionType }) => {
 	const { getValue, setValue, getUrl } = useDashboardState();
 	const selectedPosition = getValue(DashboardStateKey.POSITION);
 
-	const selected = position === selectedPosition;
+	const selected =
+		JSON.stringify(position) === JSON.stringify(selectedPosition);
 	const positionArray = getPositionArray(position);
 
 	const url = getUrl(DashboardStateKey.POSITION, position);

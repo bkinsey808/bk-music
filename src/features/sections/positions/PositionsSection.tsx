@@ -7,17 +7,13 @@ import {
 } from "@/app/d/useDashboardState";
 import { getPositions } from "@/features/music/getPositions";
 
-export function Positions() {
+export const PositionsSection = () => {
 	const { getValue } = useDashboardState();
 	const chord = getValue(DashboardStateKey.CHORD);
 	const keyNote = getValue(DashboardStateKey.KEY_NOTE);
 	const tuning = getValue(DashboardStateKey.TUNING);
 
-	if (!chord || !keyNote || !tuning) {
-		return null;
-	}
-
-	const PositionsSection = getPositions({
+	const positions = getPositions({
 		chord,
 		keyNote,
 		tuning,
@@ -31,9 +27,9 @@ export function Positions() {
 			data-title="Positions Section"
 			className="flex flex-wrap gap-x-[1rem]"
 		>
-			{PositionsSection.map((position) => (
-				<Position key={position} position={position} />
+			{positions?.map((position) => (
+				<Position key={position.join("-")} position={position} />
 			))}
 		</section>
 	);
-}
+};

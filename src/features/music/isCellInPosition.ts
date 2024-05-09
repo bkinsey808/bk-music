@@ -1,11 +1,12 @@
 import { getPositionArray } from "./getPositionArray";
+import { Position } from "@/app/d/useDashboardState";
 
 export const isCellInPosition = ({
 	position,
 	fret,
 	course,
 }: {
-	position: string;
+	position: Position;
 	fret: number;
 	course: number;
 }) => {

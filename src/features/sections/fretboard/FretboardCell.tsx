@@ -2,6 +2,7 @@
 
 import {
 	DashboardStateKey,
+	SelectCellToSet,
 	useDashboardState,
 } from "@/app/d/useDashboardState";
 import { getScaleDegree } from "@/features/music/getScaleDegree";
@@ -15,16 +16,17 @@ type FretboardCellProps = {
 };
 
 export const FretboardCell = ({ course, fret }: FretboardCellProps) => {
-	const { getValues } = useDashboardState();
-	const [keyNote, scale, tuning, position] = getValues([
+	const { getValues, toggleScaleDegree, togglePositionElement } =
+		useDashboardState();
+	const [keyNote, scale, tuning, position, selectCellToSet] = getValues([
 		DashboardStateKey.KEY_NOTE,
 		DashboardStateKey.SCALE,
 		DashboardStateKey.TUNING,
 		DashboardStateKey.POSITION,
+		DashboardStateKey.SELECT_CELL_TO_SET,
 	]);
-	const tuningArray = tuning.split("-");
 
-	const openNote = tuningArray[course];
+	const openNote = tuning[course];
 	const note = transposeNote(openNote, fret);
 	const scaleDegree = getScaleDegree(keyNote, note);
 
@@ -36,25 +38,21 @@ export const FretboardCell = ({ course, fret }: FretboardCellProps) => {
 			data-title={`Fretboard Cell - fret ${fret} of course ${course} is ${note}`}
 			data-in-scale={noteInScale}
 			data-in-position={noteInPosition}
-			className="grid grid-cols-[2rem_1fr_2rem] border-[0.2rem] border-solid bg-[var(--color-cell-background)] [&[data-in-scale='true']]:bg-[var(--color-cell-background-in-scale)] "
+			className="grid grid-cols-[2rem_1fr_2rem] border-[0.2rem] border-solid bg-[var(--color-cell-background)] [&[data-in-scale='true']]:bg-[var(--color-cell-background-in-scale)] [&[data-in-scale='true']]:text-[hsl(var(--background))]"
+			onClick={() => {
+				switch (selectCellToSet) {
+					case SelectCellToSet.SCALE:
+						return toggleScaleDegree(scaleDegree);
+					case SelectCellToSet.POSITION:
+						return togglePositionElement(fret, course);
+				}
+			}}
 		>
-			{fret === 0 && (
-				<div className="flex w-4 flex-col justify-center [&>button]:text-base">
-					<button aria-label="Add course">+</button>
-					<button aria-label="Remove Course">-</button>
-				</div>
-			)}
 			<div className="col-[2] flex justify-center rounded-full border-[0.3rem] border-transparent text-center [[data-in-position='true']>&]:border-current">
 				{note?.replace("b", "♭")}
 				<br />
 				{scaleDegree?.replace("b", "♭")}
 			</div>
-			{fret === 0 && (
-				<div className="ml-auto flex flex-col justify-center [&>button]:text-xs">
-					<button aria-label="Add half step">▲</button>
-					<button aria-label="Remove half step">▼</button>
-				</div>
-			)}
 		</div>
 	);
 };

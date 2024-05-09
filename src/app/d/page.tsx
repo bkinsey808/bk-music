@@ -1,4 +1,4 @@
-import { pageColumns, sections } from "../../features/sections/sections";
+import { pageColumns, sections } from "./pageColumns";
 import { AccordionItem } from "@/features/global/AccordionItem";
 import { PageColumn } from "@/features/global/PageColumn";
 import { Header } from "@/features/header/header";

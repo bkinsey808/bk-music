@@ -2,6 +2,7 @@
 
 import { ReactNode, useEffect, useRef } from "react";
 
+import { Section } from "../sections/sections";
 import { useDashboardState } from "@/app/d/useDashboardState";
 
 export const AccordionItem = ({
@@ -10,20 +11,20 @@ export const AccordionItem = ({
 	children,
 }: {
 	title: ReactNode;
-	id: string;
+	id: Section;
 	children: ReactNode;
 }) => {
 	const detailsRef = useRef<HTMLDetailsElement>(null);
 
 	const { isAccordionOpen, toggleAccordion } = useDashboardState();
+	const isOpen = isAccordionOpen(id);
 
-	// initialize the accordion state
+	// open the accordion when the state changes
 	useEffect(() => {
 		if (detailsRef.current) {
-			detailsRef.current.open = isAccordionOpen(id);
+			detailsRef.current.open = isOpen;
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [detailsRef.current]);
+	}, [isOpen]);
 
 	return (
 		<details id={id} ref={detailsRef} data-open={isAccordionOpen(id)}>
