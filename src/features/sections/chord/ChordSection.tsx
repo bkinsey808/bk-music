@@ -16,15 +16,24 @@ import { getSciBySpelling } from "@/features/music/sci";
 
 export const ChordSection = () => {
 	const { getValues, toggleChordDegree } = useDashboardState();
-	const [chord, scale, keyNote] = getValues([
+	const [chord, chordScaleDegree, scale, keyNote] = getValues([
 		DashboardStateKey.CHORD,
+		DashboardStateKey.CHORD_SCALE_DEGREE,
 		DashboardStateKey.SCALE,
 		DashboardStateKey.KEY_NOTE,
 	]);
 	const keyNoteNumber = getNoteNumber(keyNote) ?? 0;
 
-	const [chordRomanNumeral, ...chordSpelling] = chord;
-	const sci = getSciBySpelling(chordSpelling);
+	const sci = getSciBySpelling(chord);
+
+	const chordScaleNumber = chordScaleDegree
+		? degrees.indexOf(chordScaleDegree)
+		: undefined;
+
+	const romanNumeral = chordScaleNumber
+		? romanNumerals[chordScaleNumber]
+		: undefined;
+	const chordRomanNumeral = getCasedRomanNumeral({ romanNumeral, scale });
 
 	const scaleIndex = getScaleIndexFromRomanNumeral(chordRomanNumeral) ?? 0;
 
@@ -38,7 +47,7 @@ export const ChordSection = () => {
 						includeOctave: false,
 					}).replace("b", "♭");
 
-					const degreeInChord = chordSpelling.includes(chordDegree);
+					const degreeInChord = chord.includes(chordDegree);
 					const scaleNumber = (scaleIndex + index) % 12;
 					const scaleDegree = degrees[scaleNumber];
 
@@ -47,10 +56,10 @@ export const ChordSection = () => {
 
 					const Component = index > 0 ? Link : "div";
 
-					const romanNumeral = getCasedRomanNumeral(
-						romanNumerals[scaleNumber],
+					const romanNumeral = getCasedRomanNumeral({
+						romanNumeral: scaleNumber ? romanNumerals[scaleNumber] : undefined,
 						scale,
-					).replace("b", "♭");
+					})?.replace("b", "♭");
 
 					return (
 						<Component

@@ -4,9 +4,13 @@ import Link from "next/link";
 
 import { getChords } from "./getChords";
 import {
+	DashboardState,
 	DashboardStateKey,
 	useDashboardState,
 } from "@/app/d/useDashboardState";
+import { degrees } from "@/features/music/degrees";
+import { getScaleIndexFromRomanNumeral } from "@/features/music/getScaleIndexFromRomanNumeral";
+import { romanNumerals } from "@/features/music/romanNumerals";
 
 interface ScaleDegreeChordProps {
 	sci:
@@ -19,24 +23,40 @@ export const ScaleDegreeChord = ({
 	sci,
 	romanNumeral,
 }: ScaleDegreeChordProps) => {
-	const { getValue, setValue, getUrl } = useDashboardState();
+	const { getValues, setValues, getUrl } = useDashboardState();
 
-	const newChord =
-		`${romanNumeral?.toLowerCase()}-${sci?.txtSpelling?.replaceAll(",", "-")}`.split(
-			"-",
-		);
-	const url = getUrl(DashboardStateKey.CHORD, newChord);
+	const newChord = sci?.txtSpelling?.split(",") ?? ([] as string[]);
 
-	const selectedChord = getValue(DashboardStateKey.CHORD);
+	const [selectedChord, selectedChordScaleDegree] = getValues([
+		DashboardStateKey.CHORD,
+		DashboardStateKey.CHORD_SCALE_DEGREE,
+	]);
 
-	const selectedChordParts = selectedChord;
-	const [, ...selectedChordSpellingArray] = selectedChordParts;
-	const selectedChordRomanNumeral = selectedChordParts[0];
-	const selectedChordSpelling = selectedChordSpellingArray.join("-");
+	const chordScaleDegreeNumber =
+		selectedChordScaleDegree === undefined
+			? undefined
+			: degrees.indexOf(selectedChordScaleDegree);
+
+	const selectedChordRomanNumeral =
+		chordScaleDegreeNumber === undefined
+			? undefined
+			: romanNumerals[chordScaleDegreeNumber];
+	const selectedChordSpelling = selectedChord.join("-");
 
 	const selected =
 		sci?.txtSpelling?.replaceAll(",", "-") === selectedChordSpelling &&
-		romanNumeral.toLowerCase() === selectedChordRomanNumeral.toLowerCase();
+		romanNumeral.toLowerCase() === selectedChordRomanNumeral?.toLowerCase();
+
+	const scaleIndex = getScaleIndexFromRomanNumeral(romanNumeral);
+	const scaleDegree =
+		scaleIndex === undefined ? undefined : degrees[scaleIndex];
+
+	const linkState: Partial<DashboardState> = {
+		[DashboardStateKey.CHORD_SCALE_DEGREE]: scaleDegree ?? "1",
+		[DashboardStateKey.CHORD]: newChord,
+		[DashboardStateKey.POSITION]: [],
+	};
+	const url = getUrl(linkState);
 
 	return (
 		<Link
@@ -46,7 +66,7 @@ export const ScaleDegreeChord = ({
 			href={url}
 			onClick={(e) => {
 				e.preventDefault();
-				setValue(DashboardStateKey.CHORD, newChord);
+				setValues(linkState);
 				return false;
 			}}
 		>

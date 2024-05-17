@@ -10,11 +10,11 @@ export const getInKeyScale = ({
 }: {
 	chordScaleDegree: Degree;
 	chord: Chord;
-	keyNote: string;
+	keyNote?: string | undefined;
 	scale: Scale;
 }) => {
 	const chordNumbers = getChordNumbers({ chordScaleDegree, chord, keyNote });
-	const keyScaleNumbers = getKeyScaleNumbers(keyNote, scale);
+	const keyScaleNumbers = getKeyScaleNumbers({ keyNote, scale });
 
 	return chordNumbers.every((chordNumber) =>
 		keyScaleNumbers.includes(chordNumber),

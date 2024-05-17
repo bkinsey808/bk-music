@@ -13,7 +13,9 @@ export const TuningTitle = () => {
 		DashboardStateKey.INSTRUMENT_TUNING,
 	]);
 
-	const instrumentTuningsMap = tunings[instrument as keyof typeof tunings];
+	const instrumentTuningsMap = instrument
+		? tunings[instrument as keyof typeof tunings]
+		: {};
 	const tuning = (
 		instrumentTuningsMap[
 			instrumentTuningName as keyof typeof instrumentTuningsMap

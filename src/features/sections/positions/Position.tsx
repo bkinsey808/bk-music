@@ -17,7 +17,7 @@ export const Position = ({ position }: { position: PositionType }) => {
 		JSON.stringify(position) === JSON.stringify(selectedPosition);
 	const positionArray = getPositionArray(position);
 
-	const url = getUrl(DashboardStateKey.POSITION, position);
+	const url = getUrl({ [DashboardStateKey.POSITION]: position });
 
 	return (
 		<Link

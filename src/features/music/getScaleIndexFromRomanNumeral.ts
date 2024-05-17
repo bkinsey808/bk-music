@@ -1,10 +1,9 @@
 import { romanNumerals } from "./romanNumerals";
 
-export const getScaleIndexFromRomanNumeral = (romanNumeral: string) => {
-	// console.log({ romanNumeral });
+export const getScaleIndexFromRomanNumeral = (
+	romanNumeral?: string | undefined,
+) => {
 	if (romanNumeral === undefined) {
-		console.log("undefined romanNumeral");
-		console.trace();
 		return undefined;
 	}
 	const index = romanNumerals.findIndex(

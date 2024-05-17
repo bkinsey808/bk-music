@@ -30,7 +30,7 @@ export const FretboardCell = ({ course, fret }: FretboardCellProps) => {
 	const note = transposeNote(openNote, fret);
 	const scaleDegree = getScaleDegree(keyNote, note);
 
-	const noteInScale = isNoteInScale(keyNote, scale, note);
+	const noteInScale = isNoteInScale({ keyNote, scale, note });
 	const noteInPosition = isCellInPosition({ position, fret, course });
 
 	return (

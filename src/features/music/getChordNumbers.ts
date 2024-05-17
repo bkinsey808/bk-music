@@ -11,7 +11,9 @@ export const getChordNumbers = ({
 	chord: Chord;
 	keyNote?: string | undefined;
 }) => {
-	const chordScaleIndex = degrees.indexOf(chordScaleDegree);
+	const chordScaleIndex = chordScaleDegree
+		? degrees.indexOf(chordScaleDegree)
+		: undefined;
 
 	const scaleKeyNumber = getNoteNumber(keyNote) ?? 0;
 

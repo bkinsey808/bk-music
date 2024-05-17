@@ -2,7 +2,15 @@ import { getNoteNumber } from "./getNoteNumber";
 import { getSciNumbers } from "./getSciNumbers";
 import { Scale } from "@/app/d/useDashboardState";
 
-export const isNoteInScale = (keyNote: string, scale: Scale, note?: string) => {
+export const isNoteInScale = ({
+	keyNote,
+	scale,
+	note,
+}: {
+	keyNote?: string | undefined;
+	scale: Scale;
+	note?: string | undefined;
+}) => {
 	const sciNumbers = getSciNumbers(scale, keyNote);
 	const noteNumber = (getNoteNumber(note) ?? 0) % 12;
 	const scaleDegreeIndex = sciNumbers.indexOf(noteNumber);

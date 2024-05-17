@@ -1,5 +1,7 @@
 "use client";
 
+import { useMemo } from "react";
+
 import { Position } from "./Position";
 import {
 	DashboardStateKey,
@@ -17,15 +19,19 @@ export const PositionsSection = () => {
 		DashboardStateKey.MAX_FRETS,
 	]);
 
-	const positions = getPositions({
-		chordScaleDegree,
-		chord,
-		keyNote,
-		tuning,
-		maxFrets,
-		maxFretSpan: 4,
-		maxMuted: 1,
-	});
+	const positions = useMemo(
+		() =>
+			getPositions({
+				chordScaleDegree,
+				chord,
+				keyNote,
+				tuning,
+				maxFrets,
+				maxFretSpan: 4,
+				maxMuted: 1,
+			}),
+		[chordScaleDegree, chord, keyNote, tuning, maxFrets],
+	);
 
 	return (
 		<section

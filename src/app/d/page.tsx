@@ -7,7 +7,7 @@ export default function Dashboard() {
 	return (
 		<div className="@container">
 			<Header />
-			<main className="h-screen overflow-auto">
+			<main className="h-screen overflow-auto @[1700px]:overflow-hidden">
 				<div className="grid grid-cols-1 @[1700px]:grid-cols-3">
 					{pageColumns.map((pageColumn, columnIndex) => (
 						<PageColumn key={columnIndex}>

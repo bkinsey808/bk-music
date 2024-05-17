@@ -14,7 +14,7 @@ export const getPositions = ({
 	maxFretSpan = 4,
 }: {
 	tuning: Tuning;
-	keyNote: string;
+	keyNote?: string | undefined;
 	chordScaleDegree: Degree;
 	chord: Chord;
 	maxMuted?: number;

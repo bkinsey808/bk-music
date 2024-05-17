@@ -1,7 +1,13 @@
 import { getRomanNumerals } from "./getRomanNumerals";
 import { Scale } from "@/app/d/useDashboardState";
 
-export const getCasedRomanNumeral = (romanNumeral: string, scale: Scale) => {
+export const getCasedRomanNumeral = ({
+	romanNumeral,
+	scale,
+}: {
+	romanNumeral?: string | undefined;
+	scale: Scale;
+}) => {
 	const romanNumerals = getRomanNumerals(scale);
 	const foundRomanNumeral = romanNumerals.find(
 		(rn) => rn.toLowerCase() === romanNumeral?.toLowerCase(),

@@ -20,6 +20,7 @@ import { ScaleTitle } from "@/features/sections/scale/ScaleTitle";
 import { Section } from "@/features/sections/sections";
 import { SongSection } from "@/features/sections/song/SongSection";
 import { SongTitle } from "@/features/sections/song/SongTitle";
+import { StateSection } from "@/features/sections/state/StateSection";
 import { TranslationSection } from "@/features/sections/translation/TranslationSection";
 import { TuningSection } from "@/features/sections/tuning/TuningSection";
 import { TuningTitle } from "@/features/sections/tuning/TuningTitle";
@@ -89,6 +90,10 @@ export const sections: Sections = {
 		title: "Fretboard",
 		section: FretboardSection,
 	},
+	[Section.STATE]: {
+		title: "State",
+		section: StateSection,
+	},
 	[Section.QRCODE]: {
 		title: "QR Code",
 		section: QRCodeSection,
@@ -114,6 +119,7 @@ const rightSections: Section[] = [
 	Section.CHORD_SCALE_DEGREE,
 	Section.CHORD_SPELLING,
 	Section.POSITIONS,
+	Section.STATE,
 	Section.QRCODE,
 ];
 

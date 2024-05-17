@@ -13,7 +13,7 @@ export const KeyTitle = () => {
 		<>
 			<div>Key{keyNote ? `: ` : null}</div>
 			<div className="overflow-hidden text-ellipsis text-nowrap">
-				{keyNote.replace("b", "♭")}
+				{keyNote?.replace("b", "♭")}
 			</div>
 		</>
 	);

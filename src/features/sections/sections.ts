@@ -13,5 +13,6 @@ export const enum Section {
 	INSTRUMENT = "i",
 	TUNING = "t",
 	FRETBOARD = "f",
+	STATE = "st",
 	QRCODE = "q",
 }

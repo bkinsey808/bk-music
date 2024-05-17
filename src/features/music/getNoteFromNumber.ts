@@ -5,10 +5,13 @@ export const getNoteFromNumber = ({
 	preferFlats = true,
 	includeOctave = true,
 }: {
-	noteNumber: number;
+	noteNumber: number | "x";
 	preferFlats?: boolean;
 	includeOctave?: boolean;
 }) => {
+	if (noteNumber === "x") {
+		return "x";
+	}
 	const octave = Math.floor(noteNumber / 12);
 	const letterAndAccidentalNumber = noteNumber % 12;
 

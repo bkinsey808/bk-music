@@ -132,8 +132,6 @@ const dataListMap = instrumentNames.reduce(
 	>,
 );
 
-console.log({ dataListMap });
-
 export const TuningSection = () => {
 	return (
 		<section data-title="Tuning Section">
@@ -141,7 +139,6 @@ export const TuningSection = () => {
 				list="tuning-list"
 				onBlur={(e) => {
 					const value = e.target.value;
-					console.log({ value });
 					const completedOption = getKeys(dataListMap).find((option) =>
 						option.startsWith(value),
 					);

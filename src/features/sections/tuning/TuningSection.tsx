@@ -1,6 +1,9 @@
 "use client";
 
+import { useMemo } from "react";
+
 import {
+	DashboardState,
 	DashboardStateKey,
 	useDashboardState,
 } from "@/app/d/useDashboardState";
@@ -8,10 +11,21 @@ import { getKeys } from "@/features/global/getKeys";
 import * as tunings from "@/features/music/tunings.json";
 
 export const TuningSection = () => {
-	const { getValue, setValue } = useDashboardState();
-	const instrument = getValue(DashboardStateKey.INSTRUMENT);
-	const instrumentTuningsMap = tunings[instrument as keyof typeof tunings];
-	const instrumentTuningNames: string[] = getKeys(instrumentTuningsMap);
+	const { getValues, setValues } = useDashboardState();
+	const [instrument, instrumentTuning] = getValues([
+		DashboardStateKey.INSTRUMENT,
+		DashboardStateKey.INSTRUMENT_TUNING,
+	]);
+
+	const instrumentTuningsMap = useMemo(
+		() => (instrument ? tunings[instrument as keyof typeof tunings] : {}),
+		[instrument],
+	);
+
+	const instrumentTuningNames: string[] = useMemo(
+		() => getKeys(instrumentTuningsMap),
+		[instrumentTuningsMap],
+	);
 
 	return (
 		<section data-title="Tuning Section">
@@ -21,23 +35,21 @@ export const TuningSection = () => {
 						instrumentTuningName as keyof typeof instrumentTuningsMap
 					] as string[];
 
+					const newState: Partial<DashboardState> = {
+						[DashboardStateKey.INSTRUMENT_TUNING]: instrumentTuningName,
+						[DashboardStateKey.TUNING]: tuning,
+					};
+
 					return (
 						<button
 							key={instrumentTuningName}
 							className="mr-[-0.1rem] h-full border-[0.1rem] border-current p-[0.6rem] text-center"
 							onClick={() => {
-								setValue(
-									DashboardStateKey.INSTRUMENT_TUNING,
-									instrumentTuningName,
-								);
-								setValue(DashboardStateKey.TUNING, tuning);
+								setValues(newState);
 							}}
 						>
 							<div
-								data-selected={
-									instrumentTuningName ===
-									getValue(DashboardStateKey.INSTRUMENT_TUNING)
-								}
+								data-selected={instrumentTuningName === instrumentTuning}
 								className="w-full rounded-full border-[0.1rem] border-transparent py-[0.4rem] text-center [&[data-selected='true']]:border-current"
 							>
 								<div>{instrumentTuningName}</div>
