@@ -8,7 +8,6 @@ export const enum Section {
 	SCALE_DEGREES = "sd",
 	CHORD = "c",
 	CHORD_SCALE_DEGREE = "csd",
-	CHORD_SPELLING = "cs",
 	POSITIONS = "ps",
 	INSTRUMENT = "i",
 	TUNING = "t",

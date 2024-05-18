@@ -47,7 +47,8 @@ export const ChordSection = () => {
 						includeOctave: false,
 					}).replace("b", "♭");
 
-					const degreeInChord = chord.includes(chordDegree);
+					const degreeInChord =
+						chord.includes(chordDegree) || chordDegree === "1";
 					const scaleNumber = (scaleIndex + index) % 12;
 					const scaleDegree = degrees[scaleNumber];
 

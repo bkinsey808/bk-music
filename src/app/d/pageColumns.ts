@@ -1,7 +1,5 @@
 import { ChordScaleDegreeSection } from "@/features/sections/chord-scale-degree/ChordScaleDegreeSection";
 import { ChordScaleDegreeTitle } from "@/features/sections/chord-scale-degree/ChordScaleDegreeTitle";
-import { ChordSpellingSection } from "@/features/sections/chord-spelling/ChordSpellingSection";
-import { ChordSpellingTitle } from "@/features/sections/chord-spelling/ChordSpellingTitle";
 import { ChordSection } from "@/features/sections/chord/ChordSection";
 import { ChordTitle } from "@/features/sections/chord/ChordTitle";
 import { CreditsSection } from "@/features/sections/credits/CreditsSection";
@@ -70,10 +68,6 @@ export const sections: Sections = {
 		title: ChordScaleDegreeTitle,
 		section: ChordScaleDegreeSection,
 	},
-	[Section.CHORD_SPELLING]: {
-		title: ChordSpellingTitle,
-		section: ChordSpellingSection,
-	},
 	[Section.POSITIONS]: {
 		title: "Positions",
 		section: PositionsSection,
@@ -117,7 +111,6 @@ const centerSections: Section[] = [
 const rightSections: Section[] = [
 	Section.CHORD,
 	Section.CHORD_SCALE_DEGREE,
-	Section.CHORD_SPELLING,
 	Section.POSITIONS,
 	Section.STATE,
 	Section.QRCODE,
