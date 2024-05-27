@@ -1,7 +1,7 @@
+import { DashboardAccordion } from "./DashboardAccordion";
 import { pageColumns, sections } from "./pageColumns";
-import { AccordionItem } from "@/features/global/AccordionItem";
 import { PageColumn } from "@/features/global/PageColumn";
-import { Header } from "@/features/header/header";
+import { Header } from "@/features/header/Header";
 
 export default function Dashboard() {
 	return (
@@ -15,13 +15,13 @@ export default function Dashboard() {
 								const { title: Title, section: Section } = sections[section];
 
 								return (
-									<AccordionItem
+									<DashboardAccordion
 										key={section}
 										id={section}
 										title={typeof Title === "string" ? Title : <Title />}
 									>
 										<Section />
-									</AccordionItem>
+									</DashboardAccordion>
 								);
 							})}
 						</PageColumn>

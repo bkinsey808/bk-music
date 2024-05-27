@@ -2,22 +2,20 @@
 
 import { ReactNode, useEffect, useRef } from "react";
 
-import { Section } from "../sections/sections";
-import { useDashboardState } from "@/app/d/useDashboardState";
-
-export const AccordionItem = ({
+export const Accordion = <Section extends string>({
 	title,
 	id,
+	isOpen,
+	toggleIsOpen,
 	children,
 }: {
 	title: ReactNode;
 	id: Section;
+	isOpen: boolean;
+	toggleIsOpen: (open?: boolean) => void;
 	children: ReactNode;
 }) => {
 	const detailsRef = useRef<HTMLDetailsElement>(null);
-
-	const { isAccordionOpen, toggleAccordion } = useDashboardState();
-	const isOpen = isAccordionOpen(id);
 
 	// open the accordion when the state changes
 	useEffect(() => {
@@ -27,12 +25,12 @@ export const AccordionItem = ({
 	}, [isOpen]);
 
 	return (
-		<details id={id} ref={detailsRef} data-open={isAccordionOpen(id)}>
+		<details id={id} ref={detailsRef} data-open={isOpen}>
 			<summary
 				className="mb-[0.25rem] flex cursor-pointer flex-row flex-nowrap gap-[0.5rem]"
 				onClick={(e) => {
 					e.preventDefault();
-					toggleAccordion(id);
+					toggleIsOpen();
 
 					if (detailsRef.current) {
 						detailsRef.current.open = !detailsRef.current.open;

@@ -1,6 +1,6 @@
 "use client";
 
-import { Input } from "@/features/global/Input";
+import { Input } from "@/features/design-system/Input";
 import { getKeys } from "@/features/global/getKeys";
 import * as tunings from "@/features/music/tunings.json";
 

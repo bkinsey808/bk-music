@@ -22,6 +22,7 @@ body {
 	--secondary: #7209b7;
 	--accent: #3a0ca3;
 	--primary-tint: hsl(from var(--primary) h s calc(l * 2));
+	--color-error: #ff0033;
 }
 
 .dark {
@@ -29,7 +30,7 @@ body {
 	--foreground: 210 40% 98%;
 	--border: 217.2 32.6% 17.5%;
 	scrollbar-color: hsl(217.2, 32.6%, 17.5%) hsl(222.2, 84%, 4.9%);
-	--test-color:   
+	--test-color:    
 ;
 }
 
