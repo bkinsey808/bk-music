@@ -1,7 +1,30 @@
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
 
-export const Field = ({ children }: { children: ReactNode }) => {
-	return <label>{children}</label>;
+import { FormContext } from "./Form";
+
+export const Field = ({
+	fieldKey,
+	label,
+	checkbox = false,
+	children,
+}: {
+	fieldKey: string;
+	label: string;
+	checkbox?: boolean;
+	children: ReactNode;
+}) => {
+	const { errors, messageMap } = useContext(FormContext);
+	return (
+		<label>
+			{!checkbox ? <FieldLabel>{label}</FieldLabel> : null}
+			<FieldMessages messages={messageMap[fieldKey]} />
+			<div className="flex gap-[1rem] align-baseline">
+				{children}
+				{checkbox ? <FieldLabel>{label}</FieldLabel> : null}
+			</div>
+			<FieldError error={errors[fieldKey]} />
+		</label>
+	);
 };
 
 export const FieldLabel = ({ children }: { children: ReactNode }) => {

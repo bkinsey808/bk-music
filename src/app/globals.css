@@ -30,11 +30,12 @@ body {
 	--foreground: 210 40% 98%;
 	--border: 217.2 32.6% 17.5%;
 	scrollbar-color: hsl(217.2, 32.6%, 17.5%) hsl(222.2, 84%, 4.9%);
-	--test-color:    
+	--test-color:     
 ;
 }
 
-body {
+body,
+dialog {
 	background-color: hsl(var(--background));
 	color: hsl(var(--foreground));
 	border-color: hsl(var(--border));

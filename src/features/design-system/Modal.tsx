@@ -71,7 +71,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
 		return (
 			<dialog
 				className={cn(
-					"fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
+					"fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-[0.1rem] border-current",
 					className,
 				)}
 				ref={(element) => {
@@ -87,7 +87,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
 				{...dialogProps}
 			>
 				{heading ? (
-					<header className="p-[1rem]">
+					<header className="bg-[var(--color-header-background)]  p-[1rem] text-[hsl(var(--background))]">
 						<h2>{heading}</h2>
 					</header>
 				) : null}
@@ -102,11 +102,13 @@ Modal.displayName = "Modal";
 export const ModalContent = ({ children }: { children: ReactNode }) => {
 	return (
 		<div className="h-full overflow-auto">
-			<section className="p-[1rem]">{children}</section>
+			<section className="flex flex-col gap-[2rem] p-[1rem]">
+				{children}
+			</section>
 		</div>
 	);
 };
 
 export const ModalFooter = ({ children }: { children: ReactNode }) => {
-	return <footer className="p-[1rem]">{children}</footer>;
+	return <footer className="flex gap-[1rem] p-[1rem]">{children}</footer>;
 };

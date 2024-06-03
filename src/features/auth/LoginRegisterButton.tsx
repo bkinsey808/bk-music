@@ -5,8 +5,8 @@ import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { useState } from "react";
 
 import { LoginRegisterModal } from "./LoginRegisterModal";
-import { SignInData } from "./signInData";
-import { UserStatus } from "./userStatus";
+import { UserStatus } from "./enums";
+import { SignInData } from "./types";
 import { signIn } from "@/actions/signIn";
 import "@/features/firebase/firebase";
 
@@ -19,6 +19,7 @@ export const LoginRegisterButton = () => {
 	return (
 		<>
 			<LoginRegisterModal
+				key={open.toString()}
 				open={open}
 				setOpen={setOpen}
 				signInData={signInData}
@@ -40,6 +41,17 @@ export const LoginRegisterButton = () => {
 						});
 
 						const signInResult = await signIn(email);
+
+						switch (signInResult.userStatus) {
+							case UserStatus.NEW:
+								setOpen(true);
+								break;
+							case UserStatus.EXISTING:
+								break;
+							default:
+								// const decodedSession =
+								console.error("Unknown user status");
+						}
 						if (signInResult.userStatus === UserStatus.NEW) {
 							console.log("New user");
 							setOpen(true);

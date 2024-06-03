@@ -1,24 +1,20 @@
 "use client";
 
+import { Schema as S } from "@effect/schema";
 import { useState } from "react";
 
-import {
-	Field,
-	FieldError,
-	FieldLabel,
-	FieldMessages,
-} from "../design-system/Field";
+import { Field } from "../design-system/Field";
 import { Form } from "../design-system/Form";
 import { Input } from "../design-system/Input";
 import { Modal, ModalContent, ModalFooter } from "../design-system/Modal";
+import { getKeys } from "../global/getKeys";
+import { RegistrationSchema, registrationFormFieldMessageMap } from "./consts";
+import { RegisterFormFieldKey } from "./enums";
 import {
-	RegisterFormFieldKey,
 	RegistrationFormErrors,
 	RegistrationFormValues,
-	fieldMessageMap,
-	validateRegistrationForm,
-} from "./registrationForm";
-import { SignInData } from "./signInData";
+	SignInData,
+} from "./types";
 import { register } from "@/actions/register";
 import { Button } from "@/components/ui/button";
 
@@ -33,10 +29,13 @@ export const LoginRegisterModal = ({
 	setOpen: (isOpen: boolean) => void;
 	signInData?: SignInData | undefined;
 }) => {
-	const [values, setValues] = useState({} as RegistrationFormValues);
-	const [errors, setErrors] = useState({} as RegistrationFormErrors);
-
-	console.log({ values, errors });
+	const [values, setValues] = useState<RegistrationFormValues>({
+		[RegisterFormFieldKey.Username]: "",
+		[RegisterFormFieldKey.AcceptTermsAndConditions]: false,
+	});
+	const [errors, setErrors] = useState<RegistrationFormErrors>(
+		{} as RegistrationFormErrors,
+	);
 
 	return (
 		<Modal heading="Welcome to Song Share!" open={open} setOpen={setOpen}>
@@ -45,9 +44,17 @@ export const LoginRegisterModal = ({
 
 				<Form
 					id={FORM_ID}
+					values={values}
+					errors={errors}
 					setValues={setValues}
 					setErrors={setErrors}
-					validateForm={validateRegistrationForm}
+					messageMap={registrationFormFieldMessageMap}
+					schema={
+						RegistrationSchema as S.Schema<
+							RegistrationFormValues,
+							RegistrationFormErrors
+						>
+					}
 					onSubmit={() => {
 						register(
 							JSON.stringify({
@@ -57,27 +64,22 @@ export const LoginRegisterModal = ({
 						);
 					}}
 				>
-					<Field>
-						<FieldLabel>User name</FieldLabel>
-						<FieldMessages
-							messages={fieldMessageMap[RegisterFormFieldKey.Username]}
-						/>
+					<Field fieldKey={RegisterFormFieldKey.Username} label="User name">
 						<Input
 							name={RegisterFormFieldKey.Username}
 							type="text"
 							placeholder="User name"
 						/>
-						<FieldError error={errors[RegisterFormFieldKey.Username]} />
 					</Field>
 
-					<Field>
-						<FieldLabel>I agree to the terms and conditions</FieldLabel>
+					<Field
+						fieldKey={RegisterFormFieldKey.AcceptTermsAndConditions}
+						label="I agree to the terms and conditions"
+						checkbox={true}
+					>
 						<Input
 							name={RegisterFormFieldKey.AcceptTermsAndConditions}
 							type="checkbox"
-						/>
-						<FieldError
-							error={errors[RegisterFormFieldKey.AcceptTermsAndConditions]}
 						/>
 					</Field>
 				</Form>
@@ -87,7 +89,7 @@ export const LoginRegisterModal = ({
 				<Button
 					type="submit"
 					form={FORM_ID}
-					disabled={Object.keys(errors).length > 0}
+					disabled={getKeys(errors).length > 0}
 				>
 					Register
 				</Button>
