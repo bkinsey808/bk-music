@@ -1,6 +1,6 @@
 import { ReactNode, useContext } from "react";
 
-import { FormContext } from "./Form";
+import { FormContext } from "./FormContext";
 
 export const Field = ({
 	fieldKey,
@@ -22,7 +22,7 @@ export const Field = ({
 				{children}
 				{checkbox ? <FieldLabel>{label}</FieldLabel> : null}
 			</div>
-			<FieldError error={errors[fieldKey]} />
+			<FieldError error={errors.fieldErrors?.[fieldKey]} />
 		</label>
 	);
 };
@@ -47,6 +47,6 @@ export const FieldMessages = ({ messages }: { messages: string[] }) => {
 	);
 };
 
-export const FieldError = ({ error }: { error: string }) => {
+export const FieldError = ({ error }: { error?: string | undefined }) => {
 	return error ? <p className="text-[var(--color-error)]">{error}</p> : null;
 };

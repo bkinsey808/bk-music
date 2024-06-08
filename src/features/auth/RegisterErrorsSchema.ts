@@ -2,21 +2,7 @@ import { Schema as S } from "@effect/schema";
 
 import { MessageKey, RegisterFormFieldKey } from "./enums";
 
-export const registrationFormFieldMessageMap: Record<
-	RegisterFormFieldKey,
-	MessageKey[]
-> = {
-	[RegisterFormFieldKey.Username]: [
-		MessageKey.UsernameRequired,
-		MessageKey.UsernameMaxLength,
-		MessageKey.UsernameAlphanumeric,
-	],
-	[RegisterFormFieldKey.AcceptTermsAndConditions]: [
-		MessageKey.TermsAndConditionsRequired,
-	],
-};
-
-export const RegistrationSchema = S.Struct({
+export const RegisterErrorsSchema = S.Struct({
 	[RegisterFormFieldKey.Username]: S.String.pipe(
 		S.nonEmpty({ message: () => MessageKey.UsernameRequired }),
 		S.filter((value) =>
@@ -29,14 +15,7 @@ export const RegistrationSchema = S.Struct({
 				: MessageKey.UsernameAlphanumeric,
 		),
 	),
-	[RegisterFormFieldKey.AcceptTermsAndConditions]: S.transform(
-		S.String,
-		S.Boolean,
-		{
-			decode: (value) => value === "on",
-			encode: (value) => (value ? "on" : ""),
-		},
-	).pipe(
+	[RegisterFormFieldKey.AcceptTermsAndConditions]: S.Boolean.pipe(
 		S.filter((value) =>
 			value ? undefined : MessageKey.TermsAndConditionsRequired,
 		),

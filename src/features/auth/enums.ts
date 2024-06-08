@@ -1,5 +1,5 @@
 export enum RegisterFormFieldKey {
-	Username = "userName",
+	Username = "username",
 	AcceptTermsAndConditions = "acceptTermsAndConditions",
 }
 
@@ -13,4 +13,9 @@ export enum MessageKey {
 export const enum UserStatus {
 	NEW,
 	EXISTING,
+}
+
+export enum RegisterResult {
+	ERROR = "ERROR",
+	SUCCESS = "SUCCESS",
 }

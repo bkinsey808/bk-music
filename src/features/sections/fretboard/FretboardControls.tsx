@@ -2,7 +2,7 @@ import {
 	DashboardStateKey,
 	useDashboardState,
 } from "@/app/d/useDashboardState";
-import { Input } from "@/features/design-system/Input";
+import { Input } from "@/features/design-system/form/Input";
 
 export const FretboardControls = () => {
 	const { getValues, setValue } = useDashboardState();

@@ -1,15 +1,13 @@
 import { Schema as S } from "@effect/schema";
 
-import { RegistrationSchema } from "./consts";
+import { RegisterValuesSchema } from "./RegisterValuesSchema";
 
 export type SignInData = {
 	email: string;
 	picture: string | null;
 };
 
-export type RegistrationFormValues = S.Schema.Type<typeof RegistrationSchema>;
+export type RegisterValues = S.Schema.Type<typeof RegisterValuesSchema>;
 
-export type RegistrationFormErrors = Record<
-	keyof RegistrationFormValues,
-	string
->;
+export type UserData = RegisterValues & SignInData;
+export type UserDataOmitEmail = Omit<UserData, "email">;

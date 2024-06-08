@@ -4,7 +4,7 @@ import { FirebaseError } from "firebase/app";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { useState } from "react";
 
-import { LoginRegisterModal } from "./LoginRegisterModal";
+import { RegisterModal } from "./RegisterModal";
 import { UserStatus } from "./enums";
 import { SignInData } from "./types";
 import { signIn } from "@/actions/signIn";
@@ -18,7 +18,7 @@ export const LoginRegisterButton = () => {
 
 	return (
 		<>
-			<LoginRegisterModal
+			<RegisterModal
 				key={open.toString()}
 				open={open}
 				setOpen={setOpen}
