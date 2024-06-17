@@ -11,11 +11,15 @@ export enum MessageKey {
 }
 
 export const enum UserStatus {
-	NEW,
-	EXISTING,
+	NEW = "NEW",
+	EXISTING = "EXISTING",
 }
 
 export enum RegisterResult {
 	ERROR = "ERROR",
 	SUCCESS = "SUCCESS",
+}
+
+export enum Role {
+	ADMIN = "ADMIN",
 }

@@ -2,6 +2,7 @@ import {
 	DialogHTMLAttributes,
 	ReactNode,
 	forwardRef,
+	useCallback,
 	useEffect,
 	useRef,
 } from "react";
@@ -22,14 +23,38 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
 		/** @see https://stackoverflow.com/questions/66067697/cannot-assign-to-read-only-property-current-in-react-useref#71574359 */
 		const mutableDialogRef = useRef<HTMLDialogElement | null>(null);
 
+		const dialog = mutableDialogRef.current;
+
+		const handleClick = useCallback(
+			(event: MouseEvent) => {
+				if (!dialog) {
+					return;
+				}
+
+				const rect = dialog.getBoundingClientRect();
+				const isInDialog =
+					rect.top <= event.clientY &&
+					event.clientY <= rect.top + rect.height &&
+					rect.left <= event.clientX &&
+					event.clientX <= rect.left + rect.width;
+
+				if (!isInDialog) {
+					setOpen(false);
+				}
+			},
+			[dialog, setOpen],
+		);
+
 		// open/close the dialog when the open prop changes
 		useEffect(() => {
 			if (open) {
 				mutableDialogRef.current?.showModal();
+				document.addEventListener("click", handleClick);
 			} else {
 				mutableDialogRef.current?.close();
+				document.removeEventListener("click", handleClick);
 			}
-		}, [open]);
+		}, [open, handleClick]);
 
 		// keep state in sync with dialog open state
 		useEffect(() => {
@@ -43,30 +68,14 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
 				});
 			};
 		}, [setOpen]);
-		const dialog = mutableDialogRef.current;
 
 		// clicking outside the dialog should close the dialog
 		useEffect(() => {
-			if (!dialog) {
-				return;
-			}
-			const handleClick = (event: MouseEvent) => {
-				const rect = dialog.getBoundingClientRect();
-				const isInDialog =
-					rect.top <= event.clientY &&
-					event.clientY <= rect.top + rect.height &&
-					rect.left <= event.clientX &&
-					event.clientX <= rect.left + rect.width;
-
-				if (!isInDialog) {
-					setOpen(false);
-				}
-			};
 			document.addEventListener("click", handleClick);
 			return () => {
 				document.removeEventListener("click", handleClick);
 			};
-		}, [setOpen, dialog]);
+		}, [handleClick]);
 
 		return (
 			<dialog

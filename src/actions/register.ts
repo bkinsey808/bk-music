@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 import { RegisterErrorsSchema } from "@/features/auth/RegisterErrorsSchema";
 import { encodeSessionToken } from "@/features/auth/encodeSessionToken";
 import { RegisterFormFieldKey, RegisterResult } from "@/features/auth/enums";
-import { RegisterValues, SignInData } from "@/features/auth/types";
+import { RegisterValues, SignInData, UserData } from "@/features/auth/types";
 import { validateValues } from "@/features/design-system/form/validateValues";
 import { db } from "@/features/firebase/firebase";
 
@@ -46,9 +46,10 @@ export const register = async ({
 		}
 
 		const signInData = JSON.parse(serializedSignInData) as SignInData;
-		const userData = {
+		const userData: UserData = {
 			...registerValues,
 			...signInData,
+			roles: [],
 		};
 		const { email: _email, ...userDataOmitEmail } = userData;
 

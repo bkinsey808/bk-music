@@ -6,6 +6,7 @@ import React, {
 	ReactNode,
 	createContext,
 	useContext,
+	useMemo,
 	useReducer,
 } from "react";
 import useDebouncedEffect from "use-debounced-effect";
@@ -42,25 +43,31 @@ export const AppStateProvider = <
 	const searchParams = useSearchParams();
 	const params = useParams();
 
-	const initialAppState = getInitialAppState<MyAppState>({
-		params,
-		searchParams,
-		appStateKeys,
-		appSchemaOption,
-	});
+	const initialAppState = useMemo(
+		() =>
+			getInitialAppState<MyAppState>({
+				params,
+				searchParams,
+				appStateKeys,
+				appSchemaOption,
+			}),
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[appStateKeys, appSchemaOption],
+	);
 
 	const [appState, dispatch] = useReducer(appStateReducer, initialAppState);
 
 	// update url based on state
 	useDebouncedEffect(
 		() => {
+			window.localStorage.setItem("appState", JSON.stringify(appState));
+
 			const url = fromAppStateGetUrl({
 				appState,
 				initialPath,
 			});
 
 			history.pushState(null, "", url);
-			// eslint-disable-next-line react-hooks/exhaustive-deps
 		},
 		1000,
 		[appState],

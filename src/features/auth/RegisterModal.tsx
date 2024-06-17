@@ -23,6 +23,10 @@ export const RegisterModal = ({
 	const [errors, setErrors] = useState<FormErrors>({});
 	const [submitting, setSubmitting] = useState(false);
 
+	if (!signInData) {
+		return null;
+	}
+
 	return (
 		<Modal heading="Welcome to Song Share!" open={open} setOpen={setOpen}>
 			<ModalContent>

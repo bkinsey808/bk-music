@@ -24,10 +24,11 @@ export const getInitialAppState = <AppState>({
 		return emptyAppState;
 	}
 	try {
-		const appState = JSON.parse(
+		const urlAppState = JSON.parse(
 			decompressFromEncodedURIComponent(s),
 		) as AppState;
-		return { ...emptyAppState, ...appState };
+		console.log({ urlAppState });
+		return { ...emptyAppState, ...urlAppState };
 	} catch (e) {
 		console.error(e);
 	}

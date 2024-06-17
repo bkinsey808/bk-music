@@ -7,6 +7,7 @@ import { useState } from "react";
 import { RegisterModal } from "./RegisterModal";
 import { UserStatus } from "./enums";
 import { SignInData } from "./types";
+import { useAuth } from "./useAuth";
 import { signIn } from "@/actions/signIn";
 import "@/features/firebase/firebase";
 
@@ -15,6 +16,7 @@ const provider = new GoogleAuthProvider();
 export const LoginRegisterButton = () => {
 	const [open, setOpen] = useState(false);
 	const [signInData, setSignInData] = useState<SignInData>();
+	const { setUser } = useAuth();
 
 	return (
 		<>
@@ -37,7 +39,7 @@ export const LoginRegisterButton = () => {
 
 						setSignInData({
 							email,
-							picture: userCredential.user.photoURL,
+							picture: userCredential.user.photoURL ?? undefined,
 						});
 
 						const signInResult = await signIn(email);
@@ -47,14 +49,10 @@ export const LoginRegisterButton = () => {
 								setOpen(true);
 								break;
 							case UserStatus.EXISTING:
+								setUser(signInResult.userData);
 								break;
 							default:
-								// const decodedSession =
-								console.error("Unknown user status");
-						}
-						if (signInResult.userStatus === UserStatus.NEW) {
-							console.log("New user");
-							setOpen(true);
+								console.error("Unknown user status", signInResult.userStatus);
 						}
 					} catch (error) {
 						if (error instanceof FirebaseError) {

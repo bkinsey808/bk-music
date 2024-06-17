@@ -10,6 +10,7 @@ import { RegisterErrorsSchema } from "./RegisterErrorsSchema";
 import { RegisterValuesSchema } from "./RegisterValuesSchema";
 import { MessageKey, RegisterFormFieldKey, RegisterResult } from "./enums";
 import { RegisterValues, SignInData } from "./types";
+import { useAuth } from "./useAuth";
 import { register } from "@/actions/register";
 
 export const registerFormFieldMessageMap: Record<
@@ -37,7 +38,7 @@ export const RegisterForm = <
 	setOpen,
 }: {
 	id: string;
-	signInData?: SignInData | undefined;
+	signInData: SignInData;
 	errors: RegisterErrors;
 	setErrors: Dispatch<SetStateAction<RegisterErrors>>;
 	setSubmitting: Dispatch<SetStateAction<boolean>>;
@@ -47,6 +48,8 @@ export const RegisterForm = <
 		[RegisterFormFieldKey.Username]: "",
 		[RegisterFormFieldKey.AcceptTermsAndConditions]: false,
 	});
+
+	const { setUser } = useAuth();
 
 	return (
 		<Form
@@ -74,6 +77,12 @@ export const RegisterForm = <
 				}
 				setSubmitting(false);
 				if (result.result === RegisterResult.SUCCESS) {
+					setUser({
+						...values,
+						email: signInData.email,
+						picture: signInData?.picture,
+						roles: [],
+					});
 					setOpen(false);
 				}
 			}}

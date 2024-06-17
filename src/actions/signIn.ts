@@ -46,7 +46,7 @@ export const signIn = async (email: string) => {
 
 		return {
 			userStatus: UserStatus.EXISTING,
-			sessionToken,
+			userData,
 		};
 	}
 	console.log("No existing user");

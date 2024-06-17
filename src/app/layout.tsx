@@ -3,6 +3,7 @@ import { Merriweather } from "next/font/google";
 import Script from "next/script";
 
 import "./globals.css";
+import { AuthProvider } from "@/features/auth/AuthContext";
 import DarkModeProvider from "@/features/dark-mode/DarkModeProvider";
 import { DARK_MODE_LOCAL_STORAGE_KEY } from "@/features/dark-mode/consts";
 
@@ -22,7 +23,11 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en" className="overflow-hidden">
+		<html
+			lang="en"
+			// default dark mode
+			className="dark overflow-hidden"
+		>
 			<head>
 				<Script id="dark-mode-script">
 					{`if (localStorage['${DARK_MODE_LOCAL_STORAGE_KEY}'] === 'dark' || (!('${DARK_MODE_LOCAL_STORAGE_KEY}' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -33,7 +38,9 @@ export default function RootLayout({
 				</Script>
 			</head>
 			<body className={merriweather.className}>
-				<DarkModeProvider>{children}</DarkModeProvider>
+				<AuthProvider>
+					<DarkModeProvider>{children}</DarkModeProvider>
+				</AuthProvider>
 			</body>
 		</html>
 	);

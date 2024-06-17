@@ -53,7 +53,7 @@ export const TuningSection = () => {
 								className="w-full rounded-full border-[0.1rem] border-transparent py-[0.4rem] text-center [&[data-selected='true']]:border-current"
 							>
 								<div>{instrumentTuningName}</div>
-								<div>{tuning}</div>
+								<div>{tuning.join(" ")}</div>
 							</div>
 						</button>
 					);
