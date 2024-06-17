@@ -51,6 +51,7 @@ export const register = async ({
 			...signInData,
 			roles: [],
 		};
+		// eslint-disable-next-line destructuring/no-rename
 		const { email: _email, ...userDataOmitEmail } = userData;
 
 		await setDoc(doc(db, "users", signInData.email), userDataOmitEmail);

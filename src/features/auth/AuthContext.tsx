@@ -5,24 +5,39 @@ import {
 	ReactNode,
 	SetStateAction,
 	createContext,
+	useCallback,
+	useEffect,
 	useState,
 } from "react";
 
 import { UserData } from "./types";
+import { checkSignIn } from "@/actions/checkSignIn";
 
 export const AuthContext = createContext<{
-	user?: UserData | undefined;
-	setUser: Dispatch<SetStateAction<UserData | undefined>>;
+	userData?: UserData | undefined;
+	setUserData: Dispatch<SetStateAction<UserData | undefined>>;
 }>({
-	user: undefined,
-	setUser: () => {},
+	userData: undefined,
+	setUserData: () => {},
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-	const [user, setUser] = useState<UserData>();
+	const [userData, setUserData] = useState<UserData>();
+
+	const handleRefresh = useCallback(async () => {
+		const userData = await checkSignIn();
+
+		if (userData) {
+			setUserData(userData);
+		}
+	}, []);
+
+	useEffect(() => {
+		handleRefresh();
+	}, [handleRefresh]);
 
 	return (
-		<AuthContext.Provider value={{ user, setUser }}>
+		<AuthContext.Provider value={{ userData, setUserData }}>
 			{children}
 		</AuthContext.Provider>
 	);

@@ -12,6 +12,7 @@ export default function Dashboard() {
 					{pageColumns.map((pageColumn, columnIndex) => (
 						<PageColumn key={columnIndex}>
 							{pageColumn.map((section) => {
+								// eslint-disable-next-line destructuring/no-rename
 								const { title: Title, section: Section } = sections[section];
 
 								return (

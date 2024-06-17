@@ -16,7 +16,7 @@ const provider = new GoogleAuthProvider();
 export const LoginRegisterButton = () => {
 	const [open, setOpen] = useState(false);
 	const [signInData, setSignInData] = useState<SignInData>();
-	const { setUser } = useAuth();
+	const { setUserData } = useAuth();
 
 	return (
 		<>
@@ -49,7 +49,7 @@ export const LoginRegisterButton = () => {
 								setOpen(true);
 								break;
 							case UserStatus.EXISTING:
-								setUser(signInResult.userData);
+								setUserData(signInResult.userData);
 								break;
 							default:
 								console.error("Unknown user status", signInResult.userStatus);

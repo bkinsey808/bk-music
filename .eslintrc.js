@@ -7,9 +7,10 @@ module.exports = {
 		"next/core-web-vitals",
 		"plugin:testing-library/react",
 		"plugin:jest-dom/recommended",
+		"plugin:destructuring/recommended",
 		"plugin:prettier/recommended",
 	],
-	plugins: ["prettier"],
+	plugins: ["prettier", "destructuring"],
 	rules: {
 		"prettier/prettier": "warn",
 		"@typescript-eslint/no-unused-vars": [
@@ -20,5 +21,7 @@ module.exports = {
 				caughtErrorsIgnorePattern: "^_",
 			},
 		],
+		"object-shorthand": "error",
+		"destructuring/in-params": "off",
 	},
 };

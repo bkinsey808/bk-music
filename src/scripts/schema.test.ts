@@ -1,5 +1,5 @@
-import { ArrayFormatter, Schema as S } from "@effect/schema";
-import { Effect, Either } from "effect";
+import { Schema as S } from "@effect/schema";
+import { Either } from "effect";
 
 describe("effect ts schema test", () => {
 	it("validate a form", () => {
@@ -19,8 +19,10 @@ describe("effect ts schema test", () => {
 			x: -11,
 		});
 
-		if (Either.isLeft(result)) {
-			console.log(ArrayFormatter.formatErrorSync(result.left));
-		}
+		// if (Either.isLeft(result)) {
+		// 	console.log(ArrayFormatter.formatErrorSync(result.left));
+		// }
+
+		expect(Either.isLeft(result)).toBe(true);
 	});
 });

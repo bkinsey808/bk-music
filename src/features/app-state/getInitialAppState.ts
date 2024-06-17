@@ -3,7 +3,7 @@ import { useParams, useSearchParams } from "next/navigation";
 
 export const getInitialAppState = <AppState>({
 	searchParams,
-	appStateKeys: appStateKeyArray,
+	appStateKeys,
 	appSchemaOption,
 }: {
 	params: ReturnType<typeof useParams>;
@@ -12,7 +12,7 @@ export const getInitialAppState = <AppState>({
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	appSchemaOption: Record<keyof AppState, any>;
 }) => {
-	const emptyAppState = appStateKeyArray.reduce((acc, key) => {
+	const emptyAppState = appStateKeys.reduce((acc, key) => {
 		const schemaOptionType = appSchemaOption[key];
 		const value = schemaOptionType.ast._tag === "TupleType" ? [] : "";
 
@@ -27,7 +27,6 @@ export const getInitialAppState = <AppState>({
 		const urlAppState = JSON.parse(
 			decompressFromEncodedURIComponent(s),
 		) as AppState;
-		console.log({ urlAppState });
 		return { ...emptyAppState, ...urlAppState };
 	} catch (e) {
 		console.error(e);

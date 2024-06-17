@@ -7,7 +7,7 @@ import { useAuth } from "./useAuth";
 
 export const ManageAccountButton = () => {
 	const [open, setOpen] = useState(false);
-	const { user } = useAuth();
+	const { userData } = useAuth();
 
 	return (
 		<>
@@ -17,7 +17,7 @@ export const ManageAccountButton = () => {
 					setOpen(true);
 				}}
 			>
-				{user?.username}
+				{userData?.username}
 			</button>
 		</>
 	);

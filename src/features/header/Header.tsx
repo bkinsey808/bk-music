@@ -6,12 +6,12 @@ import { useAuth } from "../auth/useAuth";
 import "@/features/firebase/firebase";
 
 export const Header = () => {
-	const { user } = useAuth();
+	const { userData } = useAuth();
 
 	return (
 		<header className="flex justify-between bg-[var(--color-header-background)] p-[0.5rem] text-[hsl(var(--background))]">
 			<h1 className="text-4xl font-bold">Song Share</h1>
-			{user ? <ManageAccountButton /> : <LoginRegisterButton />}
+			{userData ? <ManageAccountButton /> : <LoginRegisterButton />}
 		</header>
 	);
 };

@@ -49,7 +49,7 @@ export const RegisterForm = <
 		[RegisterFormFieldKey.AcceptTermsAndConditions]: false,
 	});
 
-	const { setUser } = useAuth();
+	const { setUserData } = useAuth();
 
 	return (
 		<Form
@@ -77,7 +77,7 @@ export const RegisterForm = <
 				}
 				setSubmitting(false);
 				if (result.result === RegisterResult.SUCCESS) {
-					setUser({
+					setUserData({
 						...values,
 						email: signInData.email,
 						picture: signInData?.picture,
