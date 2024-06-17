@@ -11,8 +11,8 @@ export const FormContext = createContext<{
 }>({
 	values: {},
 	errors: { fieldErrors: {} },
-	setValues: () => {},
-	setErrors: () => {},
+	setValues: () => undefined,
+	setErrors: () => undefined,
 	messageMap: {},
 });
 

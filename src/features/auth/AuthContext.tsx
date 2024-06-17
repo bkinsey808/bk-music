@@ -18,19 +18,23 @@ export const AuthContext = createContext<{
 	setUserData: Dispatch<SetStateAction<UserData | undefined>>;
 }>({
 	userData: undefined,
-	setUserData: () => {},
+	setUserData: () => undefined,
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	const [userData, setUserData] = useState<UserData>();
 
-	const handleRefresh = useCallback(async () => {
-		const userData = await checkSignIn();
+	const handleRefresh = useCallback(
+		() =>
+			void (async () => {
+				const userData = await checkSignIn();
 
-		if (userData) {
-			setUserData(userData);
-		}
-	}, []);
+				if (userData) {
+					setUserData(userData);
+				}
+			}),
+		[],
+	);
 
 	useEffect(() => {
 		handleRefresh();

@@ -1,8 +1,11 @@
+const { parse } = require("path");
+
 module.exports = {
 	extends: [
 		"plugin:react-hooks/recommended",
 		"eslint:recommended",
-		"plugin:@typescript-eslint/recommended",
+		"plugin:@typescript-eslint/recommended-type-checked",
+		"plugin:@typescript-eslint/stylistic-type-checked",
 		"plugin:react/recommended",
 		"next/core-web-vitals",
 		"plugin:testing-library/react",
@@ -24,4 +27,12 @@ module.exports = {
 		"object-shorthand": "error",
 		"destructuring/in-params": "off",
 	},
+	overrides: [
+		{
+			files: ["*.ts", "*.tsx"],
+			parserOptions: {
+				project: true,
+			},
+		},
+	],
 };

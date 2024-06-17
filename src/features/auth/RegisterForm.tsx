@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 
 import { Field } from "../design-system/form/Field";
 import { Form } from "../design-system/form/Form";
@@ -51,6 +51,31 @@ export const RegisterForm = <
 
 	const { setUserData } = useAuth();
 
+	const customOnSubmit = useCallback(async () => {
+		setSubmitting(true);
+		const result = await register({
+			serializedRegisterValues: JSON.stringify(values),
+			serializedSignInData: JSON.stringify(signInData),
+		});
+
+		if (result.result === RegisterResult.ERROR) {
+			setErrors({
+				formError: result.formError,
+				fieldErrors: result.fieldErrors,
+			} as RegisterErrors);
+		}
+		setSubmitting(false);
+		if (result.result === RegisterResult.SUCCESS) {
+			setUserData({
+				...values,
+				email: signInData.email,
+				picture: signInData?.picture,
+				roles: [],
+			});
+			setOpen(false);
+		}
+	}, [setErrors, setOpen, setSubmitting, setUserData, signInData, values]);
+
 	return (
 		<Form
 			id={id}
@@ -61,30 +86,9 @@ export const RegisterForm = <
 			messageMap={registerFormFieldMessageMap}
 			valuesSchema={RegisterValuesSchema}
 			errorsSchema={RegisterErrorsSchema}
-			onSubmit={async (e) => {
+			onSubmit={(e) => {
 				e.preventDefault();
-				setSubmitting(true);
-				const result = await register({
-					serializedRegisterValues: JSON.stringify(values),
-					serializedSignInData: JSON.stringify(signInData),
-				});
-
-				if (result.result === RegisterResult.ERROR) {
-					setErrors({
-						formError: result.formError,
-						fieldErrors: result.fieldErrors,
-					} as RegisterErrors);
-				}
-				setSubmitting(false);
-				if (result.result === RegisterResult.SUCCESS) {
-					setUserData({
-						...values,
-						email: signInData.email,
-						picture: signInData?.picture,
-						roles: [],
-					});
-					setOpen(false);
-				}
+				void customOnSubmit();
 			}}
 		>
 			<Field fieldKey={RegisterFormFieldKey.Username} label="User name">

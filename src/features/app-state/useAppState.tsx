@@ -73,10 +73,10 @@ export const AppStateProvider = <
 		[appState],
 	);
 
-	type AppStateContextProps = {
+	interface AppStateContextProps {
 		appState: MyAppState;
 		dispatch: Dispatch<MyAppAction>;
-	};
+	}
 
 	const TypedAppStateContext = AppStateContext as React.Context<
 		AppStateContextProps | undefined

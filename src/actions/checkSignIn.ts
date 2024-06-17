@@ -15,7 +15,7 @@ export const checkSignIn = async () => {
 		const sessionToken = sessionCookie.value;
 
 		const data = (await decodeSessionToken(sessionToken))
-			?.payload as UserData | null;
+			?.payload as unknown as UserData | null;
 
 		return data;
 	} catch (error) {

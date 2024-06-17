@@ -10,12 +10,13 @@ import { isCellInPosition } from "@/features/music/isCellInPosition";
 import { isNoteInScale } from "@/features/music/isNoteInScale";
 import { transposeNote } from "@/features/music/transposeNote";
 
-type FretboardCellProps = {
+export const FretboardCell = ({
+	course,
+	fret,
+}: {
 	course: number;
 	fret: number;
-};
-
-export const FretboardCell = ({ course, fret }: FretboardCellProps) => {
+}) => {
 	const { getValues, toggleScaleDegree, togglePositionElement } =
 		useDashboardState();
 	const [keyNote, scale, tuning, position, selectCellToSet] = getValues([

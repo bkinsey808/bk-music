@@ -1,9 +1,7 @@
 import { compressToEncodedURIComponent } from "lz-string";
 
 export const fromAppStateGetUrl = <
-	AppStateType extends {
-		[key: string]: unknown;
-	},
+	AppStateType extends Record<string, unknown>,
 >({
 	appState,
 	initialPath,

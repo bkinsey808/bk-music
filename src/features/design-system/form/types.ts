@@ -4,7 +4,7 @@ export type FormValues<FieldKey extends string = string> = Record<
 	any
 >;
 
-export type FormErrors<FieldKey extends string = string> = {
+export interface FormErrors<FieldKey extends string = string> {
 	formError?: string;
 	fieldErrors?: Record<FieldKey, string>;
-};
+}

@@ -3,10 +3,10 @@ import { Schema as S } from "@effect/schema";
 import { RegisterValuesSchema } from "./RegisterValuesSchema";
 import { Role } from "./enums";
 
-export type SignInData = {
+export interface SignInData {
 	email: string;
 	picture?: string | undefined;
-};
+}
 
 export type RegisterValues = S.Schema.Type<typeof RegisterValuesSchema>;
 

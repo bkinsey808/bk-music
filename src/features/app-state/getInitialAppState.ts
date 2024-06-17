@@ -14,6 +14,7 @@ export const getInitialAppState = <AppState>({
 }) => {
 	const emptyAppState = appStateKeys.reduce((acc, key) => {
 		const schemaOptionType = appSchemaOption[key];
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 		const value = schemaOptionType.ast._tag === "TupleType" ? [] : "";
 
 		return { ...acc, [key]: value };

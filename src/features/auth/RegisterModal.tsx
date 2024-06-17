@@ -46,8 +46,9 @@ export const RegisterModal = ({
 					type="submit"
 					form={FORM_ID}
 					disabled={
-						(errors?.fieldErrors && getKeys(errors?.fieldErrors).length > 0) ||
-						submitting
+						!!(
+							errors?.fieldErrors && getKeys(errors?.fieldErrors).length > 0
+						) || submitting
 					}
 				>
 					Register

@@ -233,7 +233,7 @@ export const dashboardStateReducer = (
 	}
 };
 
-export type DashboardStateContextProps = {
+export interface DashboardStateContextProps {
 	appState: DashboardState;
 	dispatch: Dispatch<DashboardAction>;
 	isAccordionOpen: (section: Section) => boolean;
@@ -255,7 +255,7 @@ export type DashboardStateContextProps = {
 	getAppUrl: () => string;
 	getState: () => DashboardState;
 	resetState: () => void;
-};
+}
 
 const fromDashboardStateGetUrl = (state: DashboardState) =>
 	fromAppStateGetUrl({
@@ -356,7 +356,7 @@ export const useDashboardState = (): DashboardStateContextProps => {
 	const getValues = <K extends DashboardStateKey[]>(
 		keys: [...K],
 	): { [I in keyof K]: DashboardState[K[I]] } =>
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return
 		keys.map((key) => context.appState[key]) as any;
 
 	const setValue = (key: DashboardStateKey, value: unknown) => {

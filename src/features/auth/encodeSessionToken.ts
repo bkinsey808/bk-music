@@ -1,4 +1,4 @@
-import { SignJWT } from "jose";
+import { JWTPayload, SignJWT } from "jose";
 
 import { UserData } from "./types";
 
@@ -11,7 +11,7 @@ export const encodeSessionToken = async (userData: UserData) => {
 
 	const jwtKey = new TextEncoder().encode(sessionPrivateKey);
 
-	const sessionToken = await new SignJWT(userData)
+	const sessionToken = await new SignJWT(userData as unknown as JWTPayload)
 		.setProtectedHeader({ alg: "HS256" })
 		.setIssuedAt()
 		.setExpirationTime("2h")
