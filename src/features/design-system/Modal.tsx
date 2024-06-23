@@ -39,6 +39,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
 					event.clientX <= rect.left + rect.width;
 
 				if (!isInDialog) {
+					console.log("this case");
 					setOpen(false);
 				}
 			},
@@ -69,9 +70,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
 			};
 		}, [setOpen]);
 
-		// clicking outside the dialog should close the dialog
 		useEffect(() => {
-			document.addEventListener("click", handleClick);
 			return () => {
 				document.removeEventListener("click", handleClick);
 			};

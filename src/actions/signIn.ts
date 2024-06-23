@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 
 import { encodeSessionToken } from "@/features/auth/encodeSessionToken";
 import { UserStatus } from "@/features/auth/enums";
+import { getSessionCookieOptions } from "@/features/auth/getSessionCookieOptions";
 import { UserData, UserDataOmitEmail } from "@/features/auth/types";
 import { db } from "@/features/firebase/firebase";
 
@@ -36,13 +37,7 @@ export const signIn = async (email: string) => {
 
 		const sessionToken = await encodeSessionToken(userData);
 
-		cookies().set("session", sessionToken, {
-			maxAge: 60 * 60 * 2,
-			httpOnly: true,
-			secure: process.env.NODE_ENV === "production",
-			sameSite: "strict",
-			path: "/",
-		});
+		cookies().set("session", sessionToken, getSessionCookieOptions());
 
 		return {
 			userStatus: UserStatus.EXISTING,

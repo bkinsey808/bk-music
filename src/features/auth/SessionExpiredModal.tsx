@@ -1,46 +1,38 @@
-"use client";
-
 import { Dispatch, SetStateAction } from "react";
 
 import { Modal, ModalContent, ModalFooter } from "../design-system/Modal";
 import { useAuth } from "./useAuth";
-import { signOut } from "@/actions/signOut";
 import { Button } from "@/components/ui/button";
 
-export const ManageAccountModal = ({
+export const SessionExpiredModal = ({
 	open,
 	setOpen,
 }: {
 	open: boolean;
 	setOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
-	const { setUserData } = useAuth();
+	const { signInClientSide } = useAuth();
 
 	return (
-		<Modal heading="Welcome to Song Share!" open={open} setOpen={setOpen}>
+		<Modal heading="Session Expired" open={open} setOpen={setOpen}>
 			<ModalContent>
-				<p>Manage your account</p>
-
-				<Button
-					onClick={() => {
-						signOut();
-						setUserData(undefined);
-						setOpen(false);
-					}}
-				>
-					Sign Out
-				</Button>
-
-				<Button variant="destructive">Delete Account</Button>
+				<p>Your session has expired</p>
 			</ModalContent>
-
 			<ModalFooter>
 				<Button
 					onClick={() => {
+						signInClientSide();
 						setOpen(false);
 					}}
 				>
-					Close
+					Sign In
+				</Button>
+				<Button
+					onClick={() => {
+						setOpen(false);
+					}}
+				>
+					Cancel
 				</Button>
 			</ModalFooter>
 		</Modal>
