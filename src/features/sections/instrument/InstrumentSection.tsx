@@ -1,6 +1,9 @@
 "use client";
 
 import { Section } from "../sections";
+import { TuningSection } from "../tuning/TuningSection";
+import { TuningTitle } from "../tuning/TuningTitle";
+import { DashboardAccordion } from "@/app/d/DashboardAccordion";
 import {
 	DashboardStateKey,
 	useDashboardState,
@@ -40,6 +43,14 @@ export const InstrumentSection = () => {
 					</button>
 				))}
 			</div>
+
+			<DashboardAccordion
+				key={Section.TUNING}
+				id={Section.TUNING}
+				title={<TuningTitle />}
+			>
+				<TuningSection />
+			</DashboardAccordion>
 		</section>
 	);
 };

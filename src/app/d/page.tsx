@@ -1,5 +1,5 @@
 import { DashboardAccordion } from "./DashboardAccordion";
-import { pageColumns, sections } from "./pageColumns";
+import { SECTIONS, pageColumns } from "./pageColumns";
 import { PageColumn } from "@/features/global/PageColumn";
 import { Header } from "@/features/header/Header";
 
@@ -13,7 +13,7 @@ export default function Dashboard() {
 						<PageColumn key={columnIndex}>
 							{pageColumn.map((section) => {
 								// eslint-disable-next-line destructuring/no-rename
-								const { title: Title, section: Section } = sections[section];
+								const { title: Title, section: Section } = SECTIONS[section];
 
 								return (
 									<DashboardAccordion

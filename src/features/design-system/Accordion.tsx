@@ -25,7 +25,12 @@ export const Accordion = <Section extends string>({
 	}, [isOpen]);
 
 	return (
-		<details id={id} ref={detailsRef} data-open={isOpen}>
+		<details
+			id={id}
+			ref={detailsRef}
+			data-open={isOpen}
+			className="my-[0.2rem] rounded border border-current p-[0.2rem]"
+		>
 			<summary
 				className="mb-[0.25rem] flex cursor-pointer flex-row flex-nowrap gap-[0.5rem]"
 				onClick={(e) => {

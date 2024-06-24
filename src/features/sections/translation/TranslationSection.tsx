@@ -11,10 +11,11 @@ export function TranslationSection() {
 	const { getValue, setValue } = useDashboardState();
 
 	return (
-		<section data-title="Lyrics Section">
+		<section data-title="Translation Section">
 			<TextareaAutosize
-				className="w-full rounded-[0.2rem] border border-current bg-[var(--background)] p-[0.3rem] px-[0.6rem] text-current"
-				name="lyrics"
+				className="w-full rounded-[0.2rem] bg-[var(--background)] p-[0.3rem] px-[0.6rem] text-current focus:outline-none"
+				name="translation"
+				placeholder="Translation"
 				value={getValue(DashboardStateKey.TRANSLATION)}
 				onChange={(e) => {
 					setValue(DashboardStateKey.TRANSLATION, e.target.value);

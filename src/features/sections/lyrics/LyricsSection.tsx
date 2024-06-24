@@ -22,10 +22,11 @@ export function LyricsSection() {
 	);
 
 	return (
-		<section data-title="Lyqrics Section">
+		<section data-title="Lyrics Section">
 			<TextareaAutosize
-				className="w-full rounded-[0.2rem] border border-current bg-[var(--background)] p-[0.3rem] px-[0.6rem] text-current"
+				className="w-full rounded-[0.2rem] bg-[var(--background)] p-[0.3rem] px-[0.6rem] text-current focus:outline-none"
 				name="lyrics"
+				placeholder="Lyrics"
 				value={lyrics}
 				onChange={(e) => {
 					setLyrics(e.target.value);

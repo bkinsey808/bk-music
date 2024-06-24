@@ -29,7 +29,7 @@ type Sections = Record<
 	{ title: DashboardComponent | string; section: DashboardComponent }
 >;
 
-export const sections: Sections = {
+export const SECTIONS: Sections = {
 	[Section.SONG]: {
 		title: SongTitle,
 		section: SongSection,
@@ -94,21 +94,10 @@ export const sections: Sections = {
 	},
 };
 
-const leftSections: Section[] = [
-	Section.SONG,
-	Section.CREDITS,
-	Section.LYRICS,
-	Section.TRANSLATION,
-	Section.KEY,
-];
-const centerSections: Section[] = [
-	Section.SCALE,
-	Section.SCALE_DEGREES,
-	Section.INSTRUMENT,
-	Section.TUNING,
-	Section.FRETBOARD,
-];
+const leftSections: Section[] = [Section.SONG];
+const centerSections: Section[] = [Section.INSTRUMENT, Section.FRETBOARD];
 const rightSections: Section[] = [
+	Section.SCALE_DEGREES,
 	Section.CHORD,
 	Section.CHORD_SCALE_DEGREE,
 	Section.POSITIONS,
