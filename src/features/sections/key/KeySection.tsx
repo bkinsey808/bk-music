@@ -28,7 +28,7 @@ export const KeySection = () => {
 						key={note}
 						data-title="Chord Scale Degree"
 						href={getUrl(newState)}
-						className="mr-[-0.1rem] break-all border-[0.1rem] border-current p-[0.4rem] text-center"
+						className="mr-[-0.1rem] break-all border border-current p-[0.4rem] text-center"
 						onClick={(e) => {
 							e.preventDefault();
 							setValues(newState);
@@ -37,7 +37,7 @@ export const KeySection = () => {
 					>
 						<div
 							data-selected={note === selectedKeyNote}
-							className="h-full rounded-full border-[0.1rem] border-transparent [&[data-selected='true']]:border-current"
+							className="h-full rounded-full border border-transparent [&[data-selected='true']]:border-current"
 						>
 							{note.replace("b", "♭")}
 						</div>

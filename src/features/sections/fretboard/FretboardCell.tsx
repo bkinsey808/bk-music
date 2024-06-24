@@ -39,7 +39,7 @@ export const FretboardCell = ({
 			data-title={`Fretboard Cell - fret ${fret} of course ${course} is ${note}`}
 			data-in-scale={noteInScale}
 			data-in-position={noteInPosition}
-			className="grid grid-cols-[2rem_1fr_2rem] border-[0.2rem] border-solid bg-[var(--color-cell-background)] [&[data-in-scale='true']]:bg-[var(--color-cell-background-in-scale)] [&[data-in-scale='true']]:text-[hsl(var(--background))]"
+			className="grid grid-cols-[2rem_1fr_2rem] border-4 border-solid bg-[var(--color-cell-background)] [&[data-in-scale='true']]:bg-[var(--color-cell-background-in-scale)] [&[data-in-scale='true']]:text-[hsl(var(--background))]"
 			onClick={() => {
 				switch (selectCellToSet) {
 					case SelectCellToSet.SCALE:
@@ -49,7 +49,7 @@ export const FretboardCell = ({
 				}
 			}}
 		>
-			<div className="col-[2] flex justify-center rounded-full border-[0.3rem] border-transparent text-center [[data-in-position='true']>&]:border-current">
+			<div className="col-[2] flex justify-center rounded-full border-4 border-transparent text-center [[data-in-position='true']>&]:border-current">
 				{note?.replace("b", "♭")}
 				<br />
 				{scaleDegree?.replace("b", "♭")}

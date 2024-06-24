@@ -62,7 +62,7 @@ export const ScaleDegreeChord = ({
 		<Link
 			data-title="Scale Degree Chord"
 			data-selected={selected}
-			className="flex h-[2rem] cursor-pointer items-center rounded-full border-[0.1rem] border-transparent px-[0.4rem] [&[data-selected='true']]:border-current"
+			className="flex h-[2rem] cursor-pointer items-center rounded-full border border-transparent px-[0.4rem] [&[data-selected='true']]:border-current"
 			href={url}
 			onClick={(e) => {
 				e.preventDefault();

@@ -26,7 +26,7 @@ export const ScaleDegree = ({ romanNumeral }: ScaleDegreeProps) => {
 
 	return (
 		<div className="flex flex-row gap-[0.1rem]">
-			<div className="flex min-w-[2rem] items-center justify-center border-[0.1rem] border-current bg-[var(--color-cell-background-in-scale)] text-lg font-bold text-[hsl(var(--background))]">
+			<div className="flex min-w-[2rem] items-center justify-center border border-current bg-[var(--color-cell-background-in-scale)] text-lg font-bold text-[hsl(var(--background))]">
 				{romanNumeral}
 			</div>
 			<div className="flex flex-row flex-wrap gap-[0.2rem] align-baseline">

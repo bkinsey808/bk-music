@@ -82,8 +82,9 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
 
 		return (
 			<dialog
+				data-visible={open}
 				className={cn(
-					"fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-[0.1rem] border-current",
+					"invisible fixed ml-auto mt-[3rem] flex max-h-[calc(100dvh-3rem)] flex-col overflow-hidden border border-current lg:mr-[2px] [&[data-visible='true']]:visible",
 					className,
 				)}
 				ref={(element) => {
@@ -99,7 +100,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
 				{...dialogProps}
 			>
 				{heading ? (
-					<header className="bg-[var(--color-header-background)]  p-[1rem] text-[hsl(var(--background))]">
+					<header className="flex-shrink bg-[var(--color-header-background)] p-[1rem] text-[hsl(var(--background))]">
 						<h2>{heading}</h2>
 					</header>
 				) : null}
@@ -113,7 +114,7 @@ Modal.displayName = "Modal";
 
 export const ModalContent = ({ children }: { children: ReactNode }) => {
 	return (
-		<div className="h-full overflow-auto">
+		<div className="h-full flex-grow overflow-auto">
 			<section className="flex flex-col gap-[2rem] p-[1rem]">
 				{children}
 			</section>
@@ -122,5 +123,9 @@ export const ModalContent = ({ children }: { children: ReactNode }) => {
 };
 
 export const ModalFooter = ({ children }: { children: ReactNode }) => {
-	return <footer className="flex gap-[1rem] p-[1rem]">{children}</footer>;
+	return (
+		<footer className="flex flex-shrink-0 gap-[1rem] p-[1rem]">
+			{children}
+		</footer>
+	);
 };

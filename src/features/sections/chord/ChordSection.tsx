@@ -67,7 +67,7 @@ export const ChordSection = () => {
 							key={chordDegree}
 							data-in-scale={degreeInScale}
 							data-title="Chord Degree"
-							className="mr-[-0.1rem] break-all border-[0.1rem] border-current p-[0.4rem] text-center first:bg-[var(--color-cell-background-in-scale)]
+							className="mr-[-0.1rem] break-all border border-current p-[0.4rem] text-center first:bg-[var(--color-cell-background-in-scale)]
               [&[data-in-scale='true']]:bg-[var(--color-cell-background-in-scale)]"
 							href="#"
 							onClick={(e) => {
@@ -82,7 +82,7 @@ export const ChordSection = () => {
 						>
 							<div
 								data-selected={degreeInChord}
-								className="h-full rounded-full border-[0.1rem] border-transparent [&[data-selected='true']]:border-current"
+								className="h-full rounded-full border border-transparent [&[data-selected='true']]:border-current"
 							>
 								<div>{chordDegree.replace("b", "♭")}</div>
 								{note ? <div>{note}</div> : null}

@@ -63,7 +63,7 @@ export const ChordScaleDegree = ({ scaleIndex }: { scaleIndex: number }) => {
 			data-title="Chord Scale Degree"
 			data-in-key-scale={inKeyScale}
 			href={url}
-			className="mr-[-0.1rem] break-all border-[0.1rem] border-current p-[0.4rem] text-center [&[data-in-key-scale='true']]:bg-[var(--color-cell-background-in-scale)]"
+			className="mr-[-0.1rem] break-all border border-current p-[0.4rem] text-center [&[data-in-key-scale='true']]:bg-[var(--color-cell-background-in-scale)]"
 			onClick={(e) => {
 				e.preventDefault();
 				setValues(newState);
@@ -72,7 +72,7 @@ export const ChordScaleDegree = ({ scaleIndex }: { scaleIndex: number }) => {
 		>
 			<div
 				data-selected={linkScaleDegree === chordScaleDegree}
-				className="h-full rounded-full border-[0.1rem] border-transparent [&[data-selected='true']]:border-current"
+				className="h-full rounded-full border border-transparent [&[data-selected='true']]:border-current"
 			>
 				<div>{casedRomanNumeral?.replace("b", "♭")}</div>
 				{chordStartingNote ? (

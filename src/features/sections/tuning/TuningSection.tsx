@@ -43,14 +43,14 @@ export const TuningSection = () => {
 					return (
 						<button
 							key={instrumentTuningName}
-							className="mr-[-0.1rem] h-full border-[0.1rem] border-current p-[0.6rem] text-center"
+							className="mr-[-0.1rem] h-full border border-current p-[0.6rem] text-center"
 							onClick={() => {
 								setValues(newState);
 							}}
 						>
 							<div
 								data-selected={instrumentTuningName === instrumentTuning}
-								className="w-full rounded-full border-[0.1rem] border-transparent py-[0.4rem] text-center [&[data-selected='true']]:border-current"
+								className="w-full rounded-full border border-transparent py-[0.4rem] text-center [&[data-selected='true']]:border-current"
 							>
 								<div>{instrumentTuningName}</div>
 								<div>{tuning.join(" ")}</div>

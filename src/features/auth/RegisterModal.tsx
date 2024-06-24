@@ -35,12 +35,11 @@ export const RegisterModal = ({
 
 	return (
 		<Modal
-			heading="Welcome to Song Share!"
+			heading="Create a user name to get started"
 			open={openAuthModal === AuthModal.REGISTER}
 			setOpen={setOpen}
 		>
 			<ModalContent>
-				<p>Create a user name to get started</p>
 				<RegisterForm
 					id={FORM_ID}
 					errors={errors}

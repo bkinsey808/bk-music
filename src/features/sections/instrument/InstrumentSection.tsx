@@ -21,7 +21,7 @@ export const InstrumentSection = () => {
 				{instruments.map((instrument) => (
 					<button
 						key={instrument}
-						className="mr-[-0.1rem] h-full border-[0.1rem] border-current p-[0.6rem] text-center"
+						className="mr-[-0.1rem] h-full border border-current p-[0.6rem] text-center"
 						onClick={() => {
 							setValue(DashboardStateKey.INSTRUMENT, instrument);
 							setValue(DashboardStateKey.INSTRUMENT_TUNING, "");
@@ -33,7 +33,7 @@ export const InstrumentSection = () => {
 							data-selected={
 								instrument === getValue(DashboardStateKey.INSTRUMENT)
 							}
-							className="w-full rounded-full border-[0.1rem] border-transparent py-[0.4rem] text-center [&[data-selected='true']]:border-current"
+							className="w-full rounded-full border border-transparent py-[0.4rem] text-center [&[data-selected='true']]:border-current"
 						>
 							{instrument}
 						</div>

@@ -20,13 +20,11 @@ export const ManageAccountModal = () => {
 
 	return (
 		<Modal
-			heading="Welcome to Song Share!"
+			heading="Manage your account"
 			open={openAuthModal === AuthModal.MANAGE_ACCOUNT}
 			setOpen={setOpen}
 		>
 			<ModalContent>
-				<p>Manage your account</p>
-
 				<Button
 					onClick={() => {
 						signOut();
@@ -49,6 +47,7 @@ export const ManageAccountModal = () => {
 
 			<ModalFooter>
 				<Button
+					className="w-full"
 					onClick={() => {
 						setOpen(false);
 					}}

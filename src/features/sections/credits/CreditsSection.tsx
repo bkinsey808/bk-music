@@ -24,7 +24,7 @@ export function CreditsSection() {
 	return (
 		<section data-title="Credits Section">
 			<TextareaAutosize
-				className="w-full rounded-[0.2rem] border-[0.1rem] border-current bg-[var(--background)] p-[0.3rem] px-[0.6rem] text-current"
+				className="w-full rounded-[0.2rem] border border-current bg-[var(--background)] p-[0.3rem] px-[0.6rem] text-current"
 				name="Credits"
 				value={credits}
 				onChange={(e) => {

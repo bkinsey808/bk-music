@@ -24,7 +24,7 @@ export function LyricsSection() {
 	return (
 		<section data-title="Lyqrics Section">
 			<TextareaAutosize
-				className="w-full rounded-[0.2rem] border-[0.1rem] border-current bg-[var(--background)] p-[0.3rem] px-[0.6rem] text-current"
+				className="w-full rounded-[0.2rem] border border-current bg-[var(--background)] p-[0.3rem] px-[0.6rem] text-current"
 				name="lyrics"
 				value={lyrics}
 				onChange={(e) => {

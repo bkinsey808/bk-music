@@ -23,7 +23,7 @@ export const Position = ({ position }: { position: PositionType }) => {
 		<Link
 			data-title="Position"
 			data-selected={selected}
-			className="rounded-full border-[0.1rem] border-transparent px-[0.5rem] pb-[0.2rem] [&[data-selected='true']]:border-current"
+			className="rounded-full border border-transparent px-[0.5rem] pb-[0.2rem] [&[data-selected='true']]:border-current"
 			href={url}
 			onClick={(e) => {
 				e.preventDefault();

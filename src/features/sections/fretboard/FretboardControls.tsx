@@ -33,7 +33,7 @@ export const FretboardControls = () => {
 			<label>
 				<div>Select cell to set</div>
 				<select
-					className="rounded-[0.2rem] border-[0.1rem] border-current bg-[var(--background)] p-[0.3rem] px-[0.6rem] text-current"
+					className="rounded-[0.2rem] border border-current bg-[var(--background)] p-[0.3rem] px-[0.6rem] text-current"
 					value={selectCellToSet}
 					onChange={(e) => {
 						setValue(
