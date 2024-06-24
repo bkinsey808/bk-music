@@ -5,8 +5,17 @@ import { Role } from "./enums";
 import "@/features/firebase/firebase";
 
 export const useAuth = () => {
-	const { userData, setUserData, setLastSignInCheck, signInClientSide } =
-		useContext(AuthContext);
+	const {
+		userData,
+		setUserData,
+		setLastSignInCheck,
+		signInClientSide,
+		openAuthModal,
+		setOpenAuthModal,
+		deleteAccountClientSide,
+		deleteAccountError,
+		deletingAccount,
+	} = useContext(AuthContext);
 
 	const isAdmin = userData?.roles?.includes(Role.ADMIN) ?? false;
 
@@ -16,5 +25,10 @@ export const useAuth = () => {
 		setLastSignInCheck,
 		isAdmin,
 		signInClientSide,
+		openAuthModal,
+		setOpenAuthModal,
+		deleteAccountClientSide,
+		deleteAccountError,
+		deletingAccount,
 	};
 };

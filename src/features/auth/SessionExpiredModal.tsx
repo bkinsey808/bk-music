@@ -1,20 +1,26 @@
-import { Dispatch, SetStateAction } from "react";
+import { useCallback } from "react";
 
 import { Modal, ModalContent, ModalFooter } from "../design-system/Modal";
+import { AuthModal } from "./enums";
 import { useAuth } from "./useAuth";
 import { Button } from "@/components/ui/button";
 
-export const SessionExpiredModal = ({
-	open,
-	setOpen,
-}: {
-	open: boolean;
-	setOpen: Dispatch<SetStateAction<boolean>>;
-}) => {
-	const { signInClientSide } = useAuth();
+export const SessionExpiredModal = () => {
+	const { signInClientSide, openAuthModal, setOpenAuthModal } = useAuth();
+
+	const setOpen = useCallback(
+		(open: boolean) => {
+			setOpenAuthModal(open ? AuthModal.SESSION_EXPIRED : undefined);
+		},
+		[setOpenAuthModal],
+	);
 
 	return (
-		<Modal heading="Session Expired" open={open} setOpen={setOpen}>
+		<Modal
+			heading="Session Expired"
+			open={openAuthModal === AuthModal.SESSION_EXPIRED}
+			setOpen={setOpen}
+		>
 			<ModalContent>
 				<p>Your session has expired</p>
 			</ModalContent>

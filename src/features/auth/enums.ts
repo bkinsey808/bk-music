@@ -20,6 +20,18 @@ export enum RegisterResult {
 	SUCCESS = "SUCCESS",
 }
 
+export enum DeleteAccountResult {
+	ERROR = "ERROR",
+	SUCCESS = "SUCCESS",
+}
+
+export enum AuthModal {
+	REGISTER = "REGISTER",
+	DELETE_ACCOUNT_CONFIRM = "DELETE_ACCOUNT_CONFIRM",
+	MANAGE_ACCOUNT = "MANAGE_ACCOUNT",
+	SESSION_EXPIRED = "SESSION_EXPIRED",
+}
+
 export enum Role {
 	ADMIN = "ADMIN",
 }

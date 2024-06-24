@@ -1,24 +1,18 @@
 "use client";
 
-import { useState } from "react";
-
-import { ManageAccountModal } from "./ManageAccountModal";
+import { AuthModal } from "./enums";
 import { useAuth } from "./useAuth";
 
 export const ManageAccountButton = () => {
-	const [open, setOpen] = useState(false);
-	const { userData } = useAuth();
+	const { userData, setOpenAuthModal } = useAuth();
 
 	return (
-		<>
-			<ManageAccountModal open={open} setOpen={setOpen} />
-			<button
-				onClick={() => {
-					setOpen(true);
-				}}
-			>
-				{userData?.username}
-			</button>
-		</>
+		<button
+			onClick={() => {
+				setOpenAuthModal(AuthModal.MANAGE_ACCOUNT);
+			}}
+		>
+			{userData?.username}
+		</button>
 	);
 };

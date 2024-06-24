@@ -38,12 +38,13 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
 					rect.left <= event.clientX &&
 					event.clientX <= rect.left + rect.width;
 
-				if (!isInDialog) {
-					console.log("this case");
-					setOpen(false);
-				}
+				setTimeout(() => {
+					if (!isInDialog && open) {
+						setOpen(false);
+					}
+				}, 100);
 			},
-			[dialog, setOpen],
+			[dialog, open, setOpen],
 		);
 
 		// open/close the dialog when the open prop changes
@@ -57,18 +58,21 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
 			}
 		}, [open, handleClick]);
 
+		const handleClose = useCallback(() => {
+			if (open) {
+				setOpen(false);
+			}
+		}, [open, setOpen]);
+
 		// keep state in sync with dialog open state
 		useEffect(() => {
 			const dialog = mutableDialogRef.current;
-			dialog?.addEventListener("close", () => {
-				setOpen(false);
-			});
+			dialog?.addEventListener("close", handleClose);
+
 			return () => {
-				dialog?.removeEventListener("close", () => {
-					setOpen(false);
-				});
+				dialog?.removeEventListener("close", handleClose);
 			};
-		}, [setOpen]);
+		}, [handleClose]);
 
 		useEffect(() => {
 			return () => {

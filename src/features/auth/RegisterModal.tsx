@@ -1,34 +1,44 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { useCallback, useState } from "react";
 
 import { Modal, ModalContent, ModalFooter } from "../design-system/Modal";
 import { FormErrors } from "../design-system/form/types";
 import { getKeys } from "../global/getKeys";
 import { RegisterForm } from "./RegisterForm";
+import { AuthModal } from "./enums";
 import { SignInData } from "./types";
+import { useAuth } from "./useAuth";
 import { Button } from "@/components/ui/button";
 
 const FORM_ID = "register-form";
 
 export const RegisterModal = ({
-	open,
-	setOpen,
 	signInData,
 }: {
-	open: boolean;
-	setOpen: Dispatch<SetStateAction<boolean>>;
 	signInData?: SignInData | undefined;
 }) => {
+	const { openAuthModal, setOpenAuthModal } = useAuth();
 	const [errors, setErrors] = useState<FormErrors>({});
 	const [submitting, setSubmitting] = useState(false);
+
+	const setOpen = useCallback(
+		(open: boolean) => {
+			setOpenAuthModal(open ? AuthModal.REGISTER : undefined);
+		},
+		[setOpenAuthModal],
+	);
 
 	if (!signInData) {
 		return null;
 	}
 
 	return (
-		<Modal heading="Welcome to Song Share!" open={open} setOpen={setOpen}>
+		<Modal
+			heading="Welcome to Song Share!"
+			open={openAuthModal === AuthModal.REGISTER}
+			setOpen={setOpen}
+		>
 			<ModalContent>
 				<p>Create a user name to get started</p>
 				<RegisterForm

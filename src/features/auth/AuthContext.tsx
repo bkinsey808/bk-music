@@ -8,16 +8,20 @@ import {
 	SetStateAction,
 	createContext,
 	useCallback,
+	useEffect,
 	useState,
 } from "react";
 
 import { useInterval } from "../global/useInterval";
+import { DeleteAccountConfirmModal } from "./DeleteAccountConfirmModal";
+import { ManageAccountModal } from "./ManageAccountModal";
 import { RegisterModal } from "./RegisterModal";
 import { SessionExpiredModal } from "./SessionExpiredModal";
 import { SESSION_POLLING_INTERVAL_SECONDS } from "./consts";
-import { UserStatus } from "./enums";
+import { AuthModal, DeleteAccountResult, UserStatus } from "./enums";
 import { SignInData, UserData } from "./types";
 import { checkSignIn } from "@/actions/checkSignIn";
+import { deleteAccount } from "@/actions/deleteAccount";
 import { signIn } from "@/actions/signIn";
 
 const provider = new GoogleAuthProvider();
@@ -27,19 +31,30 @@ export const AuthContext = createContext<{
 	setUserData: Dispatch<SetStateAction<UserData | undefined>>;
 	setLastSignInCheck: Dispatch<SetStateAction<number>>;
 	signInClientSide: () => void;
+	deleteAccountClientSide: () => void;
+	openAuthModal: AuthModal | undefined;
+	setOpenAuthModal: Dispatch<SetStateAction<AuthModal | undefined>>;
+	deleteAccountError?: string | undefined;
+	deletingAccount: boolean;
 }>({
 	userData: undefined,
 	setUserData: () => undefined,
 	setLastSignInCheck: () => 0,
 	signInClientSide: () => undefined,
+	deleteAccountClientSide: () => undefined,
+	openAuthModal: undefined,
+	setOpenAuthModal: () => undefined,
+	deleteAccountError: undefined,
+	deletingAccount: false,
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	const [userData, setUserData] = useState<UserData>();
 	const [lastSignInCheck, setLastSignInCheck] = useState(0);
-	const [openSessionExpiredModal, setOpenSessionExpiredModal] = useState(false);
-	const [openRegisterModal, setOpenRegisterModal] = useState(false);
+	const [openAuthModal, setOpenAuthModal] = useState<AuthModal>();
 	const [signInData, setSignInData] = useState<SignInData>();
+	const [deleteAccountError, setDeleteAccountError] = useState<string>();
+	const [deletingAccount, setDeletingAccount] = useState(false);
 
 	const checkSignInClientSide = useCallback(async () => {
 		const checkSignInResult = await checkSignIn();
@@ -67,7 +82,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 		} else {
 			setUserData(undefined);
 			setLastSignInCheck(0);
-			setOpenSessionExpiredModal(true);
+			setOpenAuthModal(AuthModal.SESSION_EXPIRED);
 		}
 	}, [lastSignInCheck, checkSignInClientSide]);
 
@@ -99,7 +114,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 					switch (signInResult.userStatus) {
 						case UserStatus.NEW:
-							setOpenRegisterModal(true);
+							setOpenAuthModal(AuthModal.REGISTER);
 							break;
 						case UserStatus.EXISTING:
 							setUserData(signInResult.userData);
@@ -123,8 +138,48 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 					}
 				}
 			})(),
-		[setUserData, setLastSignInCheck, setOpenRegisterModal],
+		[setUserData, setLastSignInCheck, setOpenAuthModal],
 	);
+
+	const deleteAccountClientSide = useCallback(
+		() =>
+			void (async () => {
+				try {
+					setDeletingAccount(true);
+					const deleteAccountResult = await deleteAccount();
+
+					switch (deleteAccountResult) {
+						case DeleteAccountResult.SUCCESS:
+							setUserData(undefined);
+							setLastSignInCheck(0);
+							setDeletingAccount(false);
+							setOpenAuthModal(undefined);
+							return;
+						case DeleteAccountResult.ERROR:
+							setDeletingAccount(false);
+							setDeleteAccountError("Error deleting account");
+							return;
+					}
+				} catch (error) {
+					console.error({ error });
+				}
+				setDeleteAccountError("Unknown delete account result");
+			})(),
+		[setUserData, setLastSignInCheck],
+	);
+
+	const handleRefresh = useCallback(async () => {
+		const checkSignInResult = await checkSignIn();
+
+		if (checkSignInResult) {
+			setUserData(checkSignInResult);
+			setLastSignInCheck(Date.now());
+		}
+	}, []);
+
+	useEffect(() => {
+		void handleRefresh();
+	}, [handleRefresh]);
 
 	return (
 		<AuthContext.Provider
@@ -133,19 +188,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				setUserData,
 				setLastSignInCheck,
 				signInClientSide,
+				deleteAccountClientSide,
+				openAuthModal,
+				setOpenAuthModal,
+				deleteAccountError,
+				deletingAccount,
 			}}
 		>
 			<RegisterModal
-				key={openRegisterModal.toString()}
-				open={openRegisterModal}
-				setOpen={setOpenRegisterModal}
+				key={`register-modal-${(openAuthModal === AuthModal.REGISTER).toString()}`}
 				signInData={signInData}
 			/>
 
-			<SessionExpiredModal
-				open={openSessionExpiredModal}
-				setOpen={setOpenSessionExpiredModal}
+			<SessionExpiredModal />
+
+			<ManageAccountModal />
+
+			<DeleteAccountConfirmModal
+				key={`delete-account-${deletingAccount.toString()}`}
 			/>
+
 			{children}
 		</AuthContext.Provider>
 	);

@@ -4,6 +4,7 @@ import "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
 import { cookies } from "next/headers";
 
+import { SESSION_COOKIE_NAME } from "@/features/auth/consts";
 import { encodeSessionToken } from "@/features/auth/encodeSessionToken";
 import { UserStatus } from "@/features/auth/enums";
 import { getSessionCookieOptions } from "@/features/auth/getSessionCookieOptions";
@@ -37,7 +38,7 @@ export const signIn = async (email: string) => {
 
 		const sessionToken = await encodeSessionToken(userData);
 
-		cookies().set("session", sessionToken, getSessionCookieOptions());
+		cookies().set(SESSION_COOKIE_NAME, sessionToken, getSessionCookieOptions());
 
 		return {
 			userStatus: UserStatus.EXISTING,

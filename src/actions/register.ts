@@ -5,6 +5,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { cookies } from "next/headers";
 
 import { RegisterErrorsSchema } from "@/features/auth/RegisterErrorsSchema";
+import { SESSION_COOKIE_NAME } from "@/features/auth/consts";
 import { encodeSessionToken } from "@/features/auth/encodeSessionToken";
 import { RegisterFormFieldKey, RegisterResult } from "@/features/auth/enums";
 import { getSessionCookieOptions } from "@/features/auth/getSessionCookieOptions";
@@ -62,7 +63,7 @@ export const register = async ({
 
 		const sessionToken = await encodeSessionToken(userData);
 
-		cookies().set("session", sessionToken, getSessionCookieOptions());
+		cookies().set(SESSION_COOKIE_NAME, sessionToken, getSessionCookieOptions());
 
 		return {
 			result: RegisterResult.SUCCESS,

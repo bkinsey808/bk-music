@@ -42,7 +42,7 @@ export const RegisterForm = <
 	errors: RegisterErrors;
 	setErrors: Dispatch<SetStateAction<RegisterErrors>>;
 	setSubmitting: Dispatch<SetStateAction<boolean>>;
-	setOpen: Dispatch<SetStateAction<boolean>>;
+	setOpen: (open: boolean) => void;
 }) => {
 	const [values, setValues] = useState<RegisterValues>({
 		[RegisterFormFieldKey.Username]: "",
@@ -58,21 +58,23 @@ export const RegisterForm = <
 			serializedSignInData: JSON.stringify(signInData),
 		});
 
-		if (result.result === RegisterResult.ERROR) {
-			setErrors({
-				formError: result.formError,
-				fieldErrors: result.fieldErrors,
-			} as RegisterErrors);
-		}
-		setSubmitting(false);
-		if (result.result === RegisterResult.SUCCESS) {
-			setUserData({
-				...values,
-				email: signInData.email,
-				picture: signInData?.picture,
-				roles: [],
-			});
-			setOpen(false);
+		switch (result.result) {
+			case RegisterResult.ERROR:
+				setErrors({
+					formError: result.formError,
+					fieldErrors: result.fieldErrors,
+				} as RegisterErrors);
+				setSubmitting(false);
+				break;
+			case RegisterResult.SUCCESS:
+				setUserData({
+					...values,
+					email: signInData.email,
+					picture: signInData?.picture,
+					roles: [],
+				});
+				setOpen(false);
+				break;
 		}
 	}, [setErrors, setOpen, setSubmitting, setUserData, signInData, values]);
 
