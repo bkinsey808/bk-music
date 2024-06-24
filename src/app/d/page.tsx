@@ -8,7 +8,7 @@ export default function Dashboard() {
 		<div className="flex h-screen flex-col @container @[1700px]:max-h-screen">
 			<Header />
 			<main className="flex-grow overflow-auto @[1700px]:overflow-hidden">
-				<div className="grid h-full grid-cols-1 @[1700px]:grid-cols-3 @[1700px]:overflow-auto">
+				<div className="grid grid-cols-1 @[1700px]:h-full @[1700px]:grid-cols-3 @[1700px]:overflow-auto">
 					{pageColumns.map((pageColumn, columnIndex) => (
 						<PageColumn key={columnIndex}>
 							{pageColumn.map((section) => {
