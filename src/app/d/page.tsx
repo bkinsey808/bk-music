@@ -5,10 +5,10 @@ import { Header } from "@/features/header/Header";
 
 export default function Dashboard() {
 	return (
-		<div className="flex h-screen flex-col @container @[1700px]:max-h-screen">
+		<div className="flex h-screen flex-col @container lg:max-h-screen">
 			<Header />
-			<main className="flex-grow overflow-auto @[1700px]:overflow-hidden">
-				<div className="grid grid-cols-1 @[1700px]:h-full @[1700px]:grid-cols-3 @[1700px]:overflow-auto">
+			<main className="flex-grow overflow-auto lg:overflow-hidden">
+				<div className="grid h-full grid-cols-1 lg:grid-cols-3 lg:overflow-auto">
 					{pageColumns.map((pageColumn, columnIndex) => (
 						<PageColumn key={columnIndex}>
 							{pageColumn.map((section) => {
