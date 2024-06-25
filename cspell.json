@@ -1,9 +1,17 @@
 {
 	"version": "0.2",
-	"ignorePaths": ["*.json"],
+	"ignorePaths": [
+		"*.json"
+	],
 	"dictionaryDefinitions": [],
 	"dictionaries": [],
-	"words": ["Autosize", "fretboard", "qrcode"],
+	"words": [
+		"Autosize",
+		"consts",
+		"firestore",
+		"fretboard",
+		"qrcode"
+	],
 	"ignoreWords": [],
 	"import": []
 }

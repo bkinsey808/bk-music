@@ -7,7 +7,7 @@ import {
 
 export const SongTitle = () => {
 	const { getValue } = useDashboardState();
-	const song = getValue(DashboardStateKey.SONG);
+	const song = getValue(DashboardStateKey.SONG_NAME);
 
 	return (
 		<>

@@ -16,33 +16,51 @@ import {
 	DashboardStateKey,
 	useDashboardState,
 } from "@/app/d/useDashboardState";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/features/auth/useAuth";
 import { Input } from "@/features/design-system/form/Input";
 
 export const SongSection = () => {
-	const { getValue, setValue } = useDashboardState();
-	const [song, setSong] = useState(getValue(DashboardStateKey.SONG));
+	const { getValues, setValue, saveSong } = useDashboardState();
+	const { userData } = useAuth();
+	const [songName, songId] = getValues([
+		DashboardStateKey.SONG_NAME,
+		DashboardStateKey.SONG_ID,
+	]);
+	const [localStateSongName, setLocalStateSongName] = useState(songName);
 
 	useDebouncedEffect(
 		() => {
-			setValue(DashboardStateKey.SONG, song);
+			setValue(DashboardStateKey.SONG_NAME, localStateSongName);
 		},
 		2000,
-		[song],
+		[localStateSongName],
 	);
 
 	return (
 		<section data-title="Song Section">
 			<Input
 				name="song"
-				value={song}
+				value={localStateSongName}
 				onChange={(e) => {
-					setSong(e.target.value);
+					setLocalStateSongName(e.target.value);
 				}}
 				onBlur={(e) => {
-					setSong(e.target.value.trim());
+					setLocalStateSongName(e.target.value.trim());
 				}}
 				placeholder="Song Title"
 			/>
+
+			{userData ? (
+				<div className="flex gap-[0.5rem]">
+					{songId ? (
+						<Button>Save As...</Button>
+					) : (
+						<Button onClick={saveSong}>Save</Button>
+					)}
+					<Button>New</Button>
+				</div>
+			) : null}
 
 			<div className="flex flex-col gap-[0.2rem] px-[0.2rem]">
 				<DashboardAccordion

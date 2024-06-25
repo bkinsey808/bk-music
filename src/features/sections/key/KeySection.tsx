@@ -37,7 +37,7 @@ export const KeySection = () => {
 					>
 						<div
 							data-selected={note === selectedKeyNote}
-							className="h-full rounded-full border border-transparent [&[data-selected='true']]:border-current"
+							className="h-full rounded-full border-2 border-transparent [&[data-selected='true']]:border-current"
 						>
 							{note.replace("b", "♭")}
 						</div>

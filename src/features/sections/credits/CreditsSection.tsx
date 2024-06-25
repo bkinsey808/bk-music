@@ -11,7 +11,7 @@ import {
 
 export function CreditsSection() {
 	const { getValue, setValue } = useDashboardState();
-	const [credits, setCredits] = useState(getValue(DashboardStateKey.SONG));
+	const [credits, setCredits] = useState(getValue(DashboardStateKey.SONG_NAME));
 
 	useDebouncedEffect(
 		() => {

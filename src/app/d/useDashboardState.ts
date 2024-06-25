@@ -1,6 +1,7 @@
 import { Schema as S } from "@effect/schema";
 import { Dispatch, useContext } from "react";
 
+import { saveSong as saveSongAction } from "@/actions/saveSong";
 import { fromAppStateGetUrl } from "@/features/app-state/fromAppStateGetUrl";
 import { toggleArrayItem } from "@/features/app-state/toggleArrayItem";
 import { AppStateContext } from "@/features/app-state/useAppState";
@@ -20,7 +21,8 @@ export const enum DashboardActionType {
 }
 
 export enum DashboardStateKey {
-	SONG = "s",
+	SONG_NAME = "s",
+	SONG_ID = "sid",
 	CREDITS = "cr",
 	LYRICS = "l",
 	TRANSLATION = "tr",
@@ -35,7 +37,7 @@ export enum DashboardStateKey {
 	CHORD_SCALE_DEGREE = "csd",
 	POSITION = "p",
 	MAX_FRETS = "mf",
-	SELECT_CELL_TO_SET = "scts",
+	SELECT_CELL_TO_SET = "sct",
 }
 
 export enum SelectCellToSet {
@@ -56,7 +58,8 @@ export const dashboardSchemaOption = {
 	),
 	[DashboardStateKey.POSITION]: S.Array(S.Union(S.Literal("x"), S.Int)),
 	[DashboardStateKey.OPEN_ACCORDION_IDS]: S.Array(S.String),
-	[DashboardStateKey.SONG]: S.Union(S.String, S.Undefined),
+	[DashboardStateKey.SONG_NAME]: S.Union(S.String, S.Undefined),
+	[DashboardStateKey.SONG_ID]: S.Union(S.String, S.Undefined),
 	[DashboardStateKey.INSTRUMENT]: S.Union(S.String, S.Undefined),
 	[DashboardStateKey.CREDITS]: S.Union(S.String, S.Undefined),
 	[DashboardStateKey.LYRICS]: S.Union(S.String, S.Undefined),
@@ -218,7 +221,8 @@ export const dashboardStateReducer = (
 				[DashboardStateKey.CHORD_SCALE_DEGREE]: undefined,
 				[DashboardStateKey.POSITION]: [],
 				[DashboardStateKey.OPEN_ACCORDION_IDS]: [],
-				[DashboardStateKey.SONG]: undefined,
+				[DashboardStateKey.SONG_NAME]: undefined,
+				[DashboardStateKey.SONG_ID]: undefined,
 				[DashboardStateKey.INSTRUMENT]: undefined,
 				[DashboardStateKey.CREDITS]: undefined,
 				[DashboardStateKey.LYRICS]: undefined,
@@ -255,6 +259,7 @@ export interface DashboardStateContextProps {
 	getAppUrl: () => string;
 	getState: () => DashboardState;
 	resetState: () => void;
+	saveSong: () => void;
 }
 
 const fromDashboardStateGetUrl = (state: DashboardState) =>
@@ -391,6 +396,37 @@ export const useDashboardState = (): DashboardStateContextProps => {
 		});
 	};
 
+	const saveSong = () => {
+		void (async () => {
+			const [songName, songId, credits, lyrics, translation, keyNote, scale] =
+				getValues([
+					DashboardStateKey.SONG_NAME,
+					DashboardStateKey.SONG_ID,
+					DashboardStateKey.CREDITS,
+					DashboardStateKey.LYRICS,
+					DashboardStateKey.TRANSLATION,
+					DashboardStateKey.KEY_NOTE,
+					DashboardStateKey.SCALE,
+				]);
+
+			const result = await saveSongAction({
+				songName,
+				songId,
+				credits,
+				lyrics,
+				translation,
+				keyNote,
+				scale,
+			});
+
+			if (result.songId) {
+				setValues({
+					[DashboardStateKey.SONG_ID]: result.songId,
+				});
+			}
+		})();
+	};
+
 	return {
 		...context,
 		isAccordionOpen,
@@ -407,5 +443,6 @@ export const useDashboardState = (): DashboardStateContextProps => {
 		getAppUrl,
 		getState,
 		resetState,
+		saveSong,
 	};
 };

@@ -1,6 +1,5 @@
 "use server";
 
-import "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
 import { cookies } from "next/headers";
 
