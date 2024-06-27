@@ -1,5 +1,5 @@
 import { getRomanNumerals } from "./getRomanNumerals";
-import { Scale } from "@/app/d/useDashboardState";
+import { Scale } from "@/app/d/types";
 
 export const getCasedRomanNumeral = ({
 	romanNumeral,

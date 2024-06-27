@@ -71,6 +71,7 @@ export const RegisterForm = <
 					...values,
 					email: signInData.email,
 					picture: signInData?.picture,
+					songs: [],
 					roles: [],
 				});
 				setOpen(false);

@@ -1,5 +1,5 @@
 import { getPositionArray } from "./getPositionArray";
-import { Position } from "@/app/d/useDashboardState";
+import { Position } from "@/app/d/types";
 
 export const isCellInPosition = ({
 	position,

@@ -2,11 +2,9 @@
 
 import { useMemo } from "react";
 
-import {
-	DashboardState,
-	DashboardStateKey,
-	useDashboardState,
-} from "@/app/d/useDashboardState";
+import { DashboardStateKey } from "@/app/d/enums";
+import { DashboardState } from "@/app/d/types";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { getKeys } from "@/features/global/getKeys";
 import * as tunings from "@/features/music/tunings.json";
 

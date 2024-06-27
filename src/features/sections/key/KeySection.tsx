@@ -2,11 +2,9 @@
 
 import Link from "next/link";
 
-import {
-	DashboardState,
-	DashboardStateKey,
-	useDashboardState,
-} from "@/app/d/useDashboardState";
+import { DashboardStateKey } from "@/app/d/enums";
+import { DashboardState } from "@/app/d/types";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { notesAndFlatNotes } from "@/features/music/notes";
 
 export const KeySection = () => {

@@ -4,10 +4,8 @@ import { Section } from "../sections";
 import { TuningSection } from "../tuning/TuningSection";
 import { TuningTitle } from "../tuning/TuningTitle";
 import { DashboardAccordion } from "@/app/d/DashboardAccordion";
-import {
-	DashboardStateKey,
-	useDashboardState,
-} from "@/app/d/useDashboardState";
+import { DashboardStateKey } from "@/app/d/enums";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { getKeys } from "@/features/global/getKeys";
 import * as tunings from "@/features/music/tunings.json";
 

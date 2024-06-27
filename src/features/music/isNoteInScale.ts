@@ -1,6 +1,6 @@
 import { getNoteNumber } from "./getNoteNumber";
 import { getSciNumbers } from "./getSciNumbers";
-import { Scale } from "@/app/d/useDashboardState";
+import { Scale } from "@/app/d/types";
 
 export const isNoteInScale = ({
 	keyNote,

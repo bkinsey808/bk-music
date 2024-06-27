@@ -1,9 +1,7 @@
 "use client";
 
-import {
-	DashboardStateKey,
-	useDashboardState,
-} from "@/app/d/useDashboardState";
+import { DashboardStateKey } from "@/app/d/enums";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import * as tunings from "@/features/music/tunings.json";
 
 export const TuningTitle = () => {

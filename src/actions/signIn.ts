@@ -7,7 +7,7 @@ import { SESSION_COOKIE_NAME } from "@/features/auth/consts";
 import { encodeSessionToken } from "@/features/auth/encodeSessionToken";
 import { UserStatus } from "@/features/auth/enums";
 import { getSessionCookieOptions } from "@/features/auth/getSessionCookieOptions";
-import { UserData, UserDataOmitEmail } from "@/features/auth/types";
+import { UserData, UserDocData } from "@/features/auth/types";
 import { db } from "@/features/firebase/firebase";
 
 export const signIn = async (email: string) => {
@@ -28,7 +28,7 @@ export const signIn = async (email: string) => {
 		email === null ? undefined : await getDoc(doc(db, "users", email));
 
 	if (existingUserDocRef?.exists()) {
-		const userDataOmitEmail = existingUserDocRef.data() as UserDataOmitEmail;
+		const userDataOmitEmail = existingUserDocRef.data() as UserDocData;
 
 		const userData: UserData = {
 			email,

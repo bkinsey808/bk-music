@@ -1,4 +1,4 @@
-import { Scale } from "@/app/d/useDashboardState";
+import { Scale } from "@/app/d/types";
 import { range } from "@/features/math/range";
 import { degrees } from "@/features/music/degrees";
 import { getChordNumbers } from "@/features/music/getChordNumbers";

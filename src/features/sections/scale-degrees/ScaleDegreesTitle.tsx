@@ -1,9 +1,7 @@
 "use client";
 
-import {
-	DashboardStateKey,
-	useDashboardState,
-} from "@/app/d/useDashboardState";
+import { DashboardStateKey } from "@/app/d/enums";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { getRomanNumerals } from "@/features/music/getRomanNumerals";
 
 export const ScaleDegreesTitle = () => {

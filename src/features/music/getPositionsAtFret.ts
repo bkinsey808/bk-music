@@ -3,7 +3,7 @@ import { chordNumbersMatchPositionNumbers } from "./chordNumbersMatchPositionNum
 import { filterByMaxMuted } from "./filterByMaxMuted";
 import { getPositionNumbers } from "./getPositionNumbers";
 import { getPositionValuesForFret } from "./getPositionValuesForFret";
-import { Tuning } from "@/app/d/useDashboardState";
+import { Tuning } from "@/app/d/types";
 
 export const getPositionsAtFret = ({
 	fret,

@@ -1,8 +1,8 @@
 import { degreeToNumber } from "./degreeToNumber";
 import { getNoteNumber } from "./getNoteNumber";
-import { Scale } from "@/app/d/useDashboardState";
+import { KeyNote, Scale } from "@/app/d/types";
 
-export const getSciNumbers = (sci: Scale, keyNote?: string) => {
+export const getSciNumbers = (sci: Scale, keyNote?: KeyNote) => {
 	const keyNoteNumber = getNoteNumber(keyNote) ?? 0;
 
 	return [

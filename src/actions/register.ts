@@ -51,6 +51,7 @@ export const register = async ({
 		const userData: UserData = {
 			...registerValues,
 			...signInData,
+			songs: [],
 			roles: [],
 		};
 		// eslint-disable-next-line destructuring/no-rename

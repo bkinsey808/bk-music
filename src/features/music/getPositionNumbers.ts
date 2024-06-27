@@ -1,5 +1,5 @@
 import { getTuningNumbers } from "./getTuningNumbers";
-import { Position, Tuning } from "@/app/d/useDashboardState";
+import { Position, Tuning } from "@/app/d/types";
 
 export const getPositionNumbers = (position: Position, tuning: Tuning) => {
 	const tuningNumbers = getTuningNumbers(tuning);

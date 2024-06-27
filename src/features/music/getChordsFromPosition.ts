@@ -1,7 +1,7 @@
 import { degrees } from "./degrees";
 import { getNoteNumber } from "./getNoteNumber";
 import { getSciBySpelling } from "./sci";
-import { Position, Tuning } from "@/app/d/useDashboardState";
+import { KeyNote, Position, Tuning } from "@/app/d/types";
 
 export const getChordsFromPosition = ({
 	tuning,
@@ -10,7 +10,7 @@ export const getChordsFromPosition = ({
 }: {
 	tuning: Tuning;
 	position: Position;
-	keyNote?: string | undefined;
+	keyNote?: KeyNote;
 }) => {
 	const openNumbers = tuning.map((note) => getNoteNumber(note));
 	const keyNoteNumber = getNoteNumber(keyNote);

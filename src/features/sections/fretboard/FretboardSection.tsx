@@ -2,10 +2,8 @@
 
 import { FretboardCell } from "./FretboardCell";
 import { FretboardControls } from "./FretboardControls";
-import {
-	DashboardStateKey,
-	useDashboardState,
-} from "@/app/d/useDashboardState";
+import { DashboardStateKey } from "@/app/d/enums";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { range } from "@/features/math/range";
 
 export const FretboardSection = () => {

@@ -2,10 +2,8 @@
 
 import { ScaleDegreeChord } from "./ScaleDegreeChord";
 import { getChords } from "./getChords";
-import {
-	DashboardStateKey,
-	useDashboardState,
-} from "@/app/d/useDashboardState";
+import { DashboardStateKey } from "@/app/d/enums";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { romanNumerals } from "@/features/music/romanNumerals";
 
 interface ScaleDegreeProps {

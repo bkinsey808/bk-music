@@ -2,10 +2,8 @@
 
 import TextareaAutosize from "react-textarea-autosize";
 
-import {
-	DashboardStateKey,
-	useDashboardState,
-} from "@/app/d/useDashboardState";
+import { DashboardStateKey } from "@/app/d/enums";
+import { useDashboardState } from "@/app/d/useDashboardState";
 
 export function TranslationSection() {
 	const { getValue, setValue } = useDashboardState();

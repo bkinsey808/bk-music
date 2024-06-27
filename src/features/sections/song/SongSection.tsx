@@ -12,10 +12,8 @@ import { ScaleTitle } from "../scale/ScaleTitle";
 import { Section } from "../sections";
 import { TranslationSection } from "../translation/TranslationSection";
 import { DashboardAccordion } from "@/app/d/DashboardAccordion";
-import {
-	DashboardStateKey,
-	useDashboardState,
-} from "@/app/d/useDashboardState";
+import { DashboardStateKey } from "@/app/d/enums";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/features/auth/useAuth";
 import { Input } from "@/features/design-system/form/Input";
@@ -23,9 +21,10 @@ import { Input } from "@/features/design-system/form/Input";
 export const SongSection = () => {
 	const { getValues, setValue, saveSong } = useDashboardState();
 	const { userData } = useAuth();
-	const [songName, songId] = getValues([
+	const [songName, songId, isSavingSong] = getValues([
 		DashboardStateKey.SONG_NAME,
 		DashboardStateKey.SONG_ID,
+		DashboardStateKey.IS_SAVING_SONG,
 	]);
 	const [localStateSongName, setLocalStateSongName] = useState(songName);
 
@@ -33,7 +32,7 @@ export const SongSection = () => {
 		() => {
 			setValue(DashboardStateKey.SONG_NAME, localStateSongName);
 		},
-		2000,
+		200,
 		[localStateSongName],
 	);
 
@@ -53,11 +52,10 @@ export const SongSection = () => {
 
 			{userData ? (
 				<div className="flex gap-[0.5rem]">
-					{songId ? (
-						<Button>Save As...</Button>
-					) : (
-						<Button onClick={saveSong}>Save</Button>
-					)}
+					<Button disabled={isSavingSong || !songName} onClick={saveSong}>
+						Save
+					</Button>
+					{songId ? <Button>Save As...</Button> : null}
 					<Button>New</Button>
 				</div>
 			) : null}

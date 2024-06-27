@@ -3,10 +3,8 @@
 import { useMemo } from "react";
 
 import { Position } from "./Position";
-import {
-	DashboardStateKey,
-	useDashboardState,
-} from "@/app/d/useDashboardState";
+import { DashboardStateKey } from "@/app/d/enums";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { getPositions } from "@/features/music/getPositions";
 
 export const PositionsSection = () => {

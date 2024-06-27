@@ -1,9 +1,7 @@
 "use client";
 
-import {
-	DashboardStateKey,
-	useDashboardState,
-} from "@/app/d/useDashboardState";
+import { DashboardStateKey } from "@/app/d/enums";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { getSciBySpelling } from "@/features/music/sci";
 
 export const ScaleTitle = () => {

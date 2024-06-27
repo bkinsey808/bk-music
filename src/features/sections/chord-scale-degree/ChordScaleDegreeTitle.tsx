@@ -1,9 +1,7 @@
 "use client";
 
-import {
-	DashboardStateKey,
-	useDashboardState,
-} from "@/app/d/useDashboardState";
+import { DashboardStateKey } from "@/app/d/enums";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { degrees } from "@/features/music/degrees";
 import { getCasedRomanNumeral } from "@/features/music/getCasedRomanNumeral";
 import { getNoteFromNumber } from "@/features/music/getNoteFromNumber";

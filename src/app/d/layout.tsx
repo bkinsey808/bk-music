@@ -2,12 +2,9 @@
 
 import { Suspense } from "react";
 
-import {
-	dashboardInitialPath,
-	dashboardSchemaOption,
-	dashboardStateKeys,
-	dashboardStateReducer,
-} from "./useDashboardState";
+import { dashboardStateReducer } from "./reducer";
+import { dashboardSchemaOption } from "./schemas";
+import { dashboardInitialPath, dashboardStateKeys } from "./useDashboardState";
 import { AppStateProvider } from "@/features/app-state/useAppState";
 
 export default function DashboardLayout({

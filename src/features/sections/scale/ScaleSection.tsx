@@ -2,10 +2,8 @@
 
 import Link from "next/link";
 
-import {
-	DashboardStateKey,
-	useDashboardState,
-} from "@/app/d/useDashboardState";
+import { DashboardStateKey } from "@/app/d/enums";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { degrees } from "@/features/music/degrees";
 import { getNoteNumber } from "@/features/music/getNoteNumber";
 import { isDegreeInScale } from "@/features/music/isDegreeInScale";

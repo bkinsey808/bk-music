@@ -1,10 +1,7 @@
 "use client";
 
-import {
-	DashboardStateKey,
-	SelectCellToSet,
-	useDashboardState,
-} from "@/app/d/useDashboardState";
+import { DashboardStateKey, SelectCellToSet } from "@/app/d/enums";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { getScaleDegree } from "@/features/music/getScaleDegree";
 import { isCellInPosition } from "@/features/music/isCellInPosition";
 import { isNoteInScale } from "@/features/music/isNoteInScale";

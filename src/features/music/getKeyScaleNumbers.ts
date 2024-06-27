@@ -1,12 +1,12 @@
 import { degreeToNumber } from "./degreeToNumber";
 import { getNoteNumber } from "./getNoteNumber";
-import { Scale } from "@/app/d/useDashboardState";
+import { KeyNote, Scale } from "@/app/d/types";
 
 export const getKeyScaleNumbers = ({
 	keyNote,
 	scale,
 }: {
-	keyNote?: string | undefined;
+	keyNote?: KeyNote;
 	scale: Scale;
 }) => {
 	const keyNoteNumber = getNoteNumber(keyNote) ?? 0;

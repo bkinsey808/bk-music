@@ -1,4 +1,4 @@
-import { Position } from "@/app/d/useDashboardState";
+import { Position } from "@/app/d/types";
 
 export const getPositionArray = (position: Position) => {
 	if (!Array.isArray(position)) {

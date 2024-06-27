@@ -3,11 +3,9 @@
 import Link from "next/link";
 
 import { getChords } from "./getChords";
-import {
-	DashboardState,
-	DashboardStateKey,
-	useDashboardState,
-} from "@/app/d/useDashboardState";
+import { DashboardStateKey } from "@/app/d/enums";
+import { DashboardState } from "@/app/d/types";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { degrees } from "@/features/music/degrees";
 import { getScaleIndexFromRomanNumeral } from "@/features/music/getScaleIndexFromRomanNumeral";
 import { romanNumerals } from "@/features/music/romanNumerals";

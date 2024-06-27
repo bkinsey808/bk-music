@@ -1,6 +1,6 @@
 import { getChordNumbers } from "./getChordNumbers";
 import { getKeyScaleNumbers } from "./getKeyScaleNumbers";
-import { Chord, Degree, Scale } from "@/app/d/useDashboardState";
+import { Chord, ChordScaleDegree, KeyNote, Scale } from "@/app/d/types";
 
 export const getInKeyScale = ({
 	chordScaleDegree,
@@ -8,9 +8,9 @@ export const getInKeyScale = ({
 	keyNote,
 	scale,
 }: {
-	chordScaleDegree: Degree;
+	chordScaleDegree: ChordScaleDegree;
 	chord: Chord;
-	keyNote?: string | undefined;
+	keyNote?: KeyNote;
 	scale: Scale;
 }) => {
 	const chordNumbers = getChordNumbers({ chordScaleDegree, chord, keyNote });

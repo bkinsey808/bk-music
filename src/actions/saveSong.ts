@@ -3,15 +3,11 @@
 import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { cookies } from "next/headers";
 
-import { Scale } from "@/app/d/useDashboardState";
+import { Scale } from "@/app/d/types";
 import { SESSION_COOKIE_NAME } from "@/features/auth/consts";
 import { decodeSessionToken } from "@/features/auth/decodeSessionToken";
-import { UserData } from "@/features/auth/types";
+import { UserData, UserDocData } from "@/features/auth/types";
 import { db } from "@/features/firebase/firebase";
-
-interface UserDocData {
-	songs: string[];
-}
 
 export const saveSong = async ({
 	songName,
@@ -46,7 +42,25 @@ export const saveSong = async ({
 	const userData = (await decodeSessionToken(sessionToken))
 		?.payload as unknown as UserData;
 
-	const email = userData.email;
+	const { email, username } = userData;
+
+	// check if song name is empty
+	if (!songName) {
+		return {
+			result: "ERROR",
+			message: "Song name is empty",
+		};
+	}
+
+	// check to see if the song name already exists
+	// if it does, return an error
+	const songNameDocRef = await getDoc(doc(db, "songNames", songName));
+	if (songNameDocRef.exists()) {
+		return {
+			result: "ERROR",
+			message: "Song name already exists",
+		};
+	}
 
 	if (songId) {
 		// check the users firestore collection in the songs array field to see if this user owns the song
@@ -80,7 +94,6 @@ export const saveSong = async ({
 		const userDoc = await getDoc(doc(db, "users", email));
 		const userDocData = userDoc.data() as UserDocData;
 		if (userDocData === undefined) {
-			console.log({ email });
 			return {
 				result: "ERROR",
 				message: "User does not exist",
@@ -97,6 +110,7 @@ export const saveSong = async ({
 			translation,
 			keyNote,
 			scale,
+			owner: username,
 		});
 
 		const newSongId = songRef.id;

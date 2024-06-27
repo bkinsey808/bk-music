@@ -1,15 +1,15 @@
 import { degrees } from "./degrees";
 import { getNoteNumber } from "./getNoteNumber";
-import { Chord, Degree } from "@/app/d/useDashboardState";
+import { Chord, ChordScaleDegree, KeyNote } from "@/app/d/types";
 
 export const getChordNumbers = ({
 	chordScaleDegree,
 	chord,
 	keyNote,
 }: {
-	chordScaleDegree: Degree;
+	chordScaleDegree: ChordScaleDegree;
 	chord: Chord;
-	keyNote?: string | undefined;
+	keyNote?: KeyNote;
 }) => {
 	const chordScaleIndex = chordScaleDegree
 		? degrees.indexOf(chordScaleDegree)

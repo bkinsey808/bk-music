@@ -13,5 +13,6 @@ export type RegisterValues = S.Schema.Type<typeof RegisterValuesSchema>;
 export type UserData = RegisterValues &
 	SignInData & {
 		roles: Role[];
+		songs: string[];
 	};
-export type UserDataOmitEmail = Omit<UserData, "email">;
+export type UserDocData = Omit<UserData, "email">;

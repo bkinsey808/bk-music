@@ -2,11 +2,9 @@
 
 import Link from "next/link";
 
-import { Position as PositionType } from "@/app/d/useDashboardState";
-import {
-	DashboardStateKey,
-	useDashboardState,
-} from "@/app/d/useDashboardState";
+import { DashboardStateKey } from "@/app/d/enums";
+import { Position as PositionType } from "@/app/d/types";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { getPositionArray } from "@/features/music/getPositionArray";
 
 export const Position = ({ position }: { position: PositionType }) => {

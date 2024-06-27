@@ -4,10 +4,8 @@ import { useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import useDebouncedEffect from "use-debounced-effect";
 
-import {
-	DashboardStateKey,
-	useDashboardState,
-} from "@/app/d/useDashboardState";
+import { DashboardStateKey } from "@/app/d/enums";
+import { useDashboardState } from "@/app/d/useDashboardState";
 
 export function LyricsSection() {
 	const { getValue, setValue } = useDashboardState();

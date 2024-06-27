@@ -1,7 +1,5 @@
-import {
-	DashboardStateKey,
-	useDashboardState,
-} from "@/app/d/useDashboardState";
+import { DashboardStateKey } from "@/app/d/enums";
+import { useDashboardState } from "@/app/d/useDashboardState";
 import { Input } from "@/features/design-system/form/Input";
 
 export const FretboardControls = () => {
